@@ -113,7 +113,10 @@ shorten <- function(statement, n = 5) {
 
 
 .trigger <- function(statement, as = "error", n = 5, ...) {
-  statement %<>% shorten(n)
+  if (as != "message") {
+    statement %<>% shorten(n)
+  }
+
   s <- print(statement, silent = TRUE)
 
   f <- switch(
