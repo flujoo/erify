@@ -36,9 +36,13 @@ print.Statement <- function(x, silent = FALSE, ...) {
     ss %<>% c(supplement)
   }
 
-  s <- ss %>%
-    paste(collapse = "\n\n") %>%
-    glue(env = parent.frame())
+  s <- paste(ss, collapse = "\n\n")
+
+  # render `s`
+  env <- x$env
+  if (!is.null(env)) {
+    s %<>% glue(env)
+  }
 
   if (silent) {
     s
