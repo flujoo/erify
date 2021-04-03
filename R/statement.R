@@ -106,7 +106,7 @@ shorten <- function(statement, n = 5) {
     paste("... and", l - n, "more problems.")
   )
 
-  statement$supplement %<>% paste(supplement, "\n\n", .)
+  statement$supplement %<>% paste0(supplement, "\n\n", .)
 
   statement
 }
