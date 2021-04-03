@@ -18,3 +18,10 @@ join <- function(words, conjunction = "or") {
     words[l]
   )
 }
+
+
+glue <- function(x, env = parent.frame()) {
+  x %>%
+    glue::glue(.envir = env) %>%
+    unclass()
+}
