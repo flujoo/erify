@@ -1,11 +1,6 @@
 .Statement <- function(general, specifics = NULL, supplement = NULL,
-                       class = NULL, ...) {
-  # convert `...` to environment
-  env <- list(...) %>% list2env()
-
-  if (!is.null(specifics)) {
-    specifics %<>% normalize_specifics()
-  }
+                       class = NULL, env = NULL, decorate = TRUE) {
+  specifics %<>% normalize_specifics(decorate)
 
   # create Statement object
   list(
@@ -32,10 +27,7 @@ print.Statement <- function(x, silent = FALSE, ...) {
   # convert `$specifics`
   specifics <- x$specifics
   if (!is.null(specifics)) {
-    ss <- specifics %>%
-      sapply(print, silent = TRUE) %>%
-      paste(collapse = "\n") %>%
-      c(ss, .)
+    ss %<>% c(paste(specifics, collapse = "\n"))
   }
 
   # convert `$supplement`
@@ -46,8 +38,7 @@ print.Statement <- function(x, silent = FALSE, ...) {
 
   s <- ss %>%
     paste(collapse = "\n\n") %>%
-    glue::glue(.envir = x$env) %>%
-    unclass()
+    glue(env = parent.frame())
 
   if (silent) {
     s
@@ -58,35 +49,34 @@ print.Statement <- function(x, silent = FALSE, ...) {
 }
 
 
-normalize_specifics <- function(specifics) {
-  # names are types or bullets
+normalize_specifics <- function(specifics, decorate) {
+  l <- length(specifics)
+
+  if (l == 0) {
+    return()
+  }
+
   ns <- names(specifics)
-  ss <- list()
 
-  for (i in 1:length(specifics)) {
-    s <- specifics[[i]]
+  if (is.null(ns)) {
+    ns <- rep("", l)
+  }
 
-    if (!inherits(s, "Specific")) {
-      if (is.null(ns)) {
-        s %<>% .Specific()
+  for (i in 1:l) {
+    n <- ns[i]
 
-      } else {
-        n <- ns[i]
-
-        if (n == "") {
-          s %<>% .Specific()
-        } else if (n %in% c("error", "hint")) {
-          s %<>% .Specific(type = n)
-        } else {
-          s %<>% .Specific(bullet = n)
-        }
+    if (decorate) {
+      if (n %in% c("", "x")) {
+        n <- "\033[0;31m✖\033[0m "
+      } else if (n == "i") {
+        n <- "\033[0;36mℹ\033[0m "
       }
     }
 
-    ss %<>% c(list(s))
+    specifics[i] %<>% paste0(n, .)
   }
 
-  ss
+  specifics %>% unname()
 }
 
 
