@@ -25,3 +25,11 @@ glue <- function(x, env = parent.frame()) {
     glue::glue(.envir = env) %>%
     unclass()
 }
+
+
+as_code <- function(x, env = environment()) {
+  s <- deparse(substitute(x, env = env))
+  # can't use %>% here
+
+  glue("`{s}`")
+}
