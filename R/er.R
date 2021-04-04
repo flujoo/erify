@@ -27,6 +27,7 @@ glue <- function(x, env = parent.frame()) {
 }
 
 
+# this is black magic ...
 as_code <- function(x, recursive = FALSE, env = environment()) {
   if (!recursive) {
     s <- deparse(substitute(x, env = env))
