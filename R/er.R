@@ -27,9 +27,19 @@ glue <- function(x, env = parent.frame()) {
 }
 
 
-as_code <- function(x, env = environment()) {
-  s <- deparse(substitute(x, env = env))
-  # can't use %>% here
+as_code <- function(x, recursive = FALSE) {
+  if (!recursive) {
+    s <- deparse(substitute(x))
+    # can't use %>% here
+
+  } else {
+    s <- character(0)
+
+    for (x_i in x) {
+      s_i <- deparse(substitute(x_i))
+      s %<>% c(s_i)
+    }
+  }
 
   glue("`{s}`")
 }
