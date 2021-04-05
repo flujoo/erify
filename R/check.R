@@ -293,3 +293,22 @@ check_error <- function(name, general, specifics, supplement) {
 #'   error = function(e) e$your_arg
 #' )
 NULL
+
+
+
+# exported ----------------------------------------------------------------
+
+#' @rdname check_argument
+#' @export
+check_type <- function(x, valid, name = NULL, general = NULL,
+                       specifics = NULL, supplement = NULL, ...) {
+  .check_type(valid, "character")
+  check_error(name, general, specifics, supplement)
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_type(x, valid, name, general, specifics, supplement, ...)
+}
