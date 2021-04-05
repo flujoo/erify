@@ -1,4 +1,4 @@
-# basics ------------------------------------------------------------------
+# internal ----------------------------------------------------------------
 
 .check_type <- function(x, valid, name = NULL, general = NULL,
                         specifics = NULL, supplement = NULL, ...) {
@@ -97,6 +97,23 @@
 }
 
 
+.check_single_character <- function(x, name = NULL, general = NULL,
+                                    specifics = NULL, supplement = NULL,
+                                    ...) {
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  if (is.null(general)) {
+    general <- "{name} must be a single character."
+  }
+
+  .check_type(x, "character", name, general, specifics, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+}
+
+
 
 # utils -------------------------------------------------------------------
 
@@ -147,25 +164,4 @@ phrase_valid_length <- function(valid, interval) {
 
     join(ss, "and")
   }
-}
-
-
-
-# shortcuts ---------------------------------------------------------------
-
-.check_single_character <- function(x, name = NULL, general = NULL,
-                                    specifics = NULL, supplement = NULL,
-                                    ...) {
-  if (is.null(name)) {
-    name <- deparse(substitute(x))
-    name <- glue("`{name}`")
-  }
-
-  if (is.null(general)) {
-    general <- "{name} must be a single character."
-  }
-
-  .check_type(x, "character", name, general, specifics, supplement, ...)
-  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
-}
 }
