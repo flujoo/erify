@@ -203,3 +203,93 @@ check_error <- function(name, general, specifics, supplement) {
     .check_single_character(supplement)
   }
 }
+
+
+
+# dummy -------------------------------------------------------------------
+
+#' @name check_argument
+#'
+#' @title Check Argument
+#'
+#' @description Check if a passed argument is valid.
+#'
+#' When creating functions for other people to use, you always need
+#' some validator functions which
+#'
+#' - check if arguments passed by users are valid, and if not,
+#' - generate informative and good-formatted error messages in a
+#' consistent style.
+#'
+#' These following functions serve the exact purpose:
+#'
+#' - [check_type()] checks if an argument has valid type.
+#'
+#' @param x The argument to be checked.
+#'
+#' @param valid
+#' - In [check_type()]: a character vector which contains valid types.
+#'
+#' @param name A single character which represents the argument's name.
+#' Used in error message. If not specified, the name is captured
+#' automatically.
+#'
+#' @param general Optional. A single character which represents the general
+#' statement of the error. See [Statement()] for more details about
+#' `general`, `specifics` and `supplement`.
+#'
+#' @param specifics Optional. A (named) character vector which contains
+#' details of the error.
+#'
+#' @param supplement Optional. A single character which represents the
+#' additional message added at the end of the error message.
+#'
+#' @param ... Optional. Additional arguments passed to [rlang::abort()],
+#' which is called internally.
+#'
+#' @return An invisible `NULL` if the argument has valid type,
+#' or error message is generated.
+#'
+#' @seealso [Statement()] for more details about arguments `general`,
+#' `specifics` and `supplement`.
+#'
+#' [rlang::abort()] for adding additional arguments.
+#'
+#' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
+#' for more details about the used error message style.
+#'
+#' @examples
+#' # argument to be checked
+#' arg <- 1:10
+#'
+#' # invisible `NULL` returned if `arg` is valid
+#' check_type(arg, "integer")
+#'
+#' \dontrun{
+#' # check if `arg` is character or double
+#' check_type(arg, c("character", "double"))
+#'
+#' # check if `arg` has length 1
+#' check_length(arg, 1)
+#'
+#' # check if `arg` has length smaller than 3
+#' check_length(arg, c(NA, 3))
+#'
+#' # specify argument's name
+#' check_type(arg, "character", "`other_name`")
+#'
+#' # customize error message
+#' check_type(
+#'   arg,
+#'   "character",
+#'   general = "General statement of the error.",
+#'   specifics = c(x = "An error.", i = "A hint.", `*` = "Other detail."),
+#'   supplement = "More words to say."
+#' )}
+#'
+#' # add and retrieve additional arguments
+#' tryCatch(
+#'   {check_type(arg, "character", your_arg = "your data")},
+#'   error = function(e) e$your_arg
+#' )
+NULL
