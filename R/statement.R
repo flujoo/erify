@@ -1,5 +1,5 @@
 .Statement <- function(general, specifics = NULL, supplement = NULL,
-                       class = NULL, env = NULL, decorate = TRUE) {
+                       env = NULL, decorate = TRUE, ...) {
   specifics %<>% normalize_specifics(decorate)
 
   # create Statement object
@@ -7,8 +7,8 @@
     general = general,
     specifics = specifics,
     supplement = supplement,
-    class = class,
-    env = env
+    env = env,
+    ...
   ) %>% `class<-`("Statement")
 }
 
@@ -106,12 +106,15 @@ shorten <- function(statement, n = 5) {
 }
 
 
-.trigger <- function(statement, as = "error", n = 5, ...) {
+.trigger <- function(statement, as = "error", n = 5) {
   if (as != "message") {
     statement %<>% shorten(n)
   }
 
   s <- print(statement, silent = TRUE)
+
+  statement[c("general", "specifics", "supplement", "env")] <- NULL
+  args <- c(list(message = s), statement)
 
   f <- switch(
     as,
@@ -120,5 +123,5 @@ shorten <- function(statement, n = 5) {
     "message" = rlang::inform
   )
 
-  f(s, class = statement$class, ...)
+  do.call(f, args)
 }
