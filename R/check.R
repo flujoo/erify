@@ -1,7 +1,7 @@
 # basics ------------------------------------------------------------------
 
 .check_type <- function(x, valid, name = NULL, general = NULL,
-                        specifics = NULL, supplement = NULL) {
+                        specifics = NULL, supplement = NULL, ...) {
   type <- typeof(x)
 
   if (type %in% valid) {
@@ -23,14 +23,14 @@
     specifics = "{name} has type {type}."
   }
 
-  .Statement(general, specifics, supplement, env = environment()) %>%
+  .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
 }
 
 
 .check_length <- function(x, valid, interval = NULL, name = NULL,
                           general = NULL, specifics = NULL,
-                          supplement = NULL) {
+                          supplement = NULL, ...) {
   l <- length(x)
   interval %<>% normalize_interval(valid)
 
@@ -53,13 +53,13 @@
     specifics = "{name} has length {l}."
   }
 
-  .Statement(general, specifics, supplement, env = environment()) %>%
+  .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
 }
 
 
 .check_in <- function(x, valid, name = NULL, general = NULL,
-                      specifics = NULL, supplement = NULL) {
+                      specifics = NULL, supplement = NULL, ...) {
   if (x %in% valid) {
     return(invisible(NULL))
   }
@@ -92,7 +92,7 @@
     specifics = "{name} is {x}."
   }
 
-  .Statement(general, specifics, supplement, env = environment()) %>%
+  .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
 }
 
@@ -154,7 +154,8 @@ phrase_valid_length <- function(valid, interval) {
 # shortcuts ---------------------------------------------------------------
 
 .check_single_character <- function(x, name = NULL, general = NULL,
-                                    specifics = NULL, supplement = NULL) {
+                                    specifics = NULL, supplement = NULL,
+                                    ...) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
     name <- glue("`{name}`")
@@ -164,6 +165,7 @@ phrase_valid_length <- function(valid, interval) {
     general <- "{name} must be a single character."
   }
 
-  .check_type(x, "character", name, general, specifics, supplement)
-  .check_length(x, 1, NULL, name, general, specifics, supplement)
+  .check_type(x, "character", name, general, specifics, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+}
 }
