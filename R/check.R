@@ -224,11 +224,13 @@ check_error <- function(name, general, specifics, supplement) {
 #' These following functions serve the exact purpose:
 #'
 #' - [check_type()] checks if an argument has valid type.
+#' - [check_class()] checks if an argument has valid class.
 #'
 #' @param x The argument to be checked.
 #'
 #' @param valid
 #' - In [check_type()]: a character vector which contains valid types.
+#' - In [check_class()]: a character vector which contains valid classes.
 #'
 #' @param name A single character which represents the argument's name.
 #' Used in error message. If not specified, the name is captured
@@ -311,4 +313,39 @@ check_type <- function(x, valid, name = NULL, general = NULL,
   }
 
   .check_type(x, valid, name, general, specifics, supplement, ...)
+}
+
+
+#' @rdname check_argument
+#' @export
+check_class <- function(x, valid, name = NULL, general = NULL,
+                        specifics = NULL, supplement = NULL, ...) {
+  .check_type(valid, "character")
+  check_error(name, general, specifics, supplement)
+
+  if (inherits(x, valid)) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  valid %<>% join()
+
+  if (is.null(general)) {
+    general <- "{name} must have class {valid}."
+  }
+
+  classes <- class(x)
+  s_class <- ifelse(length(classes) == 1, "class", "classes")
+  classes %<>% join("and")
+
+  if (is.null(specifics)) {
+    specifics = "{name} has {s_class} {classes}."
+  }
+
+  .Statement(general, specifics, supplement, env = environment(), ...) %>%
+    .trigger()
 }
