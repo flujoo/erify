@@ -25,22 +25,3 @@ glue <- function(x, env = parent.frame()) {
     glue::glue(.envir = env) %>%
     unclass()
 }
-
-
-# this is black magic ...
-as_code <- function(x, recursive = FALSE, env = environment()) {
-  if (!recursive) {
-    s <- deparse(substitute(x, env = env))
-    # can't use %>% here
-
-  } else {
-    s <- character(0)
-
-    for (x_i in x) {
-      s_i <- deparse(substitute(x_i))
-      s %<>% c(s_i)
-    }
-  }
-
-  glue("`{s}`")
-}
