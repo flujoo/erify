@@ -109,6 +109,10 @@ shorten <- function(statement, n = 5) {
 
 
 .trigger <- function(statement, as = "error", n = 5) {
+  if (is.null(statement$general) && is.null(statement$specifics)) {
+    return(invisible(NULL))
+  }
+
   if (as != "message") {
     statement %<>% shorten(n)
   }
