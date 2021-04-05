@@ -74,6 +74,8 @@ normalize_specifics <- function(specifics, decorate) {
         n <- "\033[0;31m✖\033[0m "
       } else if (n == "i") {
         n <- "\033[0;36mℹ\033[0m "
+      } else {
+        n %<>% paste0(" ")
       }
     }
 
