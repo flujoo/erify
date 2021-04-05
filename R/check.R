@@ -98,7 +98,7 @@
 
 
 
-# `.check_length` utils ---------------------------------------------------
+# utils -------------------------------------------------------------------
 
 normalize_interval <- function(interval, valid) {
   if (!is.null(interval)) {
