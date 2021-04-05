@@ -108,8 +108,14 @@ shorten <- function(statement, n = 5) {
 }
 
 
+is_empty <- function(statement) {
+  statement %>%
+    {length(.$general) == 0 && length(.$specifics) == 0}
+}
+
+
 .trigger <- function(statement, as = "error", n = 5) {
-  if (is.null(statement$general) && is.null(statement$specifics)) {
+  if (is_empty(statement)) {
     return(invisible(NULL))
   }
 
