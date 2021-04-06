@@ -17,6 +17,8 @@
 #' - [check_in()] checks if an argument is from the given choices.
 #' - [check_single_character()] checks if an argument is a character
 #' vector of length 1.
+#' - [check_n()] checks if an argument is a single positive integer.
+#' It can be used to check indices, for example.
 #'
 #' @param x The argument to be checked. `x` can be any object, except
 #' in [check_in()], it must be a single atomic.
@@ -504,6 +506,52 @@ check_single_character <- function(x, name = NULL, general = NULL,
   }
 
   .check_single_character(x, name, general, specifics, supplement, ...)
+}
+
+
+
+# single positive integer -------------------------------------------------
+
+#' @rdname validators
+#' @export
+check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
+                    supplement = NULL, ...) {
+  check_statement(name, general, specifics, supplement)
+
+  if (is_single_positive_integer(x)) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  if (is.null(general)) {
+    general <- "{name} must be a single positive integer."
+  }
+
+  .check_type(
+    x, c("double", "integer"), name, general, specifics, supplement, ...)
+
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+
+  if (is.na(x)) {
+    specifics <- "{name} is `NA`."
+    .Statement(general, specifics, supplement, environment(), ...) %>%
+      .trigger()
+  }
+
+  if (as.integer(x) != x) {
+    specifics <- "{name} is `{x}`."
+    .Statement(general, specifics, supplement, environment(), ...) %>%
+      .trigger()
+  }
+}
+
+
+is_single_positive_integer <- function(x) {
+  is_integer(x) && length(x) == 1 && !is.na(x)
 }
 
 
