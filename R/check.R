@@ -16,6 +16,8 @@
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
 #' - [check_length()] checks if an argument has valid length.
+#' - [check_single_character()] checks if an argument is a character
+#' vector of length 1.
 #'
 #' @param x The argument to be checked.
 #'
@@ -419,6 +421,20 @@ check_length_valid <- function(valid, interval) {
 
   .check_type(x, "character", name, general, specifics, supplement, ...)
   .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+}
+
+
+#' @rdname check_argument
+#' @export
+check_single_character <- function(x, name = NULL, general = NULL,
+                                   specifics = NULL, supplement = NULL,
+                                   ...) {
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_single_character(x, name, general, specifics, supplement, ...)
 }
 
 
