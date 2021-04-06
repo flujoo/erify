@@ -15,26 +15,15 @@
 
 #' @export
 print.Statement <- function(x, silent = FALSE, ...) {
-  # strings of parts
-  ss <- character(0)
+  # convert each part
+  ss <- x$general
 
-  # convert `$general`
-  general <- x$general
-  if (!is.null(general)) {
-    ss %<>% c(general)
-  }
-
-  # convert `$specifics`
   specifics <- x$specifics
-  if (!is.null(specifics)) {
+  if (length(specifics) != 0) {
     ss %<>% c(paste(specifics, collapse = "\n"))
   }
 
-  # convert `$supplement`
-  supplement <- x$supplement
-  if (!is.null(supplement)) {
-    ss %<>% c(supplement)
-  }
+  ss %<>% c(x$supplement)
 
   s <- paste(ss, collapse = "\n\n")
 
