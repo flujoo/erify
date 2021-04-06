@@ -140,7 +140,7 @@ NULL
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specifics = NULL, supplement = NULL, ...) {
   .check_type(valid, "character")
-  check_error(name, general, specifics, supplement)
+  check_statement(name, general, specifics, supplement)
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
@@ -156,7 +156,7 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 check_class <- function(x, valid, name = NULL, general = NULL,
                         specifics = NULL, supplement = NULL, ...) {
   .check_type(valid, "character")
-  check_error(name, general, specifics, supplement)
+  check_statement(name, general, specifics, supplement)
 
   if (inherits(x, valid)) {
     return(invisible(NULL))
@@ -280,7 +280,7 @@ check_length <- function(x, valid, interval = NULL, name = NULL,
   }
 
   check_length_valid(valid, interval)
-  check_error(name, general, specifics, supplement)
+  check_statement(name, general, specifics, supplement)
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
@@ -448,7 +448,7 @@ as_code <- function(x, recursive = FALSE, env = environment()) {
 }
 
 
-check_error <- function(name, general, specifics, supplement) {
+check_statement <- function(name, general, specifics, supplement) {
   if (!is.null(name)) {
     .check_single_character(name)
   }
