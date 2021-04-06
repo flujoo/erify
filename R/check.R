@@ -205,6 +205,78 @@ check_error <- function(name, general, specifics, supplement) {
 }
 
 
+is_integer <- function(x) {
+  con <- is.numeric(x) && all(as.integer(x) == x)
+  ifelse(is.na(con), TRUE, con)
+}
+
+
+check_length_valid <- function(valid, interval) {
+  #
+  general <- "`valid` must be a numeric vector of non-negative integers."
+
+  .check_type(valid, c("integer", "double"), general = general)
+  .check_length(valid, c(0, NA), general = general)
+
+  specific <- "valid[{i}] is {v}."
+  specifics <- character(0)
+
+  for (i in 1:length(valid)) {
+    v <- valid[i]
+    con <- is_integer(v) && (is.na(v) || v >= 0)
+
+    if (!con) {
+      specifics %<>% c(glue(specific))
+    }
+  }
+
+  if (length(specifics) > 0) {
+    .Statement(general, specifics) %>% .trigger()
+  }
+
+  #
+  if (isFALSE(interval)) {
+    if (all(is.na(valid))) {
+      general <-
+        "If `interval` is `FALSE`, `valid` must not contain only `NA`."
+      specifics <-
+        "`valid` is {valid}."
+
+      valid %<>% as_code(env = list(x = valid))
+
+      .Statement(general, specifics, env = environment()) %>%
+        .trigger()
+    }
+  }
+
+  if (isTRUE(interval)) {
+    general <- "If `interval` is `TRUE`, `valid` must have length 2."
+    .check_length(valid, 2, general = general)
+
+    con <- valid[2] - 1 > valid[1]
+    con <- ifelse(is.na(con), TRUE, con)
+
+    if (con) {
+      return(invisible(NULL))
+    }
+
+    general <- paste(
+      "If `interval` is `TRUE`,",
+      "`valid[2]` must be larger than `valid[1] + 1,",
+      "if both are not `NA`."
+    )
+
+    specifics <-
+      "`valid` is {valid}."
+
+    valid %<>% as_code(env = list(x = valid))
+
+    .Statement(general, specifics, env = environment()) %>%
+      .trigger()
+  }
+}
+
+
 
 # dummy -------------------------------------------------------------------
 
@@ -225,12 +297,15 @@ check_error <- function(name, general, specifics, supplement) {
 #'
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
+#' - [check_length()] checks if an argument has valid length.
 #'
 #' @param x The argument to be checked.
 #'
 #' @param valid
 #' - In [check_type()]: a character vector which contains valid types.
 #' - In [check_class()]: a character vector which contains valid classes.
+#' - In [check_length()]: a numeric vector of non-negative integers
+#' which represents the valid lengths. See argument `interval` below.
 #'
 #' @param name A single character which represents the argument's name.
 #' Used in error message. If not specified, the name is captured
@@ -248,6 +323,18 @@ check_error <- function(name, general, specifics, supplement) {
 #'
 #' @param ... Optional. Additional arguments passed to [rlang::abort()],
 #' which is called internally.
+#'
+#' @param interval Only used in [check_length()].
+#'
+#' Optional. `TRUE` or `FALSE` which indicates if argument `valid` is
+#' interpreted as an interval or as single lengths. For example, `c(1, 10)`
+#' is interpreted as "larger than 1 and smaller than 10" if `interval`
+#' is `TRUE`, but as "1 or 10" if `FALSE`.
+#'
+#' `NA` can be used in `valid`. For example, `c(0, NA)` means
+#' "larger than 0".
+#'
+#' By default, `valid` is interpreted automatically.
 #'
 #' @return An invisible `NULL` if the argument has valid type,
 #' or error message is generated.
@@ -348,4 +435,27 @@ check_class <- function(x, valid, name = NULL, general = NULL,
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
+}
+
+
+#' @rdname check_argument
+#' @export
+check_length <- function(x, valid, interval = NULL, name = NULL,
+                         general = NULL, specifics = NULL,
+                         supplement = NULL, ...) {
+  if (!is.null(interval)) {
+    .check_type(interval, "logical")
+    .check_in(interval, c(TRUE, FALSE))
+  }
+
+  check_length_valid(valid, interval)
+  check_error(name, general, specifics, supplement)
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_length(
+    x, valid, interval, name, general, specifics, supplement, ...)
 }
