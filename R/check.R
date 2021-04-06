@@ -1,17 +1,15 @@
 # dummy -------------------------------------------------------------------
 
-#' @name check_argument
+#' @name validators
 #'
-#' @title Check Argument
+#' @title Functions for Checking Arguments
 #'
-#' @description Check if a passed argument is valid.
-#'
-#' When creating functions for other people to use, you always need
-#' some validator functions which check if arguments passed by users are
+#' @description When creating functions for other people to use, you always
+#' need some validator functions which check if arguments passed by users are
 #' valid, and if not, generate informative and good-formatted error messages
 #' in a consistent style.
 #'
-#' These following functions serve the exact purpose:
+#' Functions documented here serve the exact purpose:
 #'
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
@@ -20,8 +18,8 @@
 #' - [check_single_character()] checks if an argument is a character
 #' vector of length 1.
 #'
-#' @param x The argument to be checked, can be any object, except
-#' in [check_in()], `x` must be a single atomic.
+#' @param x The argument to be checked. `x` can be any object, except
+#' in [check_in()], it must be a single atomic.
 #'
 #' @param valid
 #' - In [check_type()]: a character vector which contains the valid types.
@@ -136,7 +134,7 @@ NULL
 }
 
 
-#' @rdname check_argument
+#' @rdname validators
 #' @export
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specifics = NULL, supplement = NULL, ...) {
@@ -152,7 +150,7 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 }
 
 
-#' @rdname check_argument
+#' @rdname validators
 #' @export
 check_class <- function(x, valid, name = NULL, general = NULL,
                         specifics = NULL, supplement = NULL, ...) {
@@ -270,7 +268,7 @@ phrase_valid_length <- function(valid, interval) {
 }
 
 
-#' @rdname check_argument
+#' @rdname validators
 #' @export
 check_length <- function(x, valid, interval = NULL, name = NULL,
                          general = NULL, specifics = NULL,
@@ -407,7 +405,7 @@ check_length_valid <- function(valid, interval) {
 }
 
 
-#' @rdname check_argument
+#' @rdname validators
 #' @export
 check_in <- function(x, valid, name = NULL, general = NULL,
                      specifics = NULL, supplement = NULL, ...) {
@@ -495,7 +493,7 @@ check_in_valid <- function(valid) {
 }
 
 
-#' @rdname check_argument
+#' @rdname validators
 #' @export
 check_single_character <- function(x, name = NULL, general = NULL,
                                    specifics = NULL, supplement = NULL,
