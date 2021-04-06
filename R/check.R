@@ -7,11 +7,9 @@
 #' @description Check if a passed argument is valid.
 #'
 #' When creating functions for other people to use, you always need
-#' some validator functions which
-#'
-#' - check if arguments passed by users are valid, and if not,
-#' - generate informative and good-formatted error messages in a
-#' consistent style.
+#' some validator functions which check if arguments passed by users are
+#' valid, and if not, generate informative and good-formatted error messages
+#' in a consistent style.
 #'
 #' These following functions serve the exact purpose:
 #'
@@ -24,18 +22,20 @@
 #' @param valid
 #' - In [check_type()]: a character vector which contains valid types.
 #' - In [check_class()]: a character vector which contains valid classes.
-#' - In [check_length()]: a numeric vector of non-negative integers
-#' which represents the valid lengths. See argument `interval` below.
+#' - In [check_length()]: a numeric vector which contains non-negative
+#' integers or `NA`, used with argument `interval` to indicate the valid
+#' lengths. See argument `interval` for more details.
 #'
-#' @param name A single character which represents the argument's name.
-#' Used in error message. If not specified, the name is captured
-#' automatically.
+#' @param name Optional. A single character which represents the argument's
+#' name. The name is used in the error message. By default, the name of the
+#' argument passed to argument `x` is captured automatically.
 #'
 #' @param general Optional. A single character which represents the general
-#' statement of the error. See [Statement()] for more details about
-#' `general`, `specifics` and `supplement`.
+#' statement of the error. Each validator function comes with its own
+#' error message, so usually you don't need to specify this argument and
+#' arguments `specifics` and `supplement`.
 #'
-#' @param specifics Optional. A (named) character vector which contains
+#' @param specifics Optional. A (named) character vector which represents
 #' details of the error.
 #'
 #' @param supplement Optional. A single character which represents the
@@ -44,19 +44,15 @@
 #' @param ... Optional. Additional arguments passed to [rlang::abort()],
 #' which is called internally.
 #'
-#' @param interval Only used in [check_length()].
+#' @param interval Only used in [check_length()]. Optional. `TRUE` or
+#' `FALSE` which indicates if argument `valid` is interpreted as an
+#' interval or as single lengths. For example, `c(1, 10)` is interpreted
+#' as "larger than 1 and smaller than 10" if `interval` is `TRUE`,
+#' but as "1 or 10" if `FALSE`. `NA` can be used in `valid` when treated
+#' as interval. For example, `c(0, NA)` means "larger than 0". By default,
+#' `interval` is inferred automatically.
 #'
-#' Optional. `TRUE` or `FALSE` which indicates if argument `valid` is
-#' interpreted as an interval or as single lengths. For example, `c(1, 10)`
-#' is interpreted as "larger than 1 and smaller than 10" if `interval`
-#' is `TRUE`, but as "1 or 10" if `FALSE`.
-#'
-#' `NA` can be used in `valid`. For example, `c(0, NA)` means
-#' "larger than 0".
-#'
-#' By default, `valid` is interpreted automatically.
-#'
-#' @return An invisible `NULL` if the argument has valid type,
+#' @return An invisible `NULL` if the argument is valid,
 #' or error message is generated.
 #'
 #' @seealso [Statement()] for more details about arguments `general`,
