@@ -14,14 +14,14 @@
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
 #' - [check_length()] checks if an argument has valid length.
-#' - [check_in()] checks if an argument is from the given choices.
+#' - [check_content()] checks if an argument is from some given choices.
 #' - [check_string()] checks if an argument is a single character.
 #' It can be used to check names, for example.
 #' - [check_n()] checks if an argument is a single positive integer.
 #' It can be used to check indices, for example.
 #'
 #' @param x The argument to be checked. `x` can be any object, except
-#' in [check_in()], it must be a single atomic.
+#' in [check_content()], it must be a single atomic.
 #'
 #' @param valid
 #' - In [check_type()]: a character vector which contains the valid types.
@@ -29,7 +29,7 @@
 #' - In [check_length()]: a numeric vector which contains non-negative
 #' integers or `NA`, used with argument `interval` to indicate the valid
 #' lengths. See argument `interval` for more details.
-#' - In [check_in()]: an atomic vector which contains the valid choices.
+#' - In [check_content()]: an atomic vector which contains the valid choices.
 #'
 #' @param name Optional. A single character which represents the argument's
 #' name. The name is used in the error message. By default, the name of the
@@ -277,7 +277,7 @@ check_length <- function(x, valid, interval = NULL, name = NULL,
                          supplement = NULL, ...) {
   if (!is.null(interval)) {
     .check_type(interval, "logical")
-    .check_in(interval, c(TRUE, FALSE))
+    .check_content(interval, c(TRUE, FALSE))
   }
 
   check_length_valid(valid, interval)
@@ -366,10 +366,10 @@ check_length_valid <- function(valid, interval) {
 
 
 
-# in ----------------------------------------------------------------------
+# content -----------------------------------------------------------------
 
-.check_in <- function(x, valid, name = NULL, general = NULL,
-                      specifics = NULL, supplement = NULL, ...) {
+.check_content <- function(x, valid, name = NULL, general = NULL,
+                           specifics = NULL, supplement = NULL, ...) {
   if (typeof(x) == typeof(valid) && x %in% valid) {
     return(invisible(NULL))
   }
@@ -409,10 +409,10 @@ check_length_valid <- function(valid, interval) {
 
 #' @rdname validators
 #' @export
-check_in <- function(x, valid, name = NULL, general = NULL,
-                     specifics = NULL, supplement = NULL, ...) {
-  check_in_x(x)
-  check_in_valid(valid)
+check_content <- function(x, valid, name = NULL, general = NULL,
+                          specifics = NULL, supplement = NULL, ...) {
+  check_content_x(x)
+  check_content_valid(valid)
   check_statement(name, general, specifics, supplement)
 
   if (is.null(name)) {
@@ -420,11 +420,11 @@ check_in <- function(x, valid, name = NULL, general = NULL,
     name <- glue("`{name}`")
   }
 
-  .check_in(x, valid, name, general, specifics, supplement, ...)
+  .check_content(x, valid, name, general, specifics, supplement, ...)
 }
 
 
-check_in_x <- function(x) {
+check_content_x <- function(x) {
   general <- "`x` must be a single atomic."
 
   if (!is.atomic(x)) {
@@ -450,7 +450,7 @@ check_in_x <- function(x) {
 }
 
 
-check_in_valid <- function(valid) {
+check_content_valid <- function(valid) {
   general <- "`valid` must be a non-empty atomic vector."
 
   if (!is.atomic(valid)) {
