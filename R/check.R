@@ -478,9 +478,8 @@ check_content_valid <- function(valid) {
 
 # single character --------------------------------------------------------
 
-.check_string <- function(x, name = NULL, general = NULL,
-                                    specifics = NULL, supplement = NULL,
-                                    ...) {
+.check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
+                          supplement = NULL, ...) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
     name <- glue("`{name}`")
@@ -497,9 +496,8 @@ check_content_valid <- function(valid) {
 
 #' @rdname validators
 #' @export
-check_string <- function(x, name = NULL, general = NULL,
-                                   specifics = NULL, supplement = NULL,
-                                   ...) {
+check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
+                         supplement = NULL, ...) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
     name <- glue("`{name}`")
