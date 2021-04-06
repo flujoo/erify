@@ -16,10 +16,12 @@
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
 #' - [check_length()] checks if an argument has valid length.
+#' - [check_in()] checks if an argument is from the given choices.
 #' - [check_single_character()] checks if an argument is a character
 #' vector of length 1.
 #'
-#' @param x The argument to be checked.
+#' @param x The argument to be checked, can be any object, except
+#' in [check_in()], `x` must be a single atomic.
 #'
 #' @param valid
 #' - In [check_type()]: a character vector which contains the valid types.
@@ -27,6 +29,7 @@
 #' - In [check_length()]: a numeric vector which contains non-negative
 #' integers or `NA`, used with argument `interval` to indicate the valid
 #' lengths. See argument `interval` for more details.
+#' - In [check_in()]: an atomic vector which contains the valid choices.
 #'
 #' @param name Optional. A single character which represents the argument's
 #' name. The name is used in the error message. By default, the name of the
@@ -367,7 +370,7 @@ check_length_valid <- function(valid, interval) {
 
 .check_in <- function(x, valid, name = NULL, general = NULL,
                       specifics = NULL, supplement = NULL, ...) {
-  if (x %in% valid) {
+  if (typeof(x) == typeof(valid) && x %in% valid) {
     return(invisible(NULL))
   }
 
@@ -403,6 +406,74 @@ check_length_valid <- function(valid, interval) {
     .trigger()
 }
 
+
+#' @rdname check_argument
+#' @export
+check_in <- function(x, valid, name = NULL, general = NULL,
+                     specifics = NULL, supplement = NULL, ...) {
+  check_in_x(x)
+  check_in_valid(valid)
+  check_statement(name, general, specifics, supplement)
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_in(x, valid, name, general, specifics, supplement, ...)
+}
+
+
+check_in_x <- function(x) {
+  general <- "In `check_in()`, `x` must be a single atomic."
+
+  if (!is.atomic(x)) {
+    type <- typeof(x)
+
+    .Statement(
+      general,
+      specifics = "`x` has type {type}.",
+      env = environment()
+    ) %>% .trigger()
+
+  } else {
+    l <- length(x)
+
+    if (l != 1) {
+      .Statement(
+        general,
+        specifics = "`x` has length {l}.",
+        env = environment()
+      ) %>% .trigger()
+    }
+  }
+}
+
+
+check_in_valid <- function(valid) {
+  general <- "In `check_in()`, `valid` must be a non-empty atomic vector."
+
+  if (!is.atomic(valid)) {
+    type <- typeof(valid)
+
+    .Statement(
+      general,
+      specifics = "`valid` has type {type}.",
+      env = environment()
+    ) %>% .trigger()
+
+  } else {
+    l <- length(valid)
+
+    if (l == 0) {
+      .Statement(
+        general,
+        specifics = "`valid` has length 0.",
+        env = environment()
+      ) %>% .trigger()
+    }
+  }
+}
 
 
 # single character --------------------------------------------------------
