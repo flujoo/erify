@@ -22,8 +22,8 @@
 #' @param x The argument to be checked.
 #'
 #' @param valid
-#' - In [check_type()]: a character vector which contains valid types.
-#' - In [check_class()]: a character vector which contains valid classes.
+#' - In [check_type()]: a character vector which contains the valid types.
+#' - In [check_class()]: a character vector which contains the valid classes.
 #' - In [check_length()]: a numeric vector which contains non-negative
 #' integers or `NA`, used with argument `interval` to indicate the valid
 #' lengths. See argument `interval` for more details.
