@@ -15,8 +15,8 @@
 #' - [check_class()] checks if an argument has valid class.
 #' - [check_length()] checks if an argument has valid length.
 #' - [check_in()] checks if an argument is from the given choices.
-#' - [check_single_character()] checks if an argument is a character
-#' vector of length 1.
+#' - [check_string()] checks if an argument is a single character.
+#' It can be used to check names, for example.
 #' - [check_n()] checks if an argument is a single positive integer.
 #' It can be used to check indices, for example.
 #'
@@ -478,7 +478,7 @@ check_in_valid <- function(valid) {
 
 # single character --------------------------------------------------------
 
-.check_single_character <- function(x, name = NULL, general = NULL,
+.check_string <- function(x, name = NULL, general = NULL,
                                     specifics = NULL, supplement = NULL,
                                     ...) {
   if (is.null(name)) {
@@ -497,7 +497,7 @@ check_in_valid <- function(valid) {
 
 #' @rdname validators
 #' @export
-check_single_character <- function(x, name = NULL, general = NULL,
+check_string <- function(x, name = NULL, general = NULL,
                                    specifics = NULL, supplement = NULL,
                                    ...) {
   if (is.null(name)) {
@@ -505,7 +505,7 @@ check_single_character <- function(x, name = NULL, general = NULL,
     name <- glue("`{name}`")
   }
 
-  .check_single_character(x, name, general, specifics, supplement, ...)
+  .check_string(x, name, general, specifics, supplement, ...)
 }
 
 
@@ -579,11 +579,11 @@ as_code <- function(x, recursive = FALSE, env = environment()) {
 
 check_statement <- function(name, general, specifics, supplement) {
   if (!is.null(name)) {
-    .check_single_character(name)
+    .check_string(name)
   }
 
   if (!is.null(general)) {
-    .check_single_character(general)
+    .check_string(general)
   }
 
   if (!is.null(specifics)) {
@@ -591,6 +591,6 @@ check_statement <- function(name, general, specifics, supplement) {
   }
 
   if (!is.null(supplement)) {
-    .check_single_character(supplement)
+    .check_string(supplement)
   }
 }
