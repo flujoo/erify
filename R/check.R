@@ -425,7 +425,7 @@ check_in <- function(x, valid, name = NULL, general = NULL,
 
 
 check_in_x <- function(x) {
-  general <- "In `check_in()`, `x` must be a single atomic."
+  general <- "`x` must be a single atomic."
 
   if (!is.atomic(x)) {
     type <- typeof(x)
@@ -451,7 +451,7 @@ check_in_x <- function(x) {
 
 
 check_in_valid <- function(valid) {
-  general <- "In `check_in()`, `valid` must be a non-empty atomic vector."
+  general <- "`valid` must be a non-empty atomic vector."
 
   if (!is.atomic(valid)) {
     type <- typeof(valid)
