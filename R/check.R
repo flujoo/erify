@@ -23,7 +23,7 @@
 #' It can be used to check indices, for example.
 #'
 #' @param x The argument to be checked.
-#' - In [check_types()], [check_classes()], `x` must be a list.
+#' - In [check_types()] and [check_classes()], `x` must be a list.
 #' - In [check_content()], `x` must be a single atomic.
 #' - In other functions, `x` can be any object.
 #'
