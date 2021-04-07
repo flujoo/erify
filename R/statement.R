@@ -91,7 +91,11 @@ shorten <- function(statement, n = 5) {
     paste("... and", l - n, "more problems.")
   )
 
-  statement$supplement %<>% paste0(supplement, "\n\n", .)
+  if (is.null(statement$supplement)) {
+    statement$supplement <- supplement
+  } else {
+    statement$supplement %<>% paste0(supplement, "\n\n", .)
+  }
 
   statement
 }
