@@ -9,7 +9,7 @@
 #' valid, and if not, generate informative and good-formatted error messages
 #' in a consistent style.
 #'
-#' Functions documented here serve the exact purpose:
+#' Functions documented here serve the exact purposes:
 #'
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_types()] checks if each item of an argument has valid type.
