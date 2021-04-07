@@ -14,6 +14,7 @@
 #' - [check_type()] checks if an argument has valid type.
 #' - [check_types()] checks if each item of an argument has valid type.
 #' - [check_class()] checks if an argument has valid class.
+#' - [check_classes()] checks if each item of an argument has valid class.
 #' - [check_length()] checks if an argument has valid length.
 #' - [check_content()] checks if an argument is from some given choices.
 #' - [check_string()] checks if an argument is a single character.
@@ -22,14 +23,15 @@
 #' It can be used to check indices, for example.
 #'
 #' @param x The argument to be checked.
-#' - In [check_types()], `x` must be a list.
+#' - In [check_types()], [check_classes()], `x` must be a list.
 #' - In [check_content()], `x` must be a single atomic.
 #' - In other functions, `x` can be any object.
 #'
 #' @param valid
-#' - In [check_type()], [check_types()]: a character vector which
+#' - In [check_type()] and [check_types()]: a character vector which
 #' contains the valid types.
-#' - In [check_class()]: a character vector which contains the valid classes.
+#' - In [check_class()] and [check_classes()]: a character vector which
+#' contains the valid classes.
 #' - In [check_length()]: a numeric vector which contains non-negative
 #' integers or `NA`, used with argument `interval` to indicate the valid
 #' lengths. See argument `interval` for more details.
@@ -231,6 +233,52 @@ check_class <- function(x, valid, name = NULL, general = NULL,
   if (is.null(specifics)) {
     specifics = "{name} has {s_class} {classes}."
   }
+
+  .Statement(general, specifics, supplement, env = environment(), ...) %>%
+    .trigger()
+}
+
+
+#' @rdname validators
+#' @export
+check_classes <- function(x, valid, name = NULL, general = NULL,
+                          supplement = NULL, ...) {
+  .check_type(x, "list")
+  .check_type(valid, "character")
+  check_statement(name, general, specifics = NULL, supplement)
+
+  l <- length(x)
+
+  if (l == 0) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("{name}")
+  }
+
+  specifics <- character(0)
+  specific <- "`{name}[[{i}]]` has class {c_}."
+
+  for (i in 1:l) {
+    x_i <- x[[i]]
+    c_ <- class(x_i)
+
+    if (!inherits(x_i, valid)) {
+      specifics <- c(specifics, glue(specific))
+    }
+  }
+
+  if (length(specifics) == 0) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(general)) {
+    general <- "Each item of `{name}` must have class {s_valid}."
+  }
+
+  s_valid <- join(valid)
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
