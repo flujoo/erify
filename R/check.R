@@ -540,7 +540,7 @@ check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
       .trigger()
   }
 
-  if (as.integer(x) != x) {
+  if (as.integer(x) != x || x <= 0) {
     specifics <- "{name} is `{x}`."
     .Statement(general, specifics, supplement, environment(), ...) %>%
       .trigger()
@@ -549,7 +549,7 @@ check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
 
 
 is_single_positive_integer <- function(x) {
-  is_integer(x) && length(x) == 1 && !is.na(x)
+  is_integer(x) && length(x) == 1 && !is.na(x) && x > 0
 }
 
 
