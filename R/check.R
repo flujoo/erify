@@ -159,11 +159,10 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 #' @rdname validators
 #' @export
 check_types <- function(x, valid, name = NULL, general = NULL,
-                        supplement = NULL, n = 5, ...) {
+                        supplement = NULL, ...) {
   .check_type(x, "list")
   .check_type(valid, "character")
   check_statement(name, general, specifics = NULL, supplement)
-  check_n(n)
 
   l <- length(x)
 
@@ -199,7 +198,7 @@ check_types <- function(x, valid, name = NULL, general = NULL,
   s_valid <- join(valid)
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
-    .trigger(n = n)
+    .trigger()
 }
 
 
