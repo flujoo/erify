@@ -49,6 +49,10 @@ normalize_specifics <- function(specifics, decorate) {
     return()
   }
 
+  # check if is in R Markdown
+  in_rmd <- isTRUE(getOption('knitr.in.progress'))
+  # ANSI escape sequence not work in R Markdown
+
   ns <- names(specifics)
 
   if (is.null(ns)) {
@@ -60,9 +64,9 @@ normalize_specifics <- function(specifics, decorate) {
 
     if (decorate) {
       if (n %in% c("", "x")) {
-        n <- "\033[0;31m✖\033[0m "
+        n <- ifelse(in_rmd, "✖ ", "\033[0;31m✖\033[0m ")
       } else if (n == "i") {
-        n <- "\033[0;36mℹ\033[0m "
+        n <- ifelse(in_rmd, "ℹ ", "\033[0;36mℹ\033[0m ")
       } else {
         n %<>% paste0(" ")
       }
