@@ -1,3 +1,5 @@
+# Statement ---------------------------------------------------------------
+
 .Statement <- function(general, specifics = NULL, supplement = NULL,
                        env = NULL, decorate = TRUE, ...) {
   specifics %<>% normalize_specifics(decorate)
@@ -78,66 +80,6 @@ normalize_specifics <- function(specifics, decorate) {
   specifics %>% unname()
 }
 
-
-shorten <- function(statement, n = 5) {
-  specifics <- statement$specifics
-  l <- length(specifics)
-
-  if (l <= n) {
-    return(statement)
-  }
-
-  statement$specifics <- specifics[1:n]
-
-  supplement <- ifelse(
-    l == n + 1,
-    "... and 1 more problem.",
-    paste("... and", l - n, "more problems.")
-  )
-
-  if (is.null(statement$supplement)) {
-    statement$supplement <- supplement
-  } else {
-    statement$supplement %<>% paste0(supplement, "\n\n", .)
-  }
-
-  statement
-}
-
-
-is_empty <- function(statement) {
-  statement %>%
-    {length(.$general) == 0 && length(.$specifics) == 0}
-}
-
-
-.trigger <- function(statement, as = "error", n = 5) {
-  if (is_empty(statement)) {
-    return(invisible(NULL))
-  }
-
-  if (as != "message") {
-    statement %<>% shorten(n)
-  }
-
-  s <- print(statement, silent = TRUE)
-
-  statement[c("general", "specifics", "supplement", "env")] <- NULL
-  args <- c(list(message = s), statement)
-
-  f <- switch(
-    as,
-    "error" = rlang::abort,
-    "warning" = rlang::warn,
-    "message" = rlang::inform
-  )
-
-  do.call(f, args)
-}
-
-
-
-# Statement ---------------------------------------------------------------
 
 #' @title Create `Statement` Object
 #'
@@ -249,6 +191,63 @@ check_env <- function(env) {
 
 
 # trigger -----------------------------------------------------------------
+
+shorten <- function(statement, n = 5) {
+  specifics <- statement$specifics
+  l <- length(specifics)
+
+  if (l <= n) {
+    return(statement)
+  }
+
+  statement$specifics <- specifics[1:n]
+
+  supplement <- ifelse(
+    l == n + 1,
+    "... and 1 more problem.",
+    paste("... and", l - n, "more problems.")
+  )
+
+  if (is.null(statement$supplement)) {
+    statement$supplement <- supplement
+  } else {
+    statement$supplement %<>% paste0(supplement, "\n\n", .)
+  }
+
+  statement
+}
+
+
+is_empty <- function(statement) {
+  statement %>%
+    {length(.$general) == 0 && length(.$specifics) == 0}
+}
+
+
+.trigger <- function(statement, as = "error", n = 5) {
+  if (is_empty(statement)) {
+    return(invisible(NULL))
+  }
+
+  if (as != "message") {
+    statement %<>% shorten(n)
+  }
+
+  s <- print(statement, silent = TRUE)
+
+  statement[c("general", "specifics", "supplement", "env")] <- NULL
+  args <- c(list(message = s), statement)
+
+  f <- switch(
+    as,
+    "error" = rlang::abort,
+    "warning" = rlang::warn,
+    "message" = rlang::inform
+  )
+
+  do.call(f, args)
+}
+
 
 #' @export
 trigger <- function(statement, as = NULL, n = NULL) {
