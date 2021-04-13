@@ -25,7 +25,6 @@
 #'
 #' @param x The argument to be checked.
 #' - In [check_types()] and [check_classes()], `x` must be a list.
-#' - In [check_content()], `x` must be a single atomic.
 #' - In other functions, `x` can be any object.
 #'
 #' @param valid
@@ -377,8 +376,7 @@ check_length <- function(x, valid, interval = NULL, name = NULL,
                          general = NULL, specifics = NULL,
                          supplement = NULL, ...) {
   if (!is.null(interval)) {
-    .check_type(interval, "logical")
-    .check_content(interval, c(TRUE, FALSE))
+    check_content(interval, c(TRUE, FALSE))
   }
 
   check_length_valid(valid, interval)
@@ -530,7 +528,6 @@ check_length_valid <- function(valid, interval) {
 #' @export
 check_content <- function(x, valid, name = NULL, general = NULL,
                           specifics = NULL, supplement = NULL, ...) {
-  check_content_x(x)
   check_content_valid(valid)
   check_statement(name, general, specifics, supplement)
 
@@ -539,34 +536,10 @@ check_content <- function(x, valid, name = NULL, general = NULL,
     name <- glue("`{name}`")
   }
 
+  .check_type(x, typeof(valid), name, general, specifics, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
   .check_content(
     x, valid, name, general, specifics, supplement, code = FALSE, ...)
-}
-
-
-check_content_x <- function(x) {
-  general <- "`x` must be a single atomic."
-
-  if (!is.atomic(x)) {
-    type <- typeof(x)
-
-    .Statement(
-      general,
-      specifics = "`x` has type {type}.",
-      env = environment()
-    ) %>% .trigger()
-
-  } else {
-    l <- length(x)
-
-    if (l != 1) {
-      .Statement(
-        general,
-        specifics = "`x` has length {l}.",
-        env = environment()
-      ) %>% .trigger()
-    }
-  }
 }
 
 
@@ -687,9 +660,7 @@ check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
     name <- glue("`{name}`")
   }
 
-  .check_type(x, "logical", name, general, specifics, supplement, ...)
-  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
-  .check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)
+  check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)
 }
 
 

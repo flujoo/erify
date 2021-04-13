@@ -284,8 +284,6 @@ trigger <- function(statement, as = NULL, n = NULL) {
   check_class(statement, "Statement")
 
   if (!is.null(as)) {
-    .check_type(as, "character")
-    .check_length(as, 1)
     .check_content(as, c("error", "warning", "message"))
   }
 
