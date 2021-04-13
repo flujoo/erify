@@ -21,6 +21,7 @@
 #' It can be used to check names, for example.
 #' - [check_n()] checks if an argument is a single positive integer.
 #' It can be used to check indices, for example.
+#' - [check_bool()] checks if an argument is `TRUE` or `FALSE`.
 #'
 #' @param x The argument to be checked.
 #' - In [check_types()] and [check_classes()], `x` must be a list.
@@ -667,6 +668,26 @@ check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
 
 is_single_positive_integer <- function(x) {
   is_integer(x) && length(x) == 1 && !is.na(x) && x > 0
+}
+
+
+
+# single bool -------------------------------------------------------------
+
+#' @rdname validators
+#' @export
+check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
+                       supplement = NULL, ...) {
+  check_statement(name, general, specifics, supplement)
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_type(x, "logical", name, general, specifics, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+  .check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)
 }
 
 
