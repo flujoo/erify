@@ -245,3 +245,32 @@ check_env <- function(env) {
     }
   }
 }
+
+
+
+# trigger -----------------------------------------------------------------
+
+#' @export
+trigger <- function(statement, as = NULL, n = NULL) {
+  check_class(statement, "Statement")
+
+  if (!is.null(as)) {
+    .check_type(as, "character")
+    .check_length(as, 1)
+    .check_content(as, c("error", "warning", "message"))
+  }
+
+  if (!is.null(n)) {
+    check_n(n)
+  }
+
+  if (is.null(as)) {
+    as <- "error"
+  }
+
+  if (is.null(n)) {
+    n <- 5
+  }
+
+  .trigger(statement, as, n)
+}
