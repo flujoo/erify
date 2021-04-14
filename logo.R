@@ -4,7 +4,7 @@ library(hexSticker)
 p <-
   ggplot() +
   theme_void() +
-  coord_fixed(xlim = c(-100, 100), ylim = c(-100, 100))
+  coord_fixed(xlim = c(-100, 100), ylim = c(-10, 10))
 
 for (i in -6:5) {
   for (j in 1:8) {
@@ -15,20 +15,17 @@ for (i in -6:5) {
 
 s <- sticker(
   subplot = p,
-  s_width = 1.9,
-  s_height = 1.9,
-  s_x = 1,
-  s_y = 1.03,
+  s_width = 2.1,
+  s_height = 1,
+  s_y = 0.85,
 
   h_color = "#e2261b",
   h_fill = "#151515",
-  h_size = 5,
 
-  package = "er",
-  p_size = 25,
+  package = "erify",
+  p_size = 17,
   p_color = "#ffffff",
   p_y = 1.1,
 
-  white_around_sticker = TRUE,
   filename = "./man/figures/logo.png"
 )
