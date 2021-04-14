@@ -68,7 +68,7 @@ emphasize("You're beautiful!", 3)
 ```
 
 And suppose a novice user accidentally passes a function to argument `what`,
-he/she will get an error message, which is not very readable:
+he/she will get an error message which is not very readable:
 
 ```{r}
 emphasize(c, 3)
@@ -223,5 +223,72 @@ check_content(arg, c("yes", "no"), supplement = "I'm Peter, by the way.")
 
 ## Create Validator Functions
 
-er's validator functions are only building blocks, with which you can create
-your own validator functions.
+er provides two functions with which you can create your own validator 
+functions.
+
+The first is `Statement()`, which creates `Statement` objects that are
+structured representations of normal, warning, or error messages. Below
+is an example:
+
+```{r}
+general <- "You're beautiful."
+
+specifics <- c(
+  i = "Your eyes are big.",
+  i = "Your hair is long.",
+  x = "But you broke my heart."
+)
+
+supplement <- "I'am Mr. Sad."
+
+s <- Statement(general, specifics, supplement)
+s
+```
+
+The second is `trigger()`, which takes a `Statement` object as input
+and generates a message. For example,
+
+```{r}
+trigger(s)
+```
+
+You can change argument `as` to generate a normal message:
+
+```{r}
+trigger(s, as = "message")
+```
+
+Now let's create a validator function to check if an argument is a positive
+number.
+
+```{r}
+check_positive <- function(x) {
+  check_type(x, c("integer", "double"))
+  check_length(x, 1)
+  
+  if (is.na(x) || x <= 0) {
+    general <- "`x` must be a positive number."
+    specifics <- "`x` is `{x}`."
+    s <- Statement(general, specifics, env = list(x = x))
+    trigger(s)
+  }
+}
+
+check_positive(-2)
+```
+
+As you might have noticed, you can insert R code into `Statement` objects
+as `{x}` in
+
+```r
+specifics <- "`x` is `{x}`."
+```
+
+To execute the code, you need to pass the arguments involved to argument
+`env` in `Statement()`, as in
+
+```r
+s <- Statement(general, specifics, env = list(x = x))
+```
+
+See `glue::glue()` for more details.
