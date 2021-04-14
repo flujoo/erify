@@ -1,0 +1,35 @@
+url: https://flujoo.github.io/erify
+
+authors:
+  Renfei Mao:
+    href: https://github.com/flujoo
+
+home:
+  title: Readable Errors
+
+navbar:
+  left:
+    - text: "Introduction"
+      href: "articles/erify.html"
+    - text: "Reference"
+      href: "reference/index.html"
+
+reference:
+  - title: Validator Functions
+    contents:
+      - check_type
+      - check_types
+      - check_class
+      - check_classes
+      - check_length
+      - check_content
+      - check_string
+      - check_n
+      - check_bool
+  - title: Create Validators
+    contents:
+      - Statement
+      - trigger
+
+template:
+  package: preferably
