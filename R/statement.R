@@ -66,9 +66,9 @@ normalize_specifics <- function(specifics, decorate) {
 
     if (decorate) {
       if (n %in% c("", "x")) {
-        n <- ifelse(in_rmd, "✖ ", "\033[0;31m✖\033[0m ")
+        n <- ifelse(in_rmd, "\u2716 ", "\u001b[0;31m\u2716\u001b[0m ")
       } else if (n == "i") {
-        n <- ifelse(in_rmd, "ℹ ", "\033[0;36mℹ\033[0m ")
+        n <- ifelse(in_rmd, "\u2139 ", "\u001b[0;36m\u2139\u001b[0m ")
       } else {
         n %<>% paste0(" ")
       }
