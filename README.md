@@ -1,9 +1,6 @@
 
 # erify <img src="man/figures/logo.png" align="right" alt="logo" width="120"/>
 
-<!-- badges: start -->
-<!-- badges: end -->
-
 Check arguments, and generate readable error messages.
 
 ## Installation
@@ -29,7 +26,6 @@ Load erify:
 
 ``` r
 library(erify)
-#> Error in library(erify): there is no package called 'erify'
 ```
 
 Check if the following argument is valid:
@@ -42,21 +38,24 @@ For example, check if it has valid type:
 
 ``` r
 check_type(arg, "integer")
-#> Error in check_type(arg, "integer"): could not find function "check_type"
+#> Error: `arg` must have type integer.
+#> 
+#> ✖ `arg` has type character.
 ```
 
 Check if it has valid length:
 
 ``` r
 check_length(arg, 1)
-#> Error in check_length(arg, 1): could not find function "check_length"
 ```
 
 Or check if it is a positive integer:
 
 ``` r
 check_n(arg)
-#> Error in check_n(arg): could not find function "check_n"
+#> Error: `arg` must be a single positive integer.
+#> 
+#> ✖ `arg` has type character.
 ```
 
 ## More
