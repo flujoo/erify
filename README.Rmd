@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# er <img src="man/figures/logo.png" align="right" alt="logo" width="120"/>
+# erify <img src="man/figures/logo.png" align="right" alt="logo" width="120"/>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -20,10 +20,10 @@ Check arguments, and generate readable error messages.
 
 ## Installation
 
-Install er from CRAN:
+Install erify from CRAN:
 
 ``` r
-install.packages("er")
+install.packages("erify")
 ```
 
 Or install the development version from Github:
@@ -32,16 +32,16 @@ Or install the development version from Github:
 # install devtools if not
 # install.packages("devtools")
 
-devtools::install_github("flujoo/er")
+devtools::install_github("flujoo/erify")
 ```
 
 
 ## Example
 
-Load er:
+Load erify:
 
 ```{r}
-library(er)
+library(erify)
 ```
 
 Check if the following argument is valid:
@@ -71,4 +71,4 @@ check_n(arg)
 
 ## More
 
-See `vignette("er", package = "er")` for a gentle introduction to er.
+See `vignette("erify", package = "erify")` for a gentle introduction to erify.

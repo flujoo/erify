@@ -71,7 +71,8 @@
 #'
 #' [rlang::abort()] for adding additional arguments.
 #'
-#' `vignette("er", package = "er")` for a gentle introduction to this package.
+#' `vignette("erify", package = "erify")` for a gentle introduction to this
+#' package.
 #'
 #' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
 #' for more details about the used error message style.

@@ -195,7 +195,8 @@ tryCatch(
 
 \code{\link[rlang:abort]{rlang::abort()}} for adding additional arguments.
 
-\code{vignette("er", package = "er")} for a gentle introduction to this package.
+\code{vignette("erify", package = "erify")} for a gentle introduction to this
+package.
 
 \href{https://style.tidyverse.org/error-messages.html}{The tidyverse style guide}
 for more details about the used error message style.
