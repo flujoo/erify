@@ -271,14 +271,15 @@ is_empty <- function(statement) {
 #' @examples
 #' s <- Statement("general", letters[1:6])
 #'
-#' # generate error message
-#' trigger(s, "error")
-#'
 #' # generate normal message
 #' trigger(s, "message")
 #'
+#' \dontrun{
+#' # generate error message
+#' trigger(s, "error")
+#'
 #' # change `n`
-#' trigger(s, n = 2)
+#' trigger(s, n = 2)}
 #' @export
 trigger <- function(statement, as = NULL, n = NULL) {
   check_class(statement, "Statement")
