@@ -11,7 +11,7 @@ Description: Provides several validator functions to check if arguments passed
     error message style used is adopted from
     <https://style.tidyverse.org/error-messages.html>.
 License: MIT + file LICENSE
-URL: https://github.com/flujoo/erify, https://flujoo.github.io/erify
+URL: https://github.com/flujoo/erify, https://flujoo.github.io/erify/
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 Imports:
