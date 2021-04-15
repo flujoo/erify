@@ -35,7 +35,8 @@ trigger(s, "message")
 trigger(s, "error")
 
 # change `n`
-trigger(s, n = 2)}
+trigger(s, n = 2)
+}
 }
 \seealso{
 \code{\link[=Statement]{Statement()}}

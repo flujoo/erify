@@ -280,7 +280,8 @@ is_empty <- function(statement) {
 #' trigger(s, "error")
 #'
 #' # change `n`
-#' trigger(s, n = 2)}
+#' trigger(s, n = 2)
+#' }
 #' @export
 trigger <- function(statement, as = NULL, n = NULL) {
   check_class(statement, "Statement")

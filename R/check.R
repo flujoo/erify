@@ -104,7 +104,8 @@
 #'   general = "General statement of the error.",
 #'   specifics = c(x = "An error.", i = "A hint.", `*` = "Other detail."),
 #'   supplement = "More words to say."
-#' )}
+#' )
+#' }
 #'
 #' # add and retrieve additional arguments
 #' tryCatch(
