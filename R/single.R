@@ -1,0 +1,93 @@
+# single character --------------------------------------------------------
+
+.check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
+                          supplement = NULL, ...) {
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  if (is.null(general)) {
+    general <- "{name} must be a single character."
+  }
+
+  .check_type(x, "character", name, general, specifics, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+}
+
+
+#' @rdname validators
+#' @export
+check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
+                         supplement = NULL, ...) {
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  .check_string(x, name, general, specifics, supplement, ...)
+}
+
+
+
+# single positive integer -------------------------------------------------
+
+#' @rdname validators
+#' @export
+check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
+                    supplement = NULL, ...) {
+  check_statement(name, general, specifics, supplement)
+
+  if (is_single_positive_integer(x)) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  if (is.null(general)) {
+    general <- "{name} must be a single positive integer."
+  }
+
+  .check_type(
+    x, c("double", "integer"), name, general, specifics, supplement, ...)
+
+  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
+
+  if (is.na(x)) {
+    specifics <- "{name} is `NA`."
+    .Statement(general, specifics, supplement, environment(), ...) %>%
+      .trigger()
+  }
+
+  if (as.integer(x) != x || x <= 0) {
+    specifics <- "{name} is `{x}`."
+    .Statement(general, specifics, supplement, environment(), ...) %>%
+      .trigger()
+  }
+}
+
+
+is_single_positive_integer <- function(x) {
+  is_integer(x) && length(x) == 1 && !is.na(x) && x > 0
+}
+
+
+
+# single bool -------------------------------------------------------------
+
+#' @rdname validators
+#' @export
+check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
+                       supplement = NULL, ...) {
+  check_statement(name, general, specifics, supplement)
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+    name <- glue("`{name}`")
+  }
+
+  check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)
+}
