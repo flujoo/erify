@@ -56,6 +56,7 @@
 
 
 #' @rdname validators
+#' @order 7
 #' @export
 check_content <- function(x, valid, name = NULL, general = NULL,
                           specifics = NULL, supplement = NULL, ...) {

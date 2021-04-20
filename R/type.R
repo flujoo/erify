@@ -27,6 +27,7 @@
 
 
 #' @rdname validators
+#' @order 2
 #' @export
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specifics = NULL, supplement = NULL, ...) {
@@ -43,6 +44,7 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 
 
 #' @rdname validators
+#' @order 3
 #' @export
 check_types <- function(x, valid, name = NULL, general = NULL,
                         supplement = NULL, ...) {
@@ -89,6 +91,7 @@ check_types <- function(x, valid, name = NULL, general = NULL,
 
 
 #' @rdname validators
+#' @order 4
 #' @export
 check_class <- function(x, valid, name = NULL, general = NULL,
                         specifics = NULL, supplement = NULL, ...) {
@@ -124,6 +127,7 @@ check_class <- function(x, valid, name = NULL, general = NULL,
 
 
 #' @rdname validators
+#' @order 5
 #' @export
 check_classes <- function(x, valid, name = NULL, general = NULL,
                           supplement = NULL, ...) {

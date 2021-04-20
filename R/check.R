@@ -66,6 +66,8 @@
 #' @return An invisible `NULL` if the argument is valid,
 #' or error message is generated.
 #'
+#' @order 1
+#'
 #' @seealso [Statement()] for more details about arguments `general`,
 #' `specifics` and `supplement`.
 #'

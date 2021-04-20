@@ -79,6 +79,7 @@ phrase_valid_length <- function(valid, interval) {
 
 
 #' @rdname validators
+#' @order 6
 #' @export
 check_length <- function(x, valid, interval = NULL, name = NULL,
                          general = NULL, specifics = NULL,

@@ -17,6 +17,7 @@
 
 
 #' @rdname validators
+#' @order 8
 #' @export
 check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
                          supplement = NULL, ...) {
@@ -33,6 +34,7 @@ check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
 # single positive integer -------------------------------------------------
 
 #' @rdname validators
+#' @order 9
 #' @export
 check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
                     supplement = NULL, ...) {
@@ -79,6 +81,7 @@ is_single_positive_integer <- function(x) {
 # single bool -------------------------------------------------------------
 
 #' @rdname validators
+#' @order 10
 #' @export
 check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
                        supplement = NULL, ...) {
