@@ -204,18 +204,14 @@ is_empty <- function(statement) {
 }
 
 
-.trigger <- function(statement, as = "error", n = 5) {
+.trigger <- function(statement, as = "error") {
   if (is_empty(statement)) {
     return(invisible(NULL))
   }
 
-  if (as != "message") {
-    statement %<>% shorten(n)
-  }
-
   s <- print(statement, silent = TRUE)
 
-  statement[c("general", "specifics", "supplement", "env")] <- NULL
+  statement[c("general", "specifics", "env")] <- NULL
   args <- c(list(message = s), statement)
 
   f <- switch(
