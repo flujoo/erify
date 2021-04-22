@@ -1,25 +1,26 @@
 .check_type <- function(x, valid, name = NULL, general = NULL,
                         specifics = NULL, supplement = NULL, ...) {
+  # check argument
   type <- typeof(x)
 
   if (type %in% valid) {
     return(invisible(NULL))
   }
 
+  # prepare error message
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
 
-  valid %<>% join()
-
   if (is.null(general)) {
-    general <- "`{name}` must have type {valid}."
+    general <- "`{name}` must have type { join(valid) }."
   }
 
   if (is.null(specifics)) {
     specifics = "`{name}` has type {type}."
   }
 
+  # trigger error
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
     .trigger()
 }
