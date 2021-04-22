@@ -8,10 +8,6 @@
 #' general statement of the error incurred. This is generated automatically
 #' by default.
 #'
-#' @param specifics Optional. A (named) character vector which gives a
-#' list of detailed descriptions of the error. This is generated automatically
-#' by default.
-#'
 #' @param supplement Optional. A single character which gives some
 #' additional information about the error. This is left empty by default.
 #'
