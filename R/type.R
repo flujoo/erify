@@ -83,32 +83,37 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 #' @order 3
 #' @export
 check_types <- function(x, valid, name = NULL, general = NULL,
-                        supplement = NULL, ...) {
+                        specific = NULL, supplement = NULL, n = NULL, ...) {
+  # check arguments
   .check_type(x, "list")
   .check_type(valid, "character")
-  check_statement(name, general, specifics = NULL, supplement)
+  check_arguments(name, general, NULL, supplement, specific, n)
 
   l <- length(x)
 
+  # return silently if `x` is empty
   if (l == 0) {
     return(invisible(NULL))
   }
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("{name}")
   }
 
   specifics <- character(0)
-  specific <- "`{name}[[{i}]]` has type {type}."
+
+  if (is.null(specific)) {
+    specific <- "`{name}[[{i}]]` has type {type}."
+  }
 
   for (i in 1:l) {
-    x_i <- x[[i]]
-    type <- typeof(x_i)
+    type <- typeof(x[[i]])
 
-    if (!(type %in% valid)) {
-      specifics <- c(specifics, glue(specific))
+    if (type %in% valid) {
+      next
     }
+
+    specifics %<>% c(glue::glue(specific))
   }
 
   if (length(specifics) == 0) {
@@ -116,11 +121,13 @@ check_types <- function(x, valid, name = NULL, general = NULL,
   }
 
   if (is.null(general)) {
-    general <- "Each item of `{name}` must have type {s_valid}."
+    general <- "Each item of `{name}` must have type { join(valid) }."
   }
 
-  s_valid <- join(valid)
+  if (is.null(n)) {
+    n <- 5
+  }
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
-    .trigger()
+    .trigger(n = n)
 }
