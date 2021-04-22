@@ -29,7 +29,7 @@ glue <- function(x, env = parent.frame()) {
 
 # shortcut to check commonly used arguments
 check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
-                            supplement = NULL, specific = NULL, n = NULL) {
+                            specific = NULL, n = NULL) {
   if (!is.null(name)) {
     .check_string(name)
   }
@@ -40,10 +40,6 @@ check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
 
   if (!is.null(specifics)) {
     .check_type(specifics, "character")
-  }
-
-  if (!is.null(supplement)) {
-    .check_string(supplement)
   }
 
   if (!is.null(specific)) {
