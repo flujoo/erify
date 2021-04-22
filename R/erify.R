@@ -54,3 +54,14 @@ check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
     check_index(n)
   }
 }
+
+
+print_string <- function(string, silent = FALSE) {
+  if (silent) {
+    string
+
+  } else {
+    cat(string, "\n")
+    invisible(string)
+  }
+}
