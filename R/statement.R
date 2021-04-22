@@ -179,29 +179,22 @@ check_env <- function(env) {
 
 # trigger -----------------------------------------------------------------
 
-shorten <- function(statement, n = 5) {
-  specifics <- statement$specifics
+shorten <- function(specifics, n = 5) {
   l <- length(specifics)
 
   if (l <= n) {
-    return(statement)
+    return(specifics)
   }
 
-  statement$specifics <- specifics[1:n]
+  specifics %<>% .[1:n]
 
-  supplement <- ifelse(
+  more <- ifelse(
     l == n + 1,
     "... and 1 more problem.",
     paste("... and", l - n, "more problems.")
   )
 
-  if (is.null(statement$supplement)) {
-    statement$supplement <- supplement
-  } else {
-    statement$supplement %<>% paste0(supplement, "\n\n", .)
-  }
-
-  statement
+  c(specifics, more)
 }
 
 
