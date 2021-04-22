@@ -27,3 +27,5 @@
 #'
 #' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
 #' for more details about the used error message style.
+#'
+#' @export
