@@ -69,7 +69,7 @@
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specifics = NULL, supplement = NULL, ...) {
   .check_type(valid, "character")
-  check_statement(name, general, specifics, supplement)
+  check_arguments(name, general, specifics, supplement)
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
