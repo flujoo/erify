@@ -26,21 +26,39 @@
 }
 
 
-#' @template template
-#'
 #' @title Check Argument's Type
 #'
 #' @description Check if an argument has valid type,
 #' and if not, generate an error message.
 #'
+#' @param x The argument to check, which can be any object.
+#'
 #' @param valid A character vector which contains the valid types.
+#'
+#' @param name A single character which gives the argument's name.
+#' The name is used in the error message. By default, the name of the
+#' argument passed to argument `x` is captured automatically.
+#'
+#' @param general Optional. A single character which is used to give a
+#' general statement of the error incurred. This is generated automatically
+#' by default.
 #'
 #' @param specifics Optional. A (named) character vector which gives a
 #' list of detailed descriptions of the error. This is generated automatically
 #' by default.
 #'
-#' @return An invisible `NULL` if the argument has valid type,
-#' or an error message is generated.
+#' @param supplement Optional. A single character which gives some
+#' additional information about the error. This is left empty by default.
+#'
+#' @param ... Optional. Additional arguments passed to [rlang::abort()],
+#' which is called internally.
+#'
+#' @return An invisible `NULL` if the argument is valid, or an error message
+#' is generated.
+#'
+#' @template seealso
+#'
+#' @export
 #'
 #' @examples
 #' # argument to check

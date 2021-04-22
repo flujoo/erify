@@ -38,8 +38,8 @@ additional information about the error. This is left empty by default.}
 which is called internally.}
 }
 \value{
-An invisible \code{NULL} if the argument has valid type,
-or an error message is generated.
+An invisible \code{NULL} if the argument is valid, or an error message
+is generated.
 }
 \description{
 Check if an argument has valid type,
