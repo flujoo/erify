@@ -16,7 +16,6 @@
 
 #' @export
 print.Statement <- function(x, silent = FALSE, ...) {
-  # convert each part
   ss <- x$general
 
   specifics <- x$specifics
@@ -24,22 +23,14 @@ print.Statement <- function(x, silent = FALSE, ...) {
     ss %<>% c(paste(specifics, collapse = "\n"))
   }
 
-  ss %<>% c(x$supplement)
-
   s <- paste(ss, collapse = "\n\n")
 
-  # render `s`
   env <- x$env
   if (!is.null(env)) {
-    s %<>% glue(env)
+    s %<>% glue::glue(.envir = env)
   }
 
-  if (silent) {
-    s
-  } else {
-    cat(s, "\n")
-    invisible(s)
-  }
+  print_string(s)
 }
 
 
