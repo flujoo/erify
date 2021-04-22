@@ -4,17 +4,13 @@
 \alias{trigger}
 \title{Trigger \code{Statement} Object}
 \usage{
-trigger(statement, as = NULL, n = NULL)
+trigger(statement, as = NULL)
 }
 \arguments{
 \item{statement}{The \code{Statement} object to trigger.}
 
 \item{as}{Optional. \code{"error"}, \code{"warning"} or \code{"message"} which indicates
 how to trigger the \code{Statement} object. The default value is \code{"error"}.}
-
-\item{n}{Optional. A positive integer which indicates how many items of
-\code{specifics} of the \code{Statement} object at most to display. Used when \code{as}
-is \code{"error"} or \code{"warning"}. The default value is \code{5}.}
 }
 \value{
 An invisible \code{NULL}. A normal, warning or error message is
@@ -25,7 +21,7 @@ Generate a normal, warning or error message with a
 \code{Statement} object.
 }
 \examples{
-s <- Statement("general", letters[1:6])
+s <- Statement("general", letters[1:3])
 
 # generate normal message
 trigger(s, "message")
@@ -33,9 +29,6 @@ trigger(s, "message")
 \dontrun{
 # generate error message
 trigger(s, "error")
-
-# change `n`
-trigger(s, n = 2)
 }
 }
 \seealso{

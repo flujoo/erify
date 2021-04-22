@@ -235,17 +235,13 @@ is_empty <- function(statement) {
 #' @param as Optional. `"error"`, `"warning"` or `"message"` which indicates
 #' how to trigger the `Statement` object. The default value is `"error"`.
 #'
-#' @param n Optional. A positive integer which indicates how many items of
-#' `specifics` of the `Statement` object at most to display. Used when `as`
-#' is `"error"` or `"warning"`. The default value is `5`.
-#'
 #' @return An invisible `NULL`. A normal, warning or error message is
 #' generated.
 #'
 #' @seealso [Statement()]
 #'
 #' @examples
-#' s <- Statement("general", letters[1:6])
+#' s <- Statement("general", letters[1:3])
 #'
 #' # generate normal message
 #' trigger(s, "message")
@@ -253,29 +249,18 @@ is_empty <- function(statement) {
 #' \dontrun{
 #' # generate error message
 #' trigger(s, "error")
-#'
-#' # change `n`
-#' trigger(s, n = 2)
 #' }
 #' @export
-trigger <- function(statement, as = NULL, n = NULL) {
+trigger <- function(statement, as = NULL) {
   check_class(statement, "Statement")
 
   if (!is.null(as)) {
     .check_content(as, c("error", "warning", "message"))
   }
 
-  if (!is.null(n)) {
-    check_index(n)
-  }
-
   if (is.null(as)) {
     as <- "error"
   }
 
-  if (is.null(n)) {
-    n <- 5
-  }
-
-  .trigger(statement, as, n)
+  .trigger(statement, as)
 }
