@@ -35,6 +35,10 @@
 #'
 #' @param valid A character vector which contains the valid types.
 #'
+#' @param specifics Optional. A (named) character vector which gives a
+#' list of detailed descriptions of the error. This is generated automatically
+#' by default.
+#'
 #' @return An invisible `NULL` if the argument has valid type,
 #' or an error message is generated.
 #'
