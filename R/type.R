@@ -8,17 +8,16 @@
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   valid %<>% join()
 
   if (is.null(general)) {
-    general <- "{name} must have type {valid}."
+    general <- "`{name}` must have type {valid}."
   }
 
   if (is.null(specifics)) {
-    specifics = "{name} has type {type}."
+    specifics = "`{name}` has type {type}."
   }
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
@@ -36,7 +35,6 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   .check_type(x, valid, name, general, specifics, supplement, ...)
@@ -104,13 +102,12 @@ check_class <- function(x, valid, name = NULL, general = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   valid %<>% join()
 
   if (is.null(general)) {
-    general <- "{name} must have class {valid}."
+    general <- "`{name}` must have class {valid}."
   }
 
   classes <- class(x)
@@ -118,7 +115,7 @@ check_class <- function(x, valid, name = NULL, general = NULL,
   classes %<>% join("and")
 
   if (is.null(specifics)) {
-    specifics = "{name} has {s_class} {classes}."
+    specifics = "`{name}` has {s_class} {classes}."
   }
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%

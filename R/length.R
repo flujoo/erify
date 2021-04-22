@@ -10,17 +10,16 @@
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   valid %<>% phrase_valid_length(interval)
 
   if (is.null(general)) {
-    general <- "{name} must have length {valid}."
+    general <- "`{name}` must have length {valid}."
   }
 
   if (is.null(specifics)) {
-    specifics = "{name} has length {l}."
+    specifics = "`{name}` has length {l}."
   }
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
@@ -93,7 +92,6 @@ check_length <- function(x, valid, interval = NULL, name = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   .check_length(

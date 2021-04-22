@@ -4,11 +4,10 @@
                           supplement = NULL, ...) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   if (is.null(general)) {
-    general <- "{name} must be a single character."
+    general <- "`{name}` must be a single character."
   }
 
   .check_type(x, "character", name, general, specifics, supplement, ...)
@@ -23,7 +22,6 @@ check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
                          supplement = NULL, ...) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   .check_string(x, name, general, specifics, supplement, ...)
@@ -46,11 +44,10 @@ check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   if (is.null(general)) {
-    general <- "{name} must be a single positive integer."
+    general <- "`{name}` must be a single positive integer."
   }
 
   .check_type(
@@ -59,13 +56,13 @@ check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
   .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
 
   if (is.na(x)) {
-    specifics <- "{name} is `NA`."
+    specifics <- "`{name}` is `NA`."
     .Statement(general, specifics, supplement, environment(), ...) %>%
       .trigger()
   }
 
   if (as.integer(x) != x || x <= 0) {
-    specifics <- "{name} is `{x}`."
+    specifics <- "`{name}` is `{x}`."
     .Statement(general, specifics, supplement, environment(), ...) %>%
       .trigger()
   }
@@ -89,7 +86,6 @@ check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)

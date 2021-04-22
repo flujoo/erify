@@ -22,7 +22,6 @@
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   # treat integers as doubles
@@ -43,11 +42,11 @@
   x %<>% as_code(env = list(x = x))
 
   if (is.null(general)) {
-    general <- "{name} must be {valid}."
+    general <- "`{name}` must be {valid}."
   }
 
   if (is.null(specifics)) {
-    specifics = "{name} is {x}."
+    specifics = "`{name}` is {x}."
   }
 
   .Statement(general, specifics, supplement, env = environment(), ...) %>%
@@ -65,7 +64,6 @@ check_content <- function(x, valid, name = NULL, general = NULL,
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
-    name <- glue("`{name}`")
   }
 
   .check_type(x, typeof(valid), name, general, specifics, supplement, ...)
