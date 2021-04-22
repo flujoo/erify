@@ -88,9 +88,6 @@ normalize_specifics <- function(specifics, decorate) {
 #' `decorate` is used to turn on/off this process of adding and decorating
 #' bullets. See "Examples" section.
 #'
-#' @param supplement Optional. A single character which represents the
-#' supplementary message appended at the end.
-#'
 #' @param env Optional. An environment or named list which is used
 #' to evaluate the R code in the above three arguments.
 #' See "Examples" section and [glue::glue()].
@@ -109,28 +106,27 @@ normalize_specifics <- function(specifics, decorate) {
 #'
 #' [rlang::abort()] for adding additional arguments.
 #'
-#' `vignette("erify", package = "erify")` for a gentle introduction to this
-#' package.
+#' `vignette("erify")` for a gentle introduction to this package.
 #'
 #' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
 #' for more details about the style behind `Statement` objects.
+#'
+#' @export
 #'
 #' @examples
 #' # quick example
 #' general <- "I am the general statement of the message."
 #' specifics <- c("Detail 1.", i = "Detail 2.", `*` = "Detail 3")
-#' supplement <- "I am the additional information."
-#' Statement(general, specifics, supplement)
+#' Statement(general, specifics)
 #'
 #' # do not decorate bullets
-#' Statement(general, specifics, supplement, decorate = FALSE)
+#' Statement(general, specifics, decorate = FALSE)
 #'
 #' # use R code in message
 #' Statement("`x` is `{x}`.", env = list(x = 1))
-#' @export
-Statement <- function(general, specifics = NULL, supplement = NULL,
-                      env = NULL, decorate = NULL, ...) {
-  check_statement(NULL, general, specifics, supplement)
+Statement <- function(general, specifics = NULL, env = NULL, decorate = NULL,
+                      ...) {
+  check_arguments(NULL, general, specifics)
   check_env(env)
 
   if (!is.null(decorate)) {
@@ -141,7 +137,7 @@ Statement <- function(general, specifics = NULL, supplement = NULL,
     decorate <- TRUE
   }
 
-  .Statement(general, specifics, supplement, env, decorate, ...)
+  .Statement(general, specifics, env, decorate, ...)
 }
 
 

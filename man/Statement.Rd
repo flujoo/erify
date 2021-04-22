@@ -4,14 +4,7 @@
 \alias{Statement}
 \title{Create \code{Statement} Object}
 \usage{
-Statement(
-  general,
-  specifics = NULL,
-  supplement = NULL,
-  env = NULL,
-  decorate = NULL,
-  ...
-)
+Statement(general, specifics = NULL, env = NULL, decorate = NULL, ...)
 }
 \arguments{
 \item{general}{A single character which represents the general statement
@@ -23,9 +16,6 @@ create bullets. if the name is \code{"x"} or \code{"i"}, the bullet will be colo
 and bold. Any item with no name will be named with \code{"x"}. Argument
 \code{decorate} is used to turn on/off this process of adding and decorating
 bullets. See "Examples" section.}
-
-\item{supplement}{Optional. A single character which represents the
-supplementary message appended at the end.}
 
 \item{env}{Optional. An environment or named list which is used
 to evaluate the R code in the above three arguments.
@@ -50,11 +40,10 @@ normal, warning or error messages.
 # quick example
 general <- "I am the general statement of the message."
 specifics <- c("Detail 1.", i = "Detail 2.", `*` = "Detail 3")
-supplement <- "I am the additional information."
-Statement(general, specifics, supplement)
+Statement(general, specifics)
 
 # do not decorate bullets
-Statement(general, specifics, supplement, decorate = FALSE)
+Statement(general, specifics, decorate = FALSE)
 
 # use R code in message
 Statement("`x` is `{x}`.", env = list(x = 1))
@@ -66,8 +55,7 @@ Statement("`x` is `{x}`.", env = list(x = 1))
 
 \code{\link[rlang:abort]{rlang::abort()}} for adding additional arguments.
 
-\code{vignette("erify", package = "erify")} for a gentle introduction to this
-package.
+\code{vignette("erify")} for a gentle introduction to this package.
 
 \href{https://style.tidyverse.org/error-messages.html}{The tidyverse style guide}
 for more details about the style behind \code{Statement} objects.
