@@ -291,7 +291,7 @@ trigger <- function(statement, as = NULL, n = NULL) {
   }
 
   if (!is.null(n)) {
-    check_n(n)
+    check_index(n)
   }
 
   if (is.null(as)) {

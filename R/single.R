@@ -34,7 +34,7 @@ check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
 #' @rdname validators
 #' @order 9
 #' @export
-check_n <- function(x, name = NULL, general = NULL, specifics = NULL,
+check_index <- function(x, name = NULL, general = NULL, specifics = NULL,
                     supplement = NULL, ...) {
   check_statement(name, general, specifics, supplement)
 

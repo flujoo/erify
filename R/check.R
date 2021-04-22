@@ -19,7 +19,7 @@
 #' - [check_content()] checks if an argument is from some given choices.
 #' - [check_string()] checks if an argument is a single character.
 #' It can be used to check names, for example.
-#' - [check_n()] checks if an argument is a single positive integer.
+#' - [check_index()] checks if an argument is a single positive integer.
 #' It can be used to check indices, for example.
 #' - [check_bool()] checks if an argument is `TRUE` or `FALSE`.
 #'
