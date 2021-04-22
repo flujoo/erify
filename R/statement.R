@@ -1,14 +1,13 @@
 # Statement ---------------------------------------------------------------
 
-.Statement <- function(general, specifics = NULL, supplement = NULL,
-                       env = NULL, decorate = TRUE, ...) {
+.Statement <- function(general = NULL, specifics = NULL, env = NULL,
+                       decorate = TRUE, ...) {
   specifics %<>% normalize_specifics(decorate)
 
   # create Statement object
   list(
     general = general,
     specifics = specifics,
-    supplement = supplement,
     env = env,
     ...
   ) %>% `class<-`("Statement")
