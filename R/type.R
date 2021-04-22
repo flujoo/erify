@@ -26,9 +26,46 @@
 }
 
 
-#' @rdname validators
-#' @order 2
-#' @export
+#' @template template
+#'
+#' @title Check Argument's Type
+#'
+#' @description Check if an argument has valid type,
+#' and if not, generate an error message.
+#'
+#' @param valid A character vector which contains the valid types.
+#'
+#' @return An invisible `NULL` if the argument has valid type,
+#' or an error message is generated.
+#'
+#' @examples
+#' # argument to check
+#' arg <- 10
+#'
+#' # returns silently if the argument has valid type
+#' check_type(arg, "double")
+#'
+#' \dontrun{
+#' check_type(arg, "character")
+#'
+#' # specify argument's name
+#' check_type(arg, "character", name = "x")
+#'
+#' # customize error message
+#' check_type(
+#'   arg,
+#'   "character",
+#'   general = "General statement of the error.",
+#'   specifics = c(x = "An error.", i = "A hint.", `*` = "Other detail."),
+#'   supplement = "More words to say."
+#' )
+#' }
+#'
+#' # add and retrieve additional arguments
+#' tryCatch(
+#'   {check_type(arg, "character", your_arg = "your data")},
+#'   error = function(e) e$your_arg
+#' )
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specifics = NULL, supplement = NULL, ...) {
   .check_type(valid, "character")
