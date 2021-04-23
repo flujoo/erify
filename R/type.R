@@ -1,28 +1,54 @@
 .check_type <- function(x, valid, name = NULL, general = NULL,
-                        specifics = NULL, supplement = NULL, ...) {
-  # check argument
-  type <- typeof(x)
+                        specific = NULL, supplement = NULL, out = NULL,
+                        feature = NULL, ...) {
+  # extract feature
+  if (is.null(feature)) {
+    feature <- typeof(x)
+  }
 
-  if (type %in% valid) {
+  # validity
+  pass <- feature %in% valid
+
+  # normalize `out`
+  if (is.null(out)) {
+    out <- "error"
+  }
+
+  # early return
+  if (out == "logical") {
+    return(pass)
+
+  } else if (pass) {
     return(invisible(NULL))
   }
 
-  # prepare error message
+  # capture `name`
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
 
+  # specific
+  if (is.null(specific)) {
+    specific <- "`{name}` has type {feature}."
+  }
+
+  specific %<>% glue::glue()
+
+  if (out == "specific") {
+    return(specific)
+  }
+
+  # add `supplement`
+  specifics <- c(specific, supplement)
+
+  # general
+  .general <- glue::glue("`{name}` must have type { join(valid) }.")
+
   if (is.null(general)) {
-    general <- "`{name}` must have type { join(valid) }."
+    general <- .general
   }
 
-  if (is.null(specifics)) {
-    specifics = "`{name}` has type {type}."
-  }
-
-  # trigger error
-  .Statement(general, specifics, supplement, env = environment(), ...) %>%
-    .trigger()
+  .Statement(general, specifics, environment(), ...) %>% .trigger(out)
 }
 
 
