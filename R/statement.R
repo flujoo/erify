@@ -30,7 +30,7 @@ print.Statement <- function(x, silent = FALSE, ...) {
     s %<>% glue::glue(.envir = env)
   }
 
-  print_string(s)
+  print_string(s, silent)
 }
 
 
