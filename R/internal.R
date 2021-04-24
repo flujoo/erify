@@ -55,9 +55,9 @@ normalize_specifics <- function(specifics, decorate = TRUE) {
     # decorate bullets
     if (decorate) {
       if (n %in% c("", "x")) {
-        n <- ifelse(in_rmd, "\u2716 ", "\u001b[0;31m\u2716\u001b[0m ")
+        n <- ifelse(in_rmd, "* ", "\u001b[0;31m\u2716\u001b[0m ")
       } else if (n == "i") {
-        n <- ifelse(in_rmd, "\u2139 ", "\u001b[0;36m\u2139\u001b[0m ")
+        n <- ifelse(in_rmd, "* ", "\u001b[0;36m\u2139\u001b[0m ")
       } else {
         n %<>% paste0(" ")
       }
