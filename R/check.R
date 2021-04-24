@@ -137,22 +137,3 @@ as_code <- function(x, recursive = FALSE, env = environment()) {
 
   glue("`{s}`")
 }
-
-
-check_statement <- function(name, general, specifics, supplement) {
-  if (!is.null(name)) {
-    .check_string(name)
-  }
-
-  if (!is.null(general)) {
-    .check_string(general)
-  }
-
-  if (!is.null(specifics)) {
-    .check_type(specifics, "character")
-  }
-
-  if (!is.null(supplement)) {
-    .check_string(supplement)
-  }
-}
