@@ -214,8 +214,8 @@ phrase_valid_length <- function(valid, interval) {
 # validators --------------------------------------------------------------
 
 .check_type <- function(x, valid, name = NULL, general = NULL,
-                        specific = NULL, supplement = NULL, out = NULL,
-                        feature = NULL, ...) {
+                        specific = NULL, supplement = NULL, feature = NULL,
+                        ...) {
   # extract feature
   if (is.null(feature)) {
     feature <- typeof(x)
@@ -224,16 +224,8 @@ phrase_valid_length <- function(valid, interval) {
   # validity
   pass <- feature %in% valid
 
-  # normalize `out`
-  if (is.null(out)) {
-    out <- "error"
-  }
-
   # early return
-  if (out == "logical") {
-    return(pass)
-
-  } else if (pass) {
+  if (pass) {
     return(invisible(NULL))
   }
 
@@ -242,20 +234,6 @@ phrase_valid_length <- function(valid, interval) {
     name <- deparse(substitute(x))
   }
 
-  # specific
-  if (is.null(specific)) {
-    specific <- "`{name}` has type {feature}."
-  }
-
-  specific %<>% glue::glue()
-
-  if (out == "specific") {
-    return(specific)
-  }
-
-  # add `supplement`
-  specifics <- c(specific, supplement)
-
   # general
   .general <- glue::glue("`{name}` must have type { .join(valid) }.")
 
@@ -263,13 +241,21 @@ phrase_valid_length <- function(valid, interval) {
     general <- .general
   }
 
-  .Statement(general, specifics, environment(), ...) %>% .trigger(out)
+  # specific
+  if (is.null(specific)) {
+    specific <- "`{name}` has type {feature}."
+  }
+
+  # add `supplement`
+  specifics <- c(specific, supplement)
+
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
 }
 
 
 .check_length <- function(x, valid, interval = NULL, name = NULL,
                           general = NULL, specific = NULL, supplement = NULL,
-                          out = NULL, feature = NULL, ...) {
+                          feature = NULL, ...) {
   # normalize `interval`
   interval %<>% normalize_interval(valid)
 
@@ -281,16 +267,8 @@ phrase_valid_length <- function(valid, interval) {
   # validity
   pass <- is_valid_length(feature, valid, interval)
 
-  # normalize `out`
-  if (is.null(out)) {
-    out <- "error"
-  }
-
   # early return
-  if (out == "logical") {
-    return(pass)
-
-  } else if (pass) {
+  if (pass) {
     return(invisible(NULL))
   }
 
@@ -298,20 +276,6 @@ phrase_valid_length <- function(valid, interval) {
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
-
-  # specific
-  if (is.null(specific)) {
-    specific <- "`{name}` has length {feature}."
-  }
-
-  specific %<>% glue::glue()
-
-  if (out == "specific") {
-    return(specific)
-  }
-
-  # add `supplement`
-  specifics <- c(specific, supplement)
 
   # general
   .general <-
@@ -321,7 +285,15 @@ phrase_valid_length <- function(valid, interval) {
     general <- .general
   }
 
-  .Statement(general, specifics, environment(), ...) %>% .trigger(out)
+  # specific
+  if (is.null(specific)) {
+    specific <- "`{name}` has length {feature}."
+  }
+
+  # add `supplement`
+  specifics <- c(specific, supplement)
+
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
 }
 
 
@@ -339,9 +311,6 @@ phrase_valid_length <- function(valid, interval) {
     general <- .general
   }
 
-  .check_type(
-    x, "character", name, general, specific, supplement, NULL, NULL, ...)
-
-  .check_length(
-    x, 1, NULL, name, general, specific, supplement, NULL, NULL, ...)
+  .check_type(x, "character", name, general, specific, supplement, ...)
+  .check_length(x, 1, NULL, name, general, specific, supplement, ...)
 }
