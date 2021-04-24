@@ -1,20 +1,5 @@
 # single character --------------------------------------------------------
 
-.check_string <- function(x, name = NULL, general = NULL, specifics = NULL,
-                          supplement = NULL, ...) {
-  if (is.null(name)) {
-    name <- deparse(substitute(x))
-  }
-
-  if (is.null(general)) {
-    general <- "`{name}` must be a single character."
-  }
-
-  .check_type(x, "character", name, general, specifics, supplement, ...)
-  .check_length(x, 1, NULL, name, general, specifics, supplement, ...)
-}
-
-
 #' @rdname validators
 #' @order 8
 #' @export

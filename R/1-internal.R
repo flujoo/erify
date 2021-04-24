@@ -323,3 +323,25 @@ phrase_valid_length <- function(valid, interval) {
 
   .Statement(general, specifics, environment(), ...) %>% .trigger(out)
 }
+
+
+.check_string <- function(x, name = NULL, general = NULL, specific = NULL,
+                          supplement = NULL, ...) {
+  # capture `name`
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  # general
+  .general <- glue::glue("`{name}` must be a single character.")
+
+  if (is.null(general)) {
+    general <- .general
+  }
+
+  .check_type(
+    x, "character", name, general, specific, supplement, NULL, NULL, ...)
+
+  .check_length(
+    x, 1, NULL, name, general, specific, supplement, NULL, NULL, ...)
+}
