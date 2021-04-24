@@ -5,28 +5,6 @@ NULL
 utils::globalVariables(".")
 
 
-join <- function(words, conjunction = "or") {
-  l <- length(words)
-
-  if (l == 1) {
-    return(words)
-  }
-
-  paste(
-    paste(words[-l], collapse = ", "),
-    conjunction,
-    words[l]
-  )
-}
-
-
-glue <- function(x, env = parent.frame()) {
-  x %>%
-    glue::glue(.envir = env) %>%
-    unclass()
-}
-
-
 # shortcut to check commonly used arguments
 check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
                             specific = NULL, n = NULL) {
@@ -48,16 +26,5 @@ check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
 
   if (!is.null(n)) {
     check_index(n)
-  }
-}
-
-
-print_string <- function(string, silent = FALSE) {
-  if (silent) {
-    string
-
-  } else {
-    cat(string, "\n")
-    invisible(string)
   }
 }
