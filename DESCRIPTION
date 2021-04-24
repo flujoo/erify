@@ -16,10 +16,11 @@ Encoding: UTF-8
 RoxygenNote: 7.1.1
 Imports:
     glue,
+    knitr,
     magrittr,
-    rlang
+    rlang,
+    rstudioapi
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    rmarkdown,
-    knitr
+    rmarkdown
 VignetteBuilder: knitr
