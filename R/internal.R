@@ -473,7 +473,7 @@ phrase_valid_content <- function(valid, as_double) {
 
   # general
   .general <- glue::glue(
-    "Each item of `{name}` must be",
+    "Each item of `{name}` must be ",
     "{ phrase_valid_content(valid, as_double) }."
   )
 
