@@ -67,10 +67,8 @@ check_type <- function(x, valid, name = NULL, general = NULL,
                        specific = NULL, supplement = NULL, feature = NULL,
                        ...) {
   # check arguments
-  g <- getOption("erify.general")
-
-  .check_type(valid, "character", general = g)
-  check_arguments(name, general, specific, supplement, .general = g)
+  .check_type(valid, "character", general = getOption("erify.general"))
+  check_arguments(name, general, specific, supplement)
 
   if (!is.null(feature)) {
     .check_string(feature, general = g)
