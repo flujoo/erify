@@ -65,13 +65,13 @@ is_single_positive_integer <- function(x) {
 #' @rdname validators
 #' @order 10
 #' @export
-check_bool <- function(x, name = NULL, general = NULL, specifics = NULL,
+check_bool <- function(x, name = NULL, general = NULL, specific = NULL,
                        supplement = NULL, ...) {
-  check_statement(name, general, specifics, supplement)
+  check_arguments(name, general, specific, supplement)
 
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
 
-  check_content(x, c(TRUE, FALSE), name, general, specifics, supplement, ...)
+  check_content(x, c(TRUE, FALSE), name, general, specific, supplement, ...)
 }
