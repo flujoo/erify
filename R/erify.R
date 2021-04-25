@@ -27,6 +27,7 @@ utils::globalVariables(".")
 
   ops <- list(
     erify.bullets = bullets,
+    erify.prepend = prepend,
     erify.general = general
   )
 
@@ -37,6 +38,7 @@ utils::globalVariables(".")
 .onUnload <- function(libpath) {
   ops <- list(
     erify.bullets = NULL,
+    erify.prepend = NULL,
     erify.general = NULL
   )
 
