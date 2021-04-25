@@ -202,7 +202,7 @@ is_empty <- function(statement) {
 
 
 
-# length utils ------------------------------------------------------------
+# validator utils ---------------------------------------------------------
 
 normalize_interval <- function(interval, valid) {
   if (!is.null(interval)) {
