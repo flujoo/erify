@@ -28,26 +28,27 @@
 
 # shortcut to check commonly used arguments
 check_arguments <- function(name = NULL, general = NULL, specific = NULL,
-                            supplement = NULL, n = NULL,
-                            .general = getOption("erify.general")) {
+                            supplement = NULL, n = NULL) {
+  g <- getOption("erify.general")
+
   if (!is.null(name)) {
-    .check_string(name, general = .general)
+    .check_string(name, general = g)
   }
 
   if (!is.null(general)) {
-    .check_string(general, general = .general)
+    .check_string(general, general = g)
   }
 
   if (!is.null(specific)) {
-    .check_string(specific, general = .general)
+    .check_string(specific, general = g)
   }
 
   if (!is.null(supplement)) {
-    .check_type(supplement, "character", general = .general)
+    .check_type(supplement, "character", general = g)
   }
 
   if (!is.null(n)) {
-    check_index(n, general = .general)
+    check_index(n, general = g)
   }
 }
 
