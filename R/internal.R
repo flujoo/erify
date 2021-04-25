@@ -36,10 +36,6 @@ normalize_specifics <- function(specifics, decorate = TRUE) {
     return()
   }
 
-  # check if called in R Markdown,
-  # since ANSI escape sequence not work in R Markdown
-  in_rmd <- isTRUE(getOption('knitr.in.progress'))
-
   # get bullets
   ns <- names(specifics)
 
@@ -54,13 +50,15 @@ normalize_specifics <- function(specifics, decorate = TRUE) {
 
     # decorate bullets
     if (decorate) {
+      bs <- getOption("erify.bullets")
+
       if (n %in% c("", "x")) {
-        n <- ifelse(in_rmd, "* ", "\u001b[0;31m\u2716\u001b[0m ")
+        n <- bs$x
       } else if (n == "i") {
-        n <- ifelse(in_rmd, "* ", "\u001b[0;36m\u2139\u001b[0m ")
-      } else {
-        n %<>% paste0(" ")
+        n <- bs$i
       }
+
+      n %<>% paste0(" ")
     }
 
     # prepend bullets
