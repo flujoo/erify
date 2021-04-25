@@ -259,9 +259,11 @@ phrase_valid_content <- function(valid, as_double) {
     valid %<>% as.double()
   }
 
-  valid %<>%
-    .freeze(TRUE) %>%
-    .join()
+  if (is.atomic(valid)) {
+    valid %>%
+      .freeze(TRUE) %>%
+      .join()
+  }
 }
 
 
