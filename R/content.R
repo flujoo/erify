@@ -71,29 +71,3 @@ check_content <- function(x, valid, name = NULL, general = NULL,
   .check_content(
     x, valid, name, general, specifics, supplement, code = FALSE, ...)
 }
-
-
-check_content_valid <- function(valid) {
-  general <- "`valid` must be a non-empty atomic vector."
-
-  if (!is.atomic(valid)) {
-    type <- typeof(valid)
-
-    .Statement(
-      general,
-      specifics = "`valid` has type {type}.",
-      env = environment()
-    ) %>% .trigger()
-
-  } else {
-    l <- length(valid)
-
-    if (l == 0) {
-      .Statement(
-        general,
-        specifics = "`valid` has length 0.",
-        env = environment()
-      ) %>% .trigger()
-    }
-  }
-}

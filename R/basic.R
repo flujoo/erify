@@ -81,3 +81,37 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 
   .check_type(x, valid, name, general, specific, supplement, feature, ...)
 }
+
+
+
+# content -----------------------------------------------------------------
+
+check_content_valid <- function(valid) {
+  pre <- getOption("erify.prepend")
+
+  # check type
+  pass <- (is.atomic(valid) && !is.null(valid)) ||
+    is.function(valid) ||
+    is.expression(valid)
+
+  if (!pass) {
+    general <- paste(
+      pre,
+      "`valid` must be a function, an expression, or an atomic vector."
+    )
+
+    specific <- "`valid` has type { typeof(valid) }."
+
+    .Statement(general, specific, environment()) %>% .trigger()
+  }
+
+  # check length
+  if (is.atomic(valid)) {
+    general <- paste(
+      pre,
+      "If `valid` is atomic, it must have length larger than 0."
+    )
+
+    .check_length(valid, c(0, NA), general = general)
+  }
+}
