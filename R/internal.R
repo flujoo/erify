@@ -366,16 +366,19 @@ phrase_valid_length <- function(valid, interval) {
     name <- deparse(substitute(x))
   }
 
+  # general
+  if (as_double && is.integer(valid)) {
+    valid %<>% as.double()
+  }
+
+  valid %<>%
+    .freeze(TRUE) %>%
+    .join()
+
+  .general <- glue::glue("`{name}` must be {valid}.")
+
   if (is.null(general)) {
-    if (as_double && is.integer(valid)) {
-      valid %<>% as.double()
-    }
-
-    valid %<>%
-      .freeze(TRUE) %>%
-      .join()
-
-    general <- "`{name}` must be {valid}."
+    general <- .general
   }
 
   if (is.null(specific)) {
