@@ -135,5 +135,5 @@ as_code <- function(x, recursive = FALSE, env = environment()) {
     }
   }
 
-  glue("`{s}`")
+  glue::glue("`{s}`") %>% unclass()
 }
