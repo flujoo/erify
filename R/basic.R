@@ -102,6 +102,40 @@ check_content_valid <- function(valid) {
 }
 
 
+#' @inherit check_string
+#'
+#' @title Check Argument's Content
+#'
+#' @description Check if an argument is from some given choices, and if not,
+#' generate an error message.
+#'
+#' @param valid A non-empty atomic vector which contains the valid choices.
+#'
+#' @param as_double Optional. `TRUE` or `FALSE` which indicates if to
+#' differentiate between types double and integer. The default value is
+#' `TRUE`, which means integers are handled as doubles.
+#'
+#' @export
+#'
+#' @examples
+#' valid <- c(1, 2, 3)
+#'
+#' x <- 2L
+#' check_content(x, valid)
+#'
+#' \dontrun{
+#' # `x` must have the same type with `valid`
+#' x <- "a"
+#' check_content(x, valid)
+#'
+#' # `x` must have length 1
+#' x <- c(1, 2)
+#' check_content(x, valid)
+#'
+#' # differentiate between types double and integer
+#' x <- 2L
+#' check_content(x, valid, as_double = FALSE)
+#' }
 check_content <- function(x, valid, name = NULL, general = NULL,
                           specific = NULL, supplement = NULL,
                           as_double = NULL, ...) {
