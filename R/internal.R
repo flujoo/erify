@@ -409,4 +409,5 @@ phrase_valid_length <- function(valid, interval) {
 
   .check_type(x, "character", name, general, specific, supplement, ...)
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
+  .check_content(x, "!is.na(x)", name, general, specific, supplement, ...)
 }
