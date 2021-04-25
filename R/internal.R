@@ -420,3 +420,68 @@ phrase_valid_content <- function(valid, as_double) {
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
   .check_content(x, "!is.na(x)", name, general, specific, supplement, ...)
 }
+
+
+.check_contents <- function(x, valid, name = NULL, general = NULL,
+                            specific = NULL, supplement = NULL,
+                            as_double = TRUE, as_code = TRUE, n = 5, ...) {
+  # if evaluate single character as code
+  is_code <- is.character(valid) && length(valid) == 1 && as_code
+
+  # capture name
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  # specific
+  if (is.null(specific)) {
+    if (is.atomic(x)) {
+      specific <- "`{name}[{i}]` is {x_i}."
+    } else if (is.list(x)) {
+      specific <- "`{name}[[{i}]]` is {x_i}."
+    }
+  }
+
+  specifics <- character(0)
+
+  for (i in 1:length(x)) {
+    x_i <- x[[i]]
+
+    if (is.function(valid)) {
+      pass <- valid(x_i)
+    } else if (is_code) {
+      pass <- eval(parse(text = valid))
+    } else {
+      pass <- x_i %in% valid
+    }
+
+    if (!pass) {
+      if (as_double && is.integer(x_i)) {
+        x_i %<>% as.double()
+      }
+
+      x_i <- .freeze(x_i, env = list(x = x_i))
+
+      specifics %<>% c(glue::glue(specific))
+    }
+  }
+
+  # early return
+  if (length(specifics) == 0) {
+    return(invisible())
+  }
+
+  # general
+  .general <- glue::glue(
+    "Each item of `{name}` must be",
+    "{ phrase_valid_content(valid, as_double) }."
+  )
+
+  if (is.null(general)) {
+    general <- .general
+  }
+
+  specifics %<>% .shorten(n)
+  specifics %<>% c(supplement)
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
+}
