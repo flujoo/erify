@@ -254,6 +254,17 @@ phrase_valid_length <- function(valid, interval) {
 }
 
 
+phrase_valid_content <- function(valid, as_double) {
+  if (as_double && is.integer(valid)) {
+    valid %<>% as.double()
+  }
+
+  valid %<>%
+    .freeze(TRUE) %>%
+    .join()
+}
+
+
 
 # validators --------------------------------------------------------------
 
@@ -367,15 +378,8 @@ phrase_valid_length <- function(valid, interval) {
   }
 
   # general
-  if (as_double && is.integer(valid)) {
-    valid %<>% as.double()
-  }
-
-  valid %<>%
-    .freeze(TRUE) %>%
-    .join()
-
-  .general <- glue::glue("`{name}` must be {valid}.")
+  .general <- glue::glue(
+    "`{name}` must be { phrase_valid_content(valid, as_double) }.")
 
   if (is.null(general)) {
     general <- .general
@@ -386,7 +390,7 @@ phrase_valid_length <- function(valid, interval) {
       x %<>% as.double()
     }
 
-    specific = "`{name}` is { .freeze(x, env = list(x = x)) }."
+    specific <- "`{name}` is { .freeze(x, env = list(x = x)) }."
   }
 
   # add `supplement`
