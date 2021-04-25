@@ -341,6 +341,58 @@ phrase_valid_length <- function(valid, interval) {
 }
 
 
+.check_content <- function(x, valid, name = NULL, general = NULL,
+                           specific = NULL, supplement = NULL,
+                           as_double = TRUE, as_code = TRUE, ...) {
+  # if evaluate single character as code
+  is_code <- is.character(valid) && length(valid) == 1 && as_code
+
+  # validity
+  # first two clauses are only for internal use
+  if (is.function(valid)) {
+    pass <- valid(x)
+  } else if (is_code) {
+    pass <- eval(parse(text = valid))
+  } else {
+    pass <- x %in% valid
+  }
+
+  # early return
+  if (pass) {
+    return(invisible(NULL))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  if (is.null(general)) {
+    if (as_double && is.integer(valid)) {
+      valid %<>% as.double()
+    }
+
+    valid %<>%
+      .freeze(TRUE) %>%
+      .join()
+
+    general <- "`{name}` must be {valid}."
+  }
+
+  if (is.null(specific)) {
+    if (as_double && is.integer(x)) {
+      x %<>% as.double()
+    }
+
+    specific = "`{name}` is { .freeze(x, env = list(x = x)) }."
+  }
+
+  # add `supplement`
+  specifics <- c(specific, supplement)
+
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
+}
+
+
 .check_string <- function(x, name = NULL, general = NULL, specific = NULL,
                           supplement = NULL, ...) {
   # capture `name`
