@@ -28,9 +28,8 @@
 
 # shortcut to check commonly used arguments
 check_arguments <- function(name = NULL, general = NULL, specific = NULL,
-                            supplement = NULL, n = NULL) {
-  .general <- getOption("erify.general")
-
+                            supplement = NULL, n = NULL,
+                            .general = getOption("erify.general")) {
   if (!is.null(name)) {
     .check_string(name, general = .general)
   }
