@@ -16,7 +16,7 @@ is_rstudio()
 is_jupyter()
 }
 \value{
-For \code{\link[=where]{where()}}:
+For \code{where()}:
 \itemize{
 \item If executed in R Markdown file, it returns the output format.
 If output format is not specified, it returns \code{"rmd"}.
@@ -25,11 +25,14 @@ If output format is not specified, it returns \code{"rmd"}.
 \item If executed in other contexts, it returns \code{"other"}.
 }
 
-\code{\link[=is_rmd]{is_rmd()}}, \code{\link[=is_rstudio]{is_rstudio()}} and \code{\link[=is_jupyter]{is_jupyter()}} return \code{TRUE} if executed
+\code{is_rmd()}, \code{is_rstudio()} and \code{is_jupyter()} return \code{TRUE} if executed
 in their corresponding contexts, or \code{FALSE} if not.
 }
 \description{
 Check if code is running in RStudio, R Markdown file,
 R Jupyter Notebook or other contexts. And if is in R Markdown file,
 check the output format.
+}
+\seealso{
+\code{\link[rstudioapi:isAvailable]{rstudioapi::isAvailable()}}, \code{\link[knitr:output_type]{knitr::pandoc_to()}}.
 }

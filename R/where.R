@@ -4,7 +4,7 @@
 #' R Jupyter Notebook or other contexts. And if is in R Markdown file,
 #' check the output format.
 #'
-#' @return For [where()]:
+#' @return For `where()`:
 #'
 #' - If executed in R Markdown file, it returns the output format.
 #' If output format is not specified, it returns `"rmd"`.
@@ -12,8 +12,10 @@
 #' - If executed in R Jupyter Notebook, it returns `"jupyter"`.
 #' - If executed in other contexts, it returns `"other"`.
 #'
-#' [is_rmd()], [is_rstudio()] and [is_jupyter()] return `TRUE` if executed
+#' `is_rmd()`, `is_rstudio()` and `is_jupyter()` return `TRUE` if executed
 #' in their corresponding contexts, or `FALSE` if not.
+#'
+#' @seealso [rstudioapi::isAvailable()], [knitr::pandoc_to()].
 #'
 #' @export
 where <- function() {
