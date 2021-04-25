@@ -302,8 +302,8 @@ phrase_valid_length <- function(valid, interval) {
   }
 
   # general
-  .general <-
-    glue::glue("`{name}` must have length { phrase_valid_length(valid) }.")
+  .general <- glue::glue(
+    "`{name}` must have length { phrase_valid_length(valid, interval) }.")
 
   if (is.null(general)) {
     general <- .general
