@@ -26,6 +26,31 @@
 }
 
 
+# shortcut to check commonly used arguments
+check_arguments <- function(name = NULL, general = NULL, specific = NULL,
+                            supplement = NULL, n = NULL) {
+  if (!is.null(name)) {
+    .check_string(name, general = add_erify())
+  }
+
+  if (!is.null(general)) {
+    .check_string(general, general = add_erify())
+  }
+
+  if (!is.null(specific)) {
+    .check_string(specific, general = add_erify())
+  }
+
+  if (!is.null(supplement)) {
+    .check_type(supplement, "character", general = add_erify())
+  }
+
+  if (!is.null(n)) {
+    check_index(n, general = add_erify())
+  }
+}
+
+
 
 # Statement ---------------------------------------------------------------
 
@@ -311,39 +336,4 @@ phrase_valid_length <- function(valid, interval) {
 
   .check_type(x, "character", name, general, specific, supplement, ...)
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
-}
-
-
-
-# erify -------------------------------------------------------------------
-
-add_erify <- function() {
-  in_rmd <- isTRUE(getOption('knitr.in.progress'))
-  pre <- ifelse(in_rmd, "(erify)", "\u001b[1;31m(erify)\u001b[0m")
-  paste(pre, "{.general}")
-}
-
-
-# shortcut to check commonly used arguments
-check_arguments <- function(name = NULL, general = NULL, specific = NULL,
-                            supplement = NULL, n = NULL) {
-  if (!is.null(name)) {
-    .check_string(name, general = add_erify())
-  }
-
-  if (!is.null(general)) {
-    .check_string(general, general = add_erify())
-  }
-
-  if (!is.null(specific)) {
-    .check_string(specific, general = add_erify())
-  }
-
-  if (!is.null(supplement)) {
-    .check_type(supplement, "character", general = add_erify())
-  }
-
-  if (!is.null(n)) {
-    check_index(n, general = add_erify())
-  }
 }
