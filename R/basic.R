@@ -100,3 +100,36 @@ check_content_valid <- function(valid) {
   # check length
   .check_length(valid, c(0, NA), general = getOption("erify.general"))
 }
+
+
+check_content <- function(x, valid, name = NULL, general = NULL,
+                          specific = NULL, supplement = NULL,
+                          as_double = NULL, ...) {
+  # check arguments
+  check_content_valid(valid)
+  check_arguments(name, general, specific, supplement)
+
+  if (!is.null(as_double)) {
+    check_bool(as_double, general = getOption("erify.general"))
+  }
+
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  if (is.null(as_double)) {
+    as_double <- TRUE
+  }
+
+  con <- as_double && is.numeric(x) && is.numeric(valid)
+
+  if (!con) {
+    .check_type(x, typeof(valid), name, general, specific, supplement, ...)
+  }
+
+  .check_length(x, 1, NULL, name, general, specific, supplement, ...)
+  .check_content(
+    x, valid, name, general, specific, supplement, as_double,
+    as_code = FALSE, ...
+  )
+}
