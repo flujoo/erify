@@ -20,12 +20,6 @@ check_length <- function(x, valid, interval = NULL, name = NULL,
 }
 
 
-is_integer <- function(x) {
-  con <- is.numeric(x) && all(as.integer(x) == x)
-  ifelse(is.na(con), TRUE, con)
-}
-
-
 check_length_valid <- function(valid, interval) {
   #
   general <- "`valid` must be a numeric vector of non-negative integers."
