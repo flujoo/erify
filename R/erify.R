@@ -5,52 +5,42 @@ NULL
 utils::globalVariables(".")
 
 
-join <- function(words, conjunction = "or") {
-  l <- length(words)
+.onLoad <- function(libname, pkgname) {
+  in_rmd <- is_rmd()
 
-  if (l == 1) {
-    return(words)
+  if (in_rmd) {
+    bullets <- list(x = "*", i = "*")
+  } else {
+    bullets <- list(
+      x = "\u001b[0;31m\u2716\u001b[0m",
+      i = "\u001b[0;36m\u2139\u001b[0m"
+    )
   }
 
-  paste(
-    paste(words[-l], collapse = ", "),
-    conjunction,
-    words[l]
+  prepend <- ifelse(
+    in_rmd,
+    "(erify)",
+    "\u001b[1;31m(erify)\u001b[0m"
   )
+
+  general <- paste(prepend, "{.general}")
+
+  ops <- list(
+    erify.bullets = bullets,
+    erify.prepend = prepend,
+    erify.general = general
+  )
+
+  options(ops)
 }
 
 
-glue <- function(x, env = parent.frame()) {
-  x %>%
-    glue::glue(.envir = env) %>%
-    unclass()
-}
+.onUnload <- function(libpath) {
+  ops <- list(
+    erify.bullets = NULL,
+    erify.prepend = NULL,
+    erify.general = NULL
+  )
 
-
-# shortcut to check commonly used arguments
-check_arguments <- function(name = NULL, general = NULL, specifics = NULL,
-                            supplement = NULL, specific = NULL, n = NULL) {
-  if (!is.null(name)) {
-    .check_string(name)
-  }
-
-  if (!is.null(general)) {
-    .check_string(general)
-  }
-
-  if (!is.null(specifics)) {
-    .check_type(specifics, "character")
-  }
-
-  if (!is.null(supplement)) {
-    .check_string(supplement)
-  }
-
-  if (!is.null(specific)) {
-    .check_string(specific)
-  }
-
-  if (!is.null(n)) {
-    check_index(n)
-  }
+  options(ops)
 }

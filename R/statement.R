@@ -1,108 +1,22 @@
-# Statement ---------------------------------------------------------------
-
-.Statement <- function(general, specifics = NULL, supplement = NULL,
-                       env = NULL, decorate = TRUE, ...) {
-  specifics %<>% normalize_specifics(decorate)
-
-  # create Statement object
-  list(
-    general = general,
-    specifics = specifics,
-    supplement = supplement,
-    env = env,
-    ...
-  ) %>% `class<-`("Statement")
-}
-
-
-#' @export
-print.Statement <- function(x, silent = FALSE, ...) {
-  # convert each part
-  ss <- x$general
-
-  specifics <- x$specifics
-  if (length(specifics) != 0) {
-    ss %<>% c(paste(specifics, collapse = "\n"))
-  }
-
-  ss %<>% c(x$supplement)
-
-  s <- paste(ss, collapse = "\n\n")
-
-  # render `s`
-  env <- x$env
-  if (!is.null(env)) {
-    s %<>% glue(env)
-  }
-
-  if (silent) {
-    s
-  } else {
-    cat(s, "\n")
-    invisible(s)
-  }
-}
-
-
-normalize_specifics <- function(specifics, decorate) {
-  l <- length(specifics)
-
-  if (l == 0) {
-    return()
-  }
-
-  # check if is in R Markdown
-  in_rmd <- isTRUE(getOption('knitr.in.progress'))
-  # ANSI escape sequence not work in R Markdown
-
-  ns <- names(specifics)
-
-  if (is.null(ns)) {
-    ns <- rep("", l)
-  }
-
-  for (i in 1:l) {
-    n <- ns[i]
-
-    if (decorate) {
-      if (n %in% c("", "x")) {
-        n <- ifelse(in_rmd, "\u2716 ", "\u001b[0;31m\u2716\u001b[0m ")
-      } else if (n == "i") {
-        n <- ifelse(in_rmd, "\u2139 ", "\u001b[0;36m\u2139\u001b[0m ")
-      } else {
-        n %<>% paste0(" ")
-      }
-    }
-
-    specifics[i] %<>% paste0(n, .)
-  }
-
-  specifics %>% unname()
-}
-
-
 #' @title Create `Statement` Object
 #'
 #' @description Create a `Statement` object.
 #'
-#' `Statement` objects are structured representations of
-#' normal, warning or error messages.
+#' `Statement` objects are used to create structured normal, warning or
+#' error messages.
 #'
-#' @param general A single character which represents the general statement
+#' @param general A single character which gives a general statement
 #' of a message.
 #'
-#' @param specifics Optional. A character vector which represents the details
+#' @param specifics Optional. A character vector which gives a list of details
 #' of a message. If `specifics` is a named vector, the names are used to
 #' create bullets. if the name is `"x"` or `"i"`, the bullet will be colored
-#' and bold. Any item with no name will be named with `"x"`. Argument
+#' and bold. Any item with no name will be named `"x"`. Argument
 #' `decorate` is used to turn on/off this process of adding and decorating
 #' bullets. See "Examples" section.
 #'
-#' @param supplement Optional. A single character which represents the
-#' supplementary message appended at the end.
-#'
 #' @param env Optional. An environment or named list which is used
-#' to evaluate the R code in the above three arguments.
+#' to evaluate the R code in the above arguments.
 #' See "Examples" section and [glue::glue()].
 #'
 #' @param decorate Optional. `TRUE` or `FALSE` which indicates if to decorate
@@ -115,138 +29,71 @@ normalize_specifics <- function(specifics, decorate) {
 #'
 #' @seealso [trigger()] for generating normal, warning and error messages.
 #'
-#' [glue::glue()] for inserting R code into characters.
+#' `vignette("erify")` for a gentle introduction to this package.
 #'
-#' [rlang::abort()] for adding additional arguments.
-#'
-#' `vignette("erify", package = "erify")` for a gentle introduction to this
-#' package.
-#'
-#' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
-#' for more details about the style behind `Statement` objects.
+#' @export
 #'
 #' @examples
 #' # quick example
 #' general <- "I am the general statement of the message."
 #' specifics <- c("Detail 1.", i = "Detail 2.", `*` = "Detail 3")
-#' supplement <- "I am the additional information."
-#' Statement(general, specifics, supplement)
+#' Statement(general, specifics)
 #'
 #' # do not decorate bullets
-#' Statement(general, specifics, supplement, decorate = FALSE)
+#' Statement(general, specifics, decorate = FALSE)
 #'
 #' # use R code in message
 #' Statement("`x` is `{x}`.", env = list(x = 1))
-#' @export
-Statement <- function(general, specifics = NULL, supplement = NULL,
-                      env = NULL, decorate = NULL, ...) {
-  check_statement(NULL, general, specifics, supplement)
+Statement <- function(general, specifics = NULL, env = NULL, decorate = NULL,
+                      ...) {
+  g <- getOption("erify.general")
+
+  .check_string(general, general = g)
+
+  if (!is.null(specifics)) {
+    .check_type(specifics, "character", general = g)
+  }
+
   check_env(env)
 
   if (!is.null(decorate)) {
-    check_bool(decorate)
+    check_bool(decorate, general = getOption("erify.general"))
   }
 
   if (is.null(decorate)) {
     decorate <- TRUE
   }
 
-  .Statement(general, specifics, supplement, env, decorate, ...)
+  .Statement(general, specifics, env, decorate, ...)
 }
 
 
 check_env <- function(env) {
   if (is.null(env)) {
-    return(invisible(NULL))
+    return(invisible())
   }
 
-  check_type(env, c("environment", "list"))
+  .check_type(
+    env, c("environment", "list"), general = getOption("erify.general"))
 
-  if (is.list(env)) {
-    general <- "If `env` is list, each item of it must be named."
-    ns <- names(env)
-
-    if (length(env) == 0) {
-      return(invisible(NULL))
-
-    } else if (is.null(ns)) {
-      .Statement(general, "`names(env)` is `NULL`.") %>% .trigger()
-
-    } else {
-      specifics <- character(0)
-      specific <- "`env[[{i}]]` has no name."
-
-      for (i in 1:length(ns)) {
-        if (ns[i] == "") {
-          specifics %<>% c(glue(specific))
-        }
-      }
-
-      if (length(specifics) != 0) {
-        .Statement(general, specifics) %>% .trigger()
-      }
-    }
-  }
-}
-
-
-
-# trigger -----------------------------------------------------------------
-
-shorten <- function(statement, n = 5) {
-  specifics <- statement$specifics
-  l <- length(specifics)
-
-  if (l <= n) {
-    return(statement)
+  if (is.environment(env) || length(env) == 0 ) {
+    return(invisible())
   }
 
-  statement$specifics <- specifics[1:n]
+  ns <- names(env)
 
-  supplement <- ifelse(
-    l == n + 1,
-    "... and 1 more problem.",
-    paste("... and", l - n, "more problems.")
+  general <- paste(
+    getOption("erify.prepend"),
+    "If `env` is list, each item of it must have a name."
   )
 
-  if (is.null(statement$supplement)) {
-    statement$supplement <- supplement
-  } else {
-    statement$supplement %<>% paste0(supplement, "\n\n", .)
-  }
+  valid <- "!is.null(x)"
+  specific <- "`names(env)` is `NULL`."
+  .check_content(ns, valid, NULL, general, specific)
 
-  statement
-}
-
-
-is_empty <- function(statement) {
-  statement %>%
-    {length(.$general) == 0 && length(.$specifics) == 0}
-}
-
-
-.trigger <- function(statement, as = "error", n = 5) {
-  if (is_empty(statement)) {
-    return(invisible(NULL))
-  }
-
-  if (as != "message") {
-    statement %<>% shorten(n)
-  }
-
-  s <- print(statement, silent = TRUE)
-
-  statement[c("general", "specifics", "supplement", "env")] <- NULL
-  args <- c(list(message = s), statement)
-
-  f <- switch(
-    as,
-    "error" = rlang::abort,
-    "warning" = rlang::warn,
-    "message" = rlang::inform
-  )
-
-  do.call(f, args)
+  valid <- 'x_i != ""'
+  specific <- "`env[[{i}]]` has no name."
+  .check_contents(ns, valid, NULL, general, specific)
 }
 
 
@@ -260,47 +107,36 @@ is_empty <- function(statement) {
 #' @param as Optional. `"error"`, `"warning"` or `"message"` which indicates
 #' how to trigger the `Statement` object. The default value is `"error"`.
 #'
-#' @param n Optional. A positive integer which indicates how many items of
-#' `specifics` of the `Statement` object at most to display. Used when `as`
-#' is `"error"` or `"warning"`. The default value is `5`.
+#' @return Generate a normal, warning or error message.
 #'
-#' @return An invisible `NULL`. A normal, warning or error message is
-#' generated.
+#' @seealso [Statement()] for creating `Statement` objects.
 #'
-#' @seealso [Statement()]
+#' `vignette("erify")` for a gentle introduction to this package.
+#'
+#' @export
 #'
 #' @examples
-#' s <- Statement("general", letters[1:6])
+#' s <- Statement("general", letters[1:3])
 #'
-#' # generate normal message
+#' # generate a normal message
 #' trigger(s, "message")
 #'
 #' \dontrun{
-#' # generate error message
+#' # generate an error message
 #' trigger(s, "error")
-#'
-#' # change `n`
-#' trigger(s, n = 2)
 #' }
-#' @export
-trigger <- function(statement, as = NULL, n = NULL) {
-  check_class(statement, "Statement")
+trigger <- function(statement, as = NULL) {
+  g <- getOption("erify.general")
+
+  check_class(statement, "Statement", general = g)
 
   if (!is.null(as)) {
-    .check_content(as, c("error", "warning", "message"))
-  }
-
-  if (!is.null(n)) {
-    check_index(n)
+    check_content(as, c("error", "warning", "message"), general = g)
   }
 
   if (is.null(as)) {
     as <- "error"
   }
 
-  if (is.null(n)) {
-    n <- 5
-  }
-
-  .trigger(statement, as, n)
+  .trigger(statement, as)
 }
