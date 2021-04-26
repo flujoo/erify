@@ -49,63 +49,86 @@ check_string <- function(x, name = NULL, general = NULL, specific = NULL,
 
 #' @inherit check_string
 #'
-#' @title Check If Argument Is Single Positive Integer
+#' @title Check If Argument Is Single Natural Number
 #'
-#' @description Check if an argument is a single positive integer,
+#' @description Check if an argument is a single natural number,
 #' and if not, generate an error message.
 #'
 #' Can be used to check indices, for example.
 #'
-#' The term "integer" is used in a mathematical sense, which means `1` and
-#' `1L` are both integers.
+#' @param zero Optional. `TRUE` or `FALSE` which indicates if zero is
+#' acceptable. The default value is `FALSE`.
 #'
 #' @export
 #'
 #' @examples
 #' x <- 1
-#' check_index(x)
+#' check_n(x)
 #'
 #' x <- 1L
-#' check_index(x)
+#' check_n(x)
 #'
 #' \dontrun{
 #' # `x` must be a numeric
 #' x <- "1"
-#' check_index(x)
+#' check_n(x)
 #'
 #' # `x` must have length 1
 #' x <- 1:2
-#' check_index(x)
+#' check_n(x)
 #'
 #' # `x` must not be `NA`
 #' x <- NA_integer_
-#' check_index(x)
+#' check_n(x)
 #'
 #' # `x` must be larger than 0
 #' x <- -1
-#' check_index(x)
+#' check_n(x)
 #'
 #' # `x` must be an integer in a mathematical sense
 #' x <- 1.1
-#' check_index(x)
+#' check_n(x)
+#'
+#' # make `0` acceptable
+#' x <- 0
+#' check_n(x)
+#' check_n(x, zero = TRUE)
 #' }
-check_index <- function(x, name = NULL, general = NULL, specific = NULL,
-                        supplement = NULL, ...) {
+check_n <- function(x, name = NULL, general = NULL, specific = NULL,
+                        supplement = NULL, zero = NULL, ...) {
+  # check arguments
   check_arguments(name, general, specific, supplement)
 
+  if (!is.null(zero)) {
+    check_bool(zero, general = getOption("erify.general"))
+  }
+
+  # capture name
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
 
+  if (is.null(zero)) {
+    zero <- FALSE
+  }
+
   if (is.null(general)) {
-    general <- "`{name}` must be a single positive integer."
+    if (zero) {
+      general <- "`{name}` must be a single non-negative integer."
+    } else {
+      general <- "`{name}` must be a single positive integer."
+    }
   }
 
   .check_type(
     x, c("double", "integer"), name, general, specific, supplement, ...)
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
-  .check_content(
-    x, "is_integer(x) && x > 0", name, general, specific, supplement, ...)
+
+  valid <-
+    ifelse(zero, "x >= 0", "x > 0") %>%
+    paste("&& is_integer(x)")
+
+  .check_content(x, valid, name, general, specific, supplement, ...)
 }
 
 
