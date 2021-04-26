@@ -423,7 +423,8 @@ phrase_valid_content <- function(valid, as_double) {
 
 .check_contents <- function(x, valid, name = NULL, general = NULL,
                             specific = NULL, supplement = NULL,
-                            as_double = TRUE, as_code = TRUE, n = 5, ...) {
+                            as_double = TRUE, as_code = TRUE, n = NULL,
+                            ...) {
   # if evaluate single character as code
   is_code <- is.character(valid) && length(valid) == 1 && as_code
 
@@ -480,7 +481,13 @@ phrase_valid_content <- function(valid, as_double) {
     general <- .general
   }
 
-  specifics %<>% .shorten(n)
-  specifics %<>% c(supplement)
+  if (is.null(n)) {
+    n <- 5
+  }
+
+  specifics %<>%
+    .shorten(n) %>%
+    c(supplement)
+
   .Statement(general, specifics, environment(), ...) %>% .trigger()
 }
