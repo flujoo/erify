@@ -63,7 +63,7 @@
 check_type <- function(x, valid, name = NULL, general = NULL,
                        specific = NULL, supplement = NULL, ...) {
   # check arguments
-  .check_type(valid, "character", general = getOption("erify.general"))
+  check_type_valid(valid)
   check_arguments(name, general, specific, supplement)
 
   # capture name
@@ -72,6 +72,13 @@ check_type <- function(x, valid, name = NULL, general = NULL,
   }
 
   .check_type(x, valid, name, general, specific, supplement, ...)
+}
+
+
+check_type_valid <- function(valid) {
+  general <- getOption("erify.general")
+  .check_type(valid, "character", general = general)
+  .check_length(valid, c(0, NA), general = general)
 }
 
 
