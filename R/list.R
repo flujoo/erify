@@ -91,3 +91,78 @@ check_types <- function(x, valid, name = NULL, general = NULL,
 }
 
 
+#' @inherit check_types
+#'
+#' @title Check Argument's Class
+#'
+#' @description Check if each item of an argument has valid class,
+#' and if not, generate an error message.
+#'
+#' @param valid A character vector which contains valid classes.
+#'
+#' @export
+#'
+#' @examples
+#' # argument to check
+#' arg <- lapply(1:10, function(x) {class(x) <- c("a", "b"); x})
+#'
+#' check_classes(arg, "a")
+#'
+#' \dontrun{
+#' check_classes(arg, c("x", "y"))
+#' }
+check_classes <- function(x, valid, name = NULL, general = NULL,
+                          specific = NULL, supplement = NULL, n = NULL, ...) {
+  # check arguments
+  .check_type(x, "list", general = getOption("erify.general"))
+  check_type_valid(valid)
+  check_arguments(name, general, specific, supplement, n)
+
+  l <- length(x)
+
+  # early return
+  if (l == 0) {
+    return(invisible())
+  }
+
+  # capture name
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  # specific
+  if (is.null(specific)) {
+    specific <- "`{name}[[{i}]]` has class { .join(feature, 'and') }."
+  }
+
+  specifics <- character(0)
+
+  for (i in 1:l) {
+    x_i <- x[[i]]
+    pass <- inherits(x_i, valid)
+
+    if (!pass) {
+      feature <- class(x_i)
+      specifics %<>% c(glue::glue(specific))
+    }
+  }
+
+  # early return
+  if (length(specifics) == 0) {
+    return(invisible())
+  }
+
+  if (is.null(general)) {
+    general <- "Each item of `{name}` must have class { .join(valid) }."
+  }
+
+  if (is.null(n)) {
+    n <- 5
+  }
+
+  specifics %<>%
+    .shorten(n) %>%
+    c(supplement)
+
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
+}
