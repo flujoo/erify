@@ -155,6 +155,10 @@ print.Statement <- function(x, silent = FALSE, ...) {
 
 
 .shorten <- function(specifics, n = 5) {
+  if (n == 0) {
+    return()
+  }
+
   l <- length(specifics)
 
   if (l <= n) {
