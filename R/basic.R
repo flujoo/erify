@@ -1,3 +1,5 @@
+# type --------------------------------------------------------------------
+
 #' @title Check Argument's Type
 #'
 #' @description Check if an argument has valid type,
@@ -83,23 +85,75 @@ check_type_valid <- function(valid) {
 
 
 
-# content -----------------------------------------------------------------
+# class -------------------------------------------------------------------
 
-check_content_valid <- function(valid) {
-  # check type
-  pass <- is.atomic(valid) && !is.null(valid)
+#' @inherit check_length
+#'
+#' @title Check Argument's Class
+#'
+#' @description Check if an argument has valid class, and if not,
+#' generate an error message.
+#'
+#' @param valid A character vector which contains valid classes.
+#'
+#' @export
+#'
+#' @examples
+#' x <- 1
+#' class(x) <- c("a", "b")
+#'
+#' check_class(x, c("a", "c"))
+#'
+#' \dontrun{
+#' check_class(x, c("c", "d"))
+#'
+#' # customize error message with `glue::glue()` syntax
+#' specific <- "Unbelievable! The first class of `{name}` is {feature[1]}."
+#' check_class(x, c("c", "d"), specific = specific)
+#' }
+check_class <- function(x, valid, name = NULL, general = NULL,
+                        specific = NULL, supplement = NULL, ...) {
+  # check arguments
+  check_type_valid(valid)
+  check_arguments(name, general, specific, supplement)
 
-  if (!pass) {
-    pre <- getOption("erify.prepend")
-    general <- paste(pre, "`valid` must have an atomic type.")
-    specific <- "`valid` has type { typeof(valid) }."
-    .Statement(general, specific, environment()) %>% .trigger()
+  # validity
+  pass <- inherits(x, valid)
+
+  # early return
+  if (pass) {
+    return(invisible())
   }
 
-  # check length
-  .check_length(valid, c(0, NA), general = getOption("erify.general"))
+  # capture name
+  if (is.null(name)) {
+    name <- deparse(substitute(x))
+  }
+
+  # extract feature
+  feature <- class(x)
+
+  # general
+  .general <- "`{name}` must have class { .join(valid) }."
+
+  if (is.null(general)) {
+    general <- .general
+  }
+
+  # specific
+  if (is.null(specific)) {
+    specific <- "`{name}` has class { .join(feature, 'and') }."
+  }
+
+  # add `supplement`
+  specifics <- c(specific, supplement)
+
+  .Statement(general, specifics, environment(), ...) %>% .trigger()
 }
 
+
+
+# content -----------------------------------------------------------------
 
 #' @inherit check_string
 #'
@@ -165,6 +219,22 @@ check_content <- function(x, valid, name = NULL, general = NULL,
     x, valid, name, general, specific, supplement, as_double,
     as_code = FALSE, ...
   )
+}
+
+
+check_content_valid <- function(valid) {
+  # check type
+  pass <- is.atomic(valid) && !is.null(valid)
+
+  if (!pass) {
+    pre <- getOption("erify.prepend")
+    general <- paste(pre, "`valid` must have an atomic type.")
+    specific <- "`valid` has type { typeof(valid) }."
+    .Statement(general, specific, environment()) %>% .trigger()
+  }
+
+  # check length
+  .check_length(valid, c(0, NA), general = getOption("erify.general"))
 }
 
 
