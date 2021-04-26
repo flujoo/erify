@@ -36,7 +36,7 @@ additional information about the error. The names are used to create
 bullets, see \code{\link[=Statement]{Statement()}}. By default, this is left empty.}
 
 \item{as_double}{Optional. \code{TRUE} or \code{FALSE} which indicates if to
-differentiate between types double and integer. The default value is
+differentiate between type double and integer. The default value is
 \code{TRUE}, which means integers are handled as doubles.}
 
 \item{...}{Optional. Additional arguments passed to \code{\link[rlang:abort]{rlang::abort()}},
@@ -65,7 +65,7 @@ check_content(x, valid)
 x <- c(1, 2)
 check_content(x, valid)
 
-# differentiate between types double and integer
+# differentiate between type double and integer
 x <- 2L
 check_content(x, valid, as_double = FALSE)
 }

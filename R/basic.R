@@ -111,7 +111,7 @@ check_content_valid <- function(valid) {
 #' @param valid A non-empty atomic vector which contains the valid choices.
 #'
 #' @param as_double Optional. `TRUE` or `FALSE` which indicates if to
-#' differentiate between types double and integer. The default value is
+#' differentiate between type double and integer. The default value is
 #' `TRUE`, which means integers are handled as doubles.
 #'
 #' @export
@@ -131,7 +131,7 @@ check_content_valid <- function(valid) {
 #' x <- c(1, 2)
 #' check_content(x, valid)
 #'
-#' # differentiate between types double and integer
+#' # differentiate between type double and integer
 #' x <- 2L
 #' check_content(x, valid, as_double = FALSE)
 #' }
