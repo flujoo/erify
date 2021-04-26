@@ -62,7 +62,7 @@ specific <- "`{name}[[{i}]]` is an {feature}, oh my god!"
 check_types(arg, "character",  specific = specific)
 
 # change the number of invalid items to display
-check_types(arg, "character", n = 3)
+check_types(arg, "character", n = 0)
 }
 }
 \seealso{
