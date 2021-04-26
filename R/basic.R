@@ -23,9 +23,6 @@
 #' additional information about the error. The names are used to create
 #' bullets, see [Statement()]. By default, this is left empty.
 #'
-#' @param feature Optional. A single character represents argument `x`'s
-#' type. By default, this is inferred from `x`.
-#'
 #' @param ... Optional. Additional arguments passed to [rlang::abort()],
 #' which is called internally.
 #'
@@ -64,22 +61,17 @@
 #'   error = function(e) e$your_arg
 #' )
 check_type <- function(x, valid, name = NULL, general = NULL,
-                       specific = NULL, supplement = NULL, feature = NULL,
-                       ...) {
+                       specific = NULL, supplement = NULL, ...) {
   # check arguments
   .check_type(valid, "character", general = getOption("erify.general"))
   check_arguments(name, general, specific, supplement)
-
-  if (!is.null(feature)) {
-    .check_string(feature, general = g)
-  }
 
   # capture name
   if (is.null(name)) {
     name <- deparse(substitute(x))
   }
 
-  .check_type(x, valid, name, general, specific, supplement, feature, ...)
+  .check_type(x, valid, name, general, specific, supplement, ...)
 }
 
 

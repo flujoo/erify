@@ -271,12 +271,9 @@ phrase_valid_content <- function(valid, as_double) {
 # validators --------------------------------------------------------------
 
 .check_type <- function(x, valid, name = NULL, general = NULL,
-                        specific = NULL, supplement = NULL, feature = NULL,
-                        ...) {
+                        specific = NULL, supplement = NULL, ...) {
   # extract feature
-  if (is.null(feature)) {
-    feature <- typeof(x)
-  }
+  feature <- typeof(x)
 
   # validity
   pass <- feature %in% valid
@@ -312,14 +309,12 @@ phrase_valid_content <- function(valid, as_double) {
 
 .check_length <- function(x, valid, interval = NULL, name = NULL,
                           general = NULL, specific = NULL, supplement = NULL,
-                          feature = NULL, ...) {
+                          ...) {
   # normalize `interval`
   interval %<>% normalize_interval(valid)
 
   # extract feature
-  if (is.null(feature)) {
-    feature <- length(x)
-  }
+  feature <- length(x)
 
   # validity
   pass <- is_valid_length(feature, valid, interval)

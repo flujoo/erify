@@ -11,7 +11,6 @@ check_type(
   general = NULL,
   specific = NULL,
   supplement = NULL,
-  feature = NULL,
   ...
 )
 }
@@ -35,9 +34,6 @@ description of the error. \code{\link[glue:glue]{glue::glue()}} syntax can be us
 \item{supplement}{Optional. A (named) character vector which gives some
 additional information about the error. The names are used to create
 bullets, see \code{\link[=Statement]{Statement()}}. By default, this is left empty.}
-
-\item{feature}{Optional. A single character represents argument \code{x}'s
-type. By default, this is inferred from \code{x}.}
 
 \item{...}{Optional. Additional arguments passed to \code{\link[rlang:abort]{rlang::abort()}},
 which is called internally.}
