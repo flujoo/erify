@@ -70,8 +70,8 @@ check_arguments <- function(name = NULL, general = NULL, specific = NULL,
 
   if (!is.null(n)) {
     pre <- getOption("erify.prepend")
-    g <- paste(pre, "`{name}` must be a single positive integer.")
-    check_n(n, general = g)
+    g <- paste(pre, "`{name}` must be a single non-negative integer.")
+    check_n(n, general = g, zero = TRUE)
   }
 }
 
