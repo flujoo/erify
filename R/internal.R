@@ -59,7 +59,9 @@ check_arguments <- function(name = NULL, general = NULL, specific = NULL,
   }
 
   if (!is.null(specific)) {
-    .check_string(specific, general = g)
+    .check_type(specific, "character", general = g)
+    .check_length(specific, c(0, 1), general = g)
+    # so that you can turn off `specific` with `character(0)`
   }
 
   if (!is.null(supplement)) {
