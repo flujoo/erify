@@ -138,7 +138,7 @@ check_class <- function(x, valid, name = NULL, general = NULL,
   feature <- class(x)
 
   # general
-  .general <- "`{name}` must have class { .join(valid) }."
+  .general <- glue::glue("`{name}` must have class { .join(valid) }.")
 
   if (is.null(general)) {
     general <- .general
