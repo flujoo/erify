@@ -2,21 +2,21 @@
 #'
 #' @description Create a `Statement` object.
 #'
-#' `Statement` objects are structured representations of
-#' normal, warning or error messages.
+#' `Statement` objects are used to create structured normal, warning or
+#' error messages.
 #'
-#' @param general A single character which represents the general statement
+#' @param general A single character which gives a general statement
 #' of a message.
 #'
-#' @param specifics Optional. A character vector which represents the details
+#' @param specifics Optional. A character vector which gives a list of details
 #' of a message. If `specifics` is a named vector, the names are used to
 #' create bullets. if the name is `"x"` or `"i"`, the bullet will be colored
-#' and bold. Any item with no name will be named with `"x"`. Argument
+#' and bold. Any item with no name will be named `"x"`. Argument
 #' `decorate` is used to turn on/off this process of adding and decorating
 #' bullets. See "Examples" section.
 #'
 #' @param env Optional. An environment or named list which is used
-#' to evaluate the R code in the above three arguments.
+#' to evaluate the R code in the above arguments.
 #' See "Examples" section and [glue::glue()].
 #'
 #' @param decorate Optional. `TRUE` or `FALSE` which indicates if to decorate
@@ -29,14 +29,7 @@
 #'
 #' @seealso [trigger()] for generating normal, warning and error messages.
 #'
-#' [glue::glue()] for inserting R code into characters.
-#'
-#' [rlang::abort()] for adding additional arguments.
-#'
 #' `vignette("erify")` for a gentle introduction to this package.
-#'
-#' [The tidyverse style guide](https://style.tidyverse.org/error-messages.html)
-#' for more details about the style behind `Statement` objects.
 #'
 #' @export
 #'
@@ -53,11 +46,18 @@
 #' Statement("`x` is `{x}`.", env = list(x = 1))
 Statement <- function(general, specifics = NULL, env = NULL, decorate = NULL,
                       ...) {
-  check_arguments(NULL, general, specifics)
+  g <- getOption("erify.general")
+
+  .check_string(general, general = g)
+
+  if (!is.null(specifics)) {
+    .check_type(specifics, "character", general = g)
+  }
+
   check_env(env)
 
   if (!is.null(decorate)) {
-    check_bool(decorate)
+    check_bool(decorate, general = getOption("erify.general"))
   }
 
   if (is.null(decorate)) {
@@ -70,36 +70,30 @@ Statement <- function(general, specifics = NULL, env = NULL, decorate = NULL,
 
 check_env <- function(env) {
   if (is.null(env)) {
-    return(invisible(NULL))
+    return(invisible())
   }
 
-  check_type(env, c("environment", "list"))
+  .check_type(
+    env, c("environment", "list"), general = getOption("erify.general"))
 
-  if (is.list(env)) {
-    general <- "If `env` is list, each item of it must be named."
-    ns <- names(env)
-
-    if (length(env) == 0) {
-      return(invisible(NULL))
-
-    } else if (is.null(ns)) {
-      .Statement(general, "`names(env)` is `NULL`.") %>% .trigger()
-
-    } else {
-      specifics <- character(0)
-      specific <- "`env[[{i}]]` has no name."
-
-      for (i in 1:length(ns)) {
-        if (ns[i] == "") {
-          specifics %<>% c(glue(specific))
-        }
-      }
-
-      if (length(specifics) != 0) {
-        .Statement(general, specifics) %>% .trigger()
-      }
-    }
+  if (is.environment(env) || length(env) == 0 ) {
+    return(invisible())
   }
+
+  ns <- names(env)
+
+  general <- paste(
+    getOption("erify.prepend"),
+    "If `env` is list, each item of it must have a name."
+  )
+
+  valid <- "!is.null(x)"
+  specific <- "`names(env)` is `NULL`."
+  .check_content(ns, valid, NULL, general, specific)
+
+  valid <- 'x_i != ""'
+  specific <- "`env[[{i}]]` has no name."
+  .check_contents(ns, valid, NULL, general, specific)
 }
 
 
@@ -113,27 +107,31 @@ check_env <- function(env) {
 #' @param as Optional. `"error"`, `"warning"` or `"message"` which indicates
 #' how to trigger the `Statement` object. The default value is `"error"`.
 #'
-#' @return An invisible `NULL`. A normal, warning or error message is
-#' generated.
+#' @return Generate a normal, warning or error message.
 #'
-#' @seealso [Statement()]
+#' @seealso [Statement()] for creating `Statement` objects.
+#'
+#' `vignette("erify")` for a gentle introduction to this package.
+#'
+#' @export
 #'
 #' @examples
 #' s <- Statement("general", letters[1:3])
 #'
-#' # generate normal message
+#' # generate a normal message
 #' trigger(s, "message")
 #'
 #' \dontrun{
-#' # generate error message
+#' # generate an error message
 #' trigger(s, "error")
 #' }
-#' @export
 trigger <- function(statement, as = NULL) {
-  check_class(statement, "Statement")
+  g <- getOption("erify.general")
+
+  check_class(statement, "Statement", general = g)
 
   if (!is.null(as)) {
-    .check_content(as, c("error", "warning", "message"))
+    check_content(as, c("error", "warning", "message"), general = g)
   }
 
   if (is.null(as)) {

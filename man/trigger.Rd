@@ -13,8 +13,7 @@ trigger(statement, as = NULL)
 how to trigger the \code{Statement} object. The default value is \code{"error"}.}
 }
 \value{
-An invisible \code{NULL}. A normal, warning or error message is
-generated.
+Generate a normal, warning or error message.
 }
 \description{
 Generate a normal, warning or error message with a
@@ -23,14 +22,16 @@ Generate a normal, warning or error message with a
 \examples{
 s <- Statement("general", letters[1:3])
 
-# generate normal message
+# generate a normal message
 trigger(s, "message")
 
 \dontrun{
-# generate error message
+# generate an error message
 trigger(s, "error")
 }
 }
 \seealso{
-\code{\link[=Statement]{Statement()}}
+\code{\link[=Statement]{Statement()}} for creating \code{Statement} objects.
+
+\code{vignette("erify")} for a gentle introduction to this package.
 }
