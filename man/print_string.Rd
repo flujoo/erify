@@ -9,8 +9,8 @@ print_string(string, silent = NULL)
 \arguments{
 \item{string}{A single character.}
 
-\item{silent}{Optional. \code{TRUE} or \code{FALSE} which indicates if to
-return \code{string} silently or print it. The default value is \code{FALSE}.}
+\item{silent}{\code{TRUE} or \code{FALSE} which indicates if to return \code{string}
+silently or print it. The default value is \code{FALSE}.}
 }
 \value{
 If \code{silent} is \code{TRUE}, \code{string} is returned. And if \code{silent} is

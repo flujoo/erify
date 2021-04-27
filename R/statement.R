@@ -149,8 +149,8 @@ trigger <- function(statement, as = NULL) {
 #'
 #' @param string A single character.
 #'
-#' @param silent Optional. `TRUE` or `FALSE` which indicates if to
-#' return `string` silently or print it. The default value is `FALSE`.
+#' @param silent `TRUE` or `FALSE` which indicates if to return `string`
+#' silently or print it. The default value is `FALSE`.
 #'
 #' @return If `silent` is `TRUE`, `string` is returned. And if `silent` is
 #' `FALSE`, `string` is printed, and invisible `string` is returned.
@@ -175,4 +175,17 @@ print_string <- function(string, silent = NULL) {
   }
 
   .print_string(string, silent)
+}
+
+
+#' @title Connect Words with Conjunction
+#'
+#' @description Connect given words with a conjunction, e.g. "and" and
+#' "or".
+#'
+#' @param words A vector of list whose items can be converted to characters.
+#'
+#' @param conjunction A string character which represents a conjunction word.
+join <- function(words, conjunction = NULL) {
+
 }
