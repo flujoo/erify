@@ -26,22 +26,22 @@
 }
 
 
-# this is black magic ...
-.freeze <- function(x, recursive = FALSE, env = environment()) {
+.back_quote <- function(x, as_double = TRUE) {
+  recursive <- (is.atomic(x) || is.list(x)) &&
+    length(x) > 0
+
   if (!recursive) {
-    s <- deparse(substitute(x, env = env))
-    # can't use %>% here
+    ss <- deparse(x)
 
   } else {
-    s <- character(0)
-
-    for (x_i in x) {
-      s_i <- deparse(substitute(x_i))
-      s %<>% c(s_i)
+    if (as_double && is.integer(x)) {
+      x %<>% as.double()
     }
+
+    ss <- sapply(x, deparse, USE.NAMES = FALSE)
   }
 
-  glue::glue("`{s}`") %>% unclass()
+  glue::glue("`{ss}`") %>% unclass()
 }
 
 
@@ -278,7 +278,7 @@ phrase_valid_content <- function(valid, as_double) {
 
   if (is.atomic(valid)) {
     valid %>%
-      .freeze(TRUE) %>%
+      .back_quote(as_double) %>%
       .join()
   }
 }
@@ -400,11 +400,7 @@ phrase_valid_content <- function(valid, as_double) {
   }
 
   if (is.null(specific)) {
-    if (as_double && is.integer(x)) {
-      x %<>% as.double()
-    }
-
-    specific <- "`{name}` is { .freeze(x, env = list(x = x)) }."
+    specific <- "`{name}` is { .back_quote(x, as_double) }."
   }
 
   # add `supplement`
@@ -469,12 +465,7 @@ phrase_valid_content <- function(valid, as_double) {
     }
 
     if (!pass) {
-      if (as_double && is.integer(x_i)) {
-        x_i %<>% as.double()
-      }
-
-      x_i <- .freeze(x_i, env = list(x = x_i))
-
+      x_i %<>% .back_quote(as_double)
       specifics %<>% c(glue::glue(specific))
     }
   }
