@@ -83,8 +83,11 @@ check_type <- function(x, valid, name = NULL, general = NULL,
 
 check_type_valid <- function(valid) {
   general <- getOption("erify.general")
-  .check_type(valid, "character", general = general)
-  .check_length(valid, c(0, NA), general = general)
+
+  name <- deparse(substitute(valid))
+
+  .check_type(valid, "character", name, general = general)
+  .check_length(valid, c(0, NA), NULL, name, general = general)
 }
 
 
