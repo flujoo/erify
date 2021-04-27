@@ -155,6 +155,8 @@ trigger <- function(statement, as = NULL) {
 #' @return If `silent` is `TRUE`, `string` is returned. And if `silent` is
 #' `FALSE`, `string` is printed, and invisible `string` is returned.
 #'
+#' @export
+#'
 #' @examples
 #' s <- "I'm a string."
 #'
