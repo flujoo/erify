@@ -180,3 +180,33 @@ join <- function(words, conjunction = NULL) {
 
   .join(words, conjunction)
 }
+
+
+#' @title Back Quote Object
+#'
+#' @description Convert an R object to character and add back quotations.
+#'
+#' @inheritParams check_content
+#'
+#' @param x An R object.
+#'
+#' @return A character vector.
+#'
+#' @export
+#'
+#' @examples
+#' back_quote(1:3)
+#' back_quote(1:3, FALSE)
+#' back_quote(NULL)
+#' back_quote(list(c, 1:3, "a"))
+back_quote <- function(x, as_double = NULL) {
+  if (!is.null(as_double)) {
+    check_bool(as_double)
+  }
+
+  if (is.null(as_double)) {
+    as_double <- TRUE
+  }
+
+  .back_quote(x, as_double)
+}
