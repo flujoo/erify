@@ -187,7 +187,25 @@ print_string <- function(string, silent = NULL) {
 #'
 #' @param words A vector of list whose items can be converted to characters.
 #'
-#' @param conjunction A string character which represents a conjunction word.
+#' @param conjunction A single character which represents a conjunction word.
+#' The default value is `"or"`.
+#'
+#' @return If has length 1 or less, `words` is returned. Or items of `words`
+#' are concatenated and returned.
+#'
+#' @export
+#'
+#' @examples
+#' words <- c("apple", "orange", "Pink Floyd")
+#' join(words, "and")
 join <- function(words, conjunction = NULL) {
+  if (!is.null(conjunction)) {
+    check_string(conjunction)
+  }
 
+  if (is.null(conjunction)) {
+    conjunction <- "or"
+  }
+
+  .join(words, conjunction)
 }
