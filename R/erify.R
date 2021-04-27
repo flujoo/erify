@@ -11,7 +11,7 @@ utils::globalVariables(".")
   if (context == "latex") {
     bullets <- list(x = "*", i = "*")
 
-  } else if (context %in% c("html", "docx")) {
+  } else if (context %in% c("html", "docx", "rmd", "gfm")) {
     bullets <- list(x = "\u2716", i = "\u2139")
 
   } else {
