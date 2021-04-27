@@ -3,6 +3,7 @@
 S3method(print,Statement)
 export(Statement)
 export(back_quote)
+export(check_binary_classes)
 export(check_bool)
 export(check_class)
 export(check_classes)
