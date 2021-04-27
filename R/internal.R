@@ -14,7 +14,7 @@
 .join <- function(words, conjunction = "or") {
   l <- length(words)
 
-  if (l == 1) {
+  if (l <= 1) {
     return(words)
   }
 
