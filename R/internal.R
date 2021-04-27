@@ -76,6 +76,15 @@ check_arguments <- function(name = NULL, general = NULL, specific = NULL,
 }
 
 
+is_integer <- function(x) {
+  all(
+    is.numeric(x),
+    is.finite(x), # also excludes `NA`
+    all(as.integer(x) == x)
+  )
+}
+
+
 
 # Statement ---------------------------------------------------------------
 
