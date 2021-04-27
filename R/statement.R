@@ -68,35 +68,6 @@ Statement <- function(general, specifics = NULL, env = NULL, decorate = NULL,
 }
 
 
-check_env <- function(env) {
-  if (is.null(env)) {
-    return(invisible())
-  }
-
-  .check_type(
-    env, c("environment", "list"), general = getOption("erify.general"))
-
-  if (is.environment(env) || length(env) == 0 ) {
-    return(invisible())
-  }
-
-  ns <- names(env)
-
-  general <- paste(
-    getOption("erify.prepend"),
-    "If `env` is list, each item of it must have a name."
-  )
-
-  valid <- "!is.null(x)"
-  specific <- "`names(env)` is `NULL`."
-  .check_content(ns, valid, NULL, general, specific)
-
-  valid <- 'x_i != ""'
-  specific <- "`env[[{i}]]` has no name."
-  .check_contents(ns, valid, NULL, general, specific)
-}
-
-
 #' @title Trigger `Statement` Object
 #'
 #' @description Generate a normal, warning or error message with a
