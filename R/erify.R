@@ -6,10 +6,14 @@ utils::globalVariables(".")
 
 
 .onLoad <- function(libname, pkgname) {
-  in_rmd <- is_rmd()
+  context <- where()
 
-  if (in_rmd) {
+  if (context == "latex") {
     bullets <- list(x = "*", i = "*")
+
+  } else if (context %in% c("html", "docx")) {
+    bullets <- list(x = "\u2716", i = "\u2139")
+
   } else {
     bullets <- list(
       x = "\u001b[0;31m\u2716\u001b[0m",
@@ -17,12 +21,7 @@ utils::globalVariables(".")
     )
   }
 
-  prepend <- ifelse(
-    in_rmd,
-    "(erify)",
-    "\u001b[1;31m(erify)\u001b[0m"
-  )
-
+  prepend <- ifelse(is_rmd(), "(erify)", "\u001b[1;31m(erify)\u001b[0m")
   general <- paste(prepend, "{.general}")
 
   ops <- list(
