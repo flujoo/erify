@@ -104,7 +104,7 @@ check_binary_classes <- function(x, y, valid_x, valid_y = NULL,
   pass <- inherits(x, valid_x) && inherits(y, valid_y)
 
   if (commutative) {
-    pass %<>% `||`(inherits(y, valid_x) && inherits(x, valid_y))
+    pass %<>% any(inherits(y, valid_x) && inherits(x, valid_y))
   }
 
   # early return
