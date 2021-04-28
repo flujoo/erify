@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">erify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -71,6 +71,9 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -100,7 +103,19 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#erify-" class="anchor"></a>erify <img src="reference/figures/logo.png" align="right" alt="logo" width="120">
 </h1></div>
+<!-- badges: start -->
+
 <p>Check arguments, and generate readable error messages.</p>
+<div id="motivation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#motivation" class="anchor"></a>Motivation</h2>
+<p>When creating functions for other people to use, you always need to</p>
+<ol>
+<li>check if the arguments passed by users are valid, and if not,</li>
+<li>generate informative and good-formatted error messages in a consistent style.</li>
+</ol>
+<p>erify serves the exact purpose.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -117,32 +132,47 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>Load erify:</p>
+<p>Suppose you are creating a function which prints a string several times to emphasize it:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/flujoo/erify">erify</a></span><span class="op">)</span></code></pre></div>
-<p>Check if the following argument is valid:</p>
+<code class="sourceCode R"><span class="co"># print `what` `n` times</span>
+<span class="va">emphasize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">what</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">what</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co"># example</span>
+<span class="fu">emphasize</span><span class="op">(</span><span class="st">"You're beautiful!"</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; You're beautiful! </span>
+<span class="co">#&gt; You're beautiful! </span>
+<span class="co">#&gt; You're beautiful!</span></code></pre></div>
+<p>And suppose a novice user accidentally passes a function to argument <code>what</code>, he/she will get an error message which is not very readable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">arg</span> <span class="op">&lt;-</span> <span class="st">"I'm invalid."</span></code></pre></div>
-<p>For example, check if it has valid type:</p>
+<code class="sourceCode R"><span class="fu">emphasize</span><span class="op">(</span><span class="va">c</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; Error in cat(what, "\n"): argument 1 (type 'builtin') cannot be handled by 'cat'</span></code></pre></div>
+<p>You can improve this by adding erify’s <code><a href="reference/check_type.html">check_type()</a></code> into <code>emphasize()</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/validators.html">check_type</a></span><span class="op">(</span><span class="va">arg</span>, <span class="st">"integer"</span><span class="op">)</span>
-<span class="co">#&gt; Error: `arg` must have type integer.</span>
+<code class="sourceCode R"><span class="va">emphasize</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">what</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># check the type of `what`</span>
+  <span class="fu">erify</span><span class="fu">::</span><span class="fu"><a href="reference/check_type.html">check_type</a></span><span class="op">(</span><span class="va">what</span>, <span class="st">"character"</span><span class="op">)</span>
+  
+  <span class="co"># main</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">what</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="fu">emphasize</span><span class="op">(</span><span class="va">c</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; Error: `what` must have type character.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ✖ `arg` has type character.</span></code></pre></div>
-<p>Check if it has valid length:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/validators.html">check_length</a></span><span class="op">(</span><span class="va">arg</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p>Or check if it is a positive integer:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/validators.html">check_n</a></span><span class="op">(</span><span class="va">arg</span><span class="op">)</span>
-<span class="co">#&gt; Error: `arg` must be a single positive integer.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ✖ `arg` has type character.</span></code></pre></div>
+<span class="co">#&gt; ✖ `what` has type builtin.</span></code></pre></div>
+<p>In the above code, <code><a href="reference/check_type.html">check_type(what, "character")</a></code> checks if <code>what</code> has type character, and if not, generates improved error message.</p>
 </div>
 <div id="more" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more" class="anchor"></a>More</h2>
-<p>See <code><a href="articles/erify.html">vignette("erify", package = "erify")</a></code> for a gentle introduction to erify.</p>
+<p>You can add more functions to check arguments, customize error messages, and create your own check functions.</p>
+<p>See <code><a href="articles/erify.html">vignette("erify")</a></code> for a gentle introduction to erify.</p>
 </div>
 </div>
   </div>
@@ -172,7 +202,13 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

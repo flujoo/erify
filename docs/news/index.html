@@ -22,7 +22,7 @@
   }
 </script>
 
-<title>Create Statement Object — Statement • erify</title>
+<title>Changelog • erify</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -72,10 +72,7 @@
 
 
 
-<meta property="og:title" content="Create Statement Object — Statement" />
-<meta property="og:description" content="Create a Statement object.
-Statement objects are used to create structured normal, warning or
-error messages." />
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://flujoo.github.io/erify/logo.png" />
 
 
@@ -98,7 +95,7 @@ error messages." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -152,88 +149,50 @@ error messages." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create <code>Statement</code> Object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/statement.R'><code>R/statement.R</code></a></small>
-    <div class="hidden name"><code>Statement.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/flujoo/erify/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>Create a <code>Statement</code> object.</p>
-<p><code>Statement</code> objects are used to create structured normal, warning or
-error messages.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>Statement</span><span class='op'>(</span><span class='va'>general</span>, specifics <span class='op'>=</span> <span class='cn'>NULL</span>, env <span class='op'>=</span> <span class='cn'>NULL</span>, decorate <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>general</th>
-      <td><p>A single character which gives a general statement
-of a message.</p></td>
-    </tr>
-    <tr>
-      <th>specifics</th>
-      <td><p>Optional. A character vector which gives a list of details
-of a message. If <code>specifics</code> is a named vector, the names are used to
-create bullets. if the name is <code>"x"</code> or <code>"i"</code>, the bullet will be colored
-and bold. Any item with no name will be named <code>"x"</code>. Argument
-<code>decorate</code> is used to turn on/off this process of adding and decorating
-bullets. See "Examples" section.</p></td>
-    </tr>
-    <tr>
-      <th>env</th>
-      <td><p>Optional. An environment or named list which is used
-to evaluate the R code in the above arguments.
-See "Examples" section and <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>decorate</th>
-      <td><p>Optional. <code>TRUE</code> or <code>FALSE</code> which indicates if to decorate
-the bullets of <code>specifics</code>. The default value is <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Optional. Additional arguments which can be passed to
-<code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::abort()</a></code> or related functions.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A list of class <code>Statement</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='trigger.html'>trigger()</a></code> for generating normal, warning and error messages.</p>
-<p><code><a href='../articles/erify.html'>vignette("erify")</a></code> for a gentle introduction to this package.</p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># quick example</span>
-<span class='va'>general</span> <span class='op'>&lt;-</span> <span class='st'>"I am the general statement of the message."</span>
-<span class='va'>specifics</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Detail 1."</span>, i <span class='op'>=</span> <span class='st'>"Detail 2."</span>, `*` <span class='op'>=</span> <span class='st'>"Detail 3"</span><span class='op'>)</span>
-<span class='fu'>Statement</span><span class='op'>(</span><span class='va'>general</span>, <span class='va'>specifics</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; I am the general statement of the message.
-#&gt; 
-#&gt; <span style='color: #BB0000;'>✖</span><span> Detail 1.
-#&gt; </span><span style='color: #00BBBB;'>ℹ</span><span> Detail 2.
-#&gt; * Detail 3 </div><div class='input'>
-<span class='co'># do not decorate bullets</span>
-<span class='fu'>Statement</span><span class='op'>(</span><span class='va'>general</span>, <span class='va'>specifics</span>, decorate <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; I am the general statement of the message.
-#&gt; 
-#&gt; Detail 1.
-#&gt; iDetail 2.
-#&gt; *Detail 3 </div><div class='input'>
-<span class='co'># use R code in message</span>
-<span class='fu'>Statement</span><span class='op'>(</span><span class='st'>"`x` is `{x}`."</span>, env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; `x` is `1`. </div></span></pre>
+    <div id="erify-020" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#erify-020" class="anchor"></a>erify 0.2.0<small> Unreleased </small>
+</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<ul>
+<li>Add <code><a href="../reference/check_binary_classes.html">check_binary_classes()</a></code>.</li>
+<li>Add <code><a href="../reference/where.html">where()</a></code> and related functions for detecting where code is running.</li>
+<li>Add <code><a href="../reference/join.html">join()</a></code> and <code><a href="../reference/back_quote.html">back_quote()</a></code> to facilitate error message generation.</li>
+</ul>
+</div>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>Changes</h2>
+<ul>
+<li>Add <code>n</code> and <code>specific</code> in <code><a href="../reference/check_classes.html">check_classes()</a></code> and <code><a href="../reference/check_types.html">check_types()</a></code>.</li>
+<li>Replace <code>specifics</code> with <code>specific</code> in validator functions.</li>
+<li>Deprecate <code>n</code> in <code><a href="../reference/trigger.html">trigger()</a></code>.</li>
+<li>Deprecate <code>supplement</code> in <code><a href="../reference/Statement.html">Statement()</a></code>.</li>
+</ul>
+</div>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<ul>
+<li>Revise README and vignette.</li>
+<li>Elaborate documentation.</li>
+</ul>
+</div>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
