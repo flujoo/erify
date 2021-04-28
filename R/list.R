@@ -93,7 +93,7 @@ check_types <- function(x, valid, name = NULL, general = NULL,
 
 #' @inherit check_types
 #'
-#' @title Check Argument's Class
+#' @title Check Each Item's Class
 #'
 #' @description Check if each item of an argument has valid class,
 #' and if not, generate an error message.

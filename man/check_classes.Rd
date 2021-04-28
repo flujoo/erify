@@ -2,7 +2,7 @@
 % Please edit documentation in R/list.R
 \name{check_classes}
 \alias{check_classes}
-\title{Check Argument's Class}
+\title{Check Each Item's Class}
 \usage{
 check_classes(
   x,
