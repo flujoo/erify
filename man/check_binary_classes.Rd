@@ -51,7 +51,7 @@ is generated.
 }
 \description{
 Check if the arguments of a binary operator have valid
-classes, and if not, generate error message.
+classes, and if not, generate an error message.
 }
 \examples{
 \dontrun{
