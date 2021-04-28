@@ -38,12 +38,6 @@ devtools::install_github("flujoo/erify")
 
 ## Example
 
-Load erify:
-
-``` r
-library(erify)
-```
-
 Suppose you are creating a function which prints a string several times
 to emphasize it:
 
@@ -74,11 +68,9 @@ You can improve this by adding erify’s `check_type()` into
 `emphasize()`:
 
 ``` r
-library(erify)
-
 emphasize <- function(what, n) {
   # check the type of `what`
-  check_type(what, "character")
+  erify::check_type(what, "character")
   
   # main
   for (i in 1:n) {
