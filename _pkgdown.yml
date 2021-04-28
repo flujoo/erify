@@ -13,23 +13,32 @@ navbar:
       href: "articles/erify.html"
     - text: "Reference"
       href: "reference/index.html"
+    - text: "Changelog"
+      href: "news/index.html"
 
 reference:
   - title: Validator Functions
     contents:
       - check_type
-      - check_types
       - check_class
-      - check_classes
       - check_length
       - check_content
+      - check_types
+      - check_classes
       - check_string
       - check_n
       - check_bool
+      - check_binary_classes
   - title: Create Validators
     contents:
       - Statement
       - trigger
+  - title: Utils
+    contents:
+      - where
+      - join
+      - back_quote
+      - print_string
 
 template:
   package: preferably
