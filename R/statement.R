@@ -196,8 +196,11 @@ join <- function(words, conjunction = NULL) {
 #'
 #' @examples
 #' back_quote(1:3)
+#'
 #' back_quote(1:3, FALSE)
+#'
 #' back_quote(NULL)
+#'
 #' back_quote(list(c, 1:3, "a"))
 back_quote <- function(x, as_double = NULL) {
   if (!is.null(as_double)) {

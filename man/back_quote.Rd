@@ -21,7 +21,10 @@ Convert an R object to character and add back quotations.
 }
 \examples{
 back_quote(1:3)
+
 back_quote(1:3, FALSE)
+
 back_quote(NULL)
+
 back_quote(list(c, 1:3, "a"))
 }
