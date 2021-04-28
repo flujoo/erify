@@ -291,3 +291,46 @@ s <- Statement(general, specifics, env = list(x = x))
 ```
 
 See `glue::glue()` for more details.
+
+
+## Other Tools
+
+`join()` connects given words with a conjunction:
+
+```{r}
+x <- c("Pink Floyd", "Pink Freud", "Pink Florida")
+join(x, "and")
+```
+
+`back_quote()` convert an R object to character and add back quotations:
+
+```{r}
+cat(back_quote(x))
+
+back_quote(c(1, 2, NA))
+```
+
+These two functions are useful to create error messages, as in the inside
+of `check_content()`:
+
+```{r}
+arg <- "Pink Florence"
+check_content(arg, x)
+```
+
+`where()` and related functions are useful for detecting where code is
+running. For example, 
+
+```{r}
+is_rmd()
+# the code is running in a R Markdown file
+
+where()
+# the output format is HTML
+
+is_rstudio()
+# not in RStudio
+
+is_jupyter()
+# not in a Jupyter Notebook
+```
