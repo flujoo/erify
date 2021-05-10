@@ -252,3 +252,85 @@ shorten <- function(specifics, n = NULL) {
 
   .shorten(specifics, n)
 }
+
+
+#' @title Shortcut to Trigger Message
+#'
+#' @description A shortcut to trigger a message.
+#'
+#' @inheritParams Statement
+#'
+#' @param specifics Optional. A character vector which gives a list of details
+#' of a message. If is `character(0)`, `throw()` returns silently.
+#'
+#' @param env Optional. An environment or named list which is used to evaluate
+#' the R code in the above arguments.
+#'
+#' @param n Optional. A positive integer which indicates how many message
+#' details at most to display. The default value is `5`.
+#'
+#' @param as Optional. `"error"`, `"warning"` or `"message"` which indicates
+#' how to trigger the message. The default value is `"error"`.
+#'
+#' @return If `specifics` is `character(0)`, returns an invisible `NULL`.
+#' Or generate a normal, warning, or error message.
+#'
+#' @seealso This function is a shortcut of [shorten()], [Statement()] and
+#' [trigger()].
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' general <- "You are wrong."
+#' throw(general)
+#'
+#' # returns silently if `specifics` is `character(0)`
+#' throw(general, character(0))
+#'
+#' # display less details
+#' throw(general, letters, n = 3)
+#' }
+throw <- function(general, specifics = NULL, env = NULL, n = NULL, as = NULL,
+                  ...) {
+  # check arguments
+  g <- getOption("erify.general")
+
+  .check_string(general, general = g)
+
+  if (!is.null(specifics)) {
+    .check_type(specifics, "character", general = g)
+  }
+
+  check_env(env)
+
+  if (!is.null(n)) {
+    pre <- getOption("erify.prepend")
+    g_n <- paste(pre, "`{name}` must be a positive integer.")
+    check_n(n, general = g_n)
+  }
+
+  if (!is.null(as)) {
+    check_content(as, c("error", "warning", "message"), general = g)
+  }
+
+  # normalize arguments
+  if (is.null(n)) {
+    n <- 5
+  }
+
+  if (is.null(as)) {
+    as <- "error"
+  }
+
+  # return silently if specifics is `character(0)`
+  if (identical(specifics, character(0))) {
+    return(invisible())
+  }
+
+  # main
+  specifics %>%
+    .shorten(n) %>%
+    .Statement(general, ., env, ...) %>%
+    .trigger(as)
+}
