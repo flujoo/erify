@@ -213,3 +213,42 @@ back_quote <- function(x, as_double = NULL) {
 
   .back_quote(x, as_double)
 }
+
+
+#' @title Shorten Message
+#'
+#' @description Shorten a list of message details.
+#'
+#' @param specifics A character vector which gives a list of message
+#' details.
+#'
+#' @param n Optional. A positive integer which indicates how many message
+#' details at most to display. The default value is `5`.
+#'
+#' @return A character vector.
+#'
+#' @seealso Usually used with [Statement()] and [trigger()].
+#'
+#' @export
+#'
+#' @examples
+#' ss <- letters[1:6]
+#'
+#' shorten(ss)
+#'
+#' shorten(ss, 3)
+#'
+#' shorten(ss, 7)
+shorten <- function(specifics, n = NULL) {
+  .check_type(specifics, "character")
+
+  if (!is.null(n)) {
+    check_n(n)
+  }
+
+  if (is.null(n)) {
+    n <- 5
+  }
+
+  .shorten(specifics, n)
+}
