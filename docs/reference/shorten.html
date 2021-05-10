@@ -22,7 +22,7 @@
   }
 </script>
 
-<title>Function reference • erify</title>
+<title>Shorten Message — shorten • erify</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -72,7 +72,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Shorten Message — shorten" />
+<meta property="og:description" content="Shorten a list of message details." />
 <meta property="og:image" content="https://flujoo.github.io/erify/logo.png" />
 
 
@@ -95,7 +96,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -147,170 +148,54 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Shorten Message</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/statement.R'><code>R/statement.R</code></a></small>
+    <div class="hidden name"><code>shorten.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Shorten a list of message details.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>shorten</span><span class='op'>(</span><span class='va'>specifics</span>, n <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-validator-functions" class="hasAnchor"><a href="#section-validator-functions" class="anchor"></a>Validator Functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_type.html">check_type()</a></code> </p>
-        </td>
-        <td><p>Check Argument's Type</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_class.html">check_class()</a></code> </p>
-        </td>
-        <td><p>Check Argument's Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_length.html">check_length()</a></code> </p>
-        </td>
-        <td><p>Check Argument's Length</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_content.html">check_content()</a></code> </p>
-        </td>
-        <td><p>Check Argument's Content</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_types.html">check_types()</a></code> </p>
-        </td>
-        <td><p>Check Each Item's Type</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_classes.html">check_classes()</a></code> </p>
-        </td>
-        <td><p>Check Each Item's Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_string.html">check_string()</a></code> </p>
-        </td>
-        <td><p>Check If Argument Is Single Character</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_n.html">check_n()</a></code> </p>
-        </td>
-        <td><p>Check If Argument Is Single Natural Number</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_bool.html">check_bool()</a></code> </p>
-        </td>
-        <td><p>Check If Argument Is Single Logical</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_binary_classes.html">check_binary_classes()</a></code> </p>
-        </td>
-        <td><p>Check Binary Operator's Arguments' Classes</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-create-validators" class="hasAnchor"><a href="#section-create-validators" class="anchor"></a>Create Validators</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="Statement.html">Statement()</a></code> </p>
-        </td>
-        <td><p>Create <code>Statement</code> Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trigger.html">trigger()</a></code> </p>
-        </td>
-        <td><p>Trigger <code>Statement</code> Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="throw.html">throw()</a></code> </p>
-        </td>
-        <td><p>Shortcut to Trigger Message</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utils" class="hasAnchor"><a href="#section-utils" class="anchor"></a>Utils</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="where.html">where()</a></code> <code><a href="where.html">is_rmd()</a></code> <code><a href="where.html">is_rstudio()</a></code> <code><a href="where.html">is_jupyter()</a></code> </p>
-        </td>
-        <td><p>Detect Where Code Is Running</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="join.html">join()</a></code> </p>
-        </td>
-        <td><p>Connect Words with Conjunction</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="back_quote.html">back_quote()</a></code> </p>
-        </td>
-        <td><p>Back Quote Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print_string.html">print_string()</a></code> </p>
-        </td>
-        <td><p>Return or Print String</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="shorten.html">shorten()</a></code> </p>
-        </td>
-        <td><p>Shorten Message</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>specifics</th>
+      <td><p>A character vector which gives a list of message
+details.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>Optional. A positive integer which indicates how many message
+details at most to display. The default value is <code>5</code>.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A character vector.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Usually used with <code><a href='Statement.html'>Statement()</a></code> and <code><a href='trigger.html'>trigger()</a></code>.</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>ss</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>
+
+<span class='fu'>shorten</span><span class='op'>(</span><span class='va'>ss</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a"                       "b"                      
+#&gt; [3] "c"                       "d"                      
+#&gt; [5] "e"                       "... and 1 more problem."</div><div class='input'>
+<span class='fu'>shorten</span><span class='op'>(</span><span class='va'>ss</span>, <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a"                        "b"                       
+#&gt; [3] "c"                        "... and 3 more problems."</div><div class='input'>
+<span class='fu'>shorten</span><span class='op'>(</span><span class='va'>ss</span>, <span class='fl'>7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a" "b" "c" "d" "e" "f"</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
