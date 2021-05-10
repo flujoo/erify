@@ -482,7 +482,7 @@ phrase_valid_content <- function(valid, as_double) {
 
   specifics <- character(0)
 
-  for (i in seq_len(length(x))) {
+  for (i in seq_along(x)) {
     x_i <- x[[i]]
 
     if (is.function(valid)) {
