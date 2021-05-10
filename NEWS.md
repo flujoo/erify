@@ -1,3 +1,9 @@
+# erify (dev)
+
+* Add `throw()`.
+* Add `shorten()`.
+
+
 # erify 0.2.0
 
 ## Features
