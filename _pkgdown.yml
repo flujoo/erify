@@ -33,12 +33,14 @@ reference:
     contents:
       - Statement
       - trigger
+      - throw
   - title: Utils
     contents:
       - where
       - join
       - back_quote
       - print_string
+      - shorten
 
 template:
   package: preferably
