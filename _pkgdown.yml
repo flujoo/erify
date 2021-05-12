@@ -39,7 +39,6 @@ reference:
       - where
       - join
       - back_quote
-      - print_string
       - shorten
 
 template:

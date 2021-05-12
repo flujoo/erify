@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   erify: erify.html
-last_built: 2021-05-10T07:56Z
+last_built: 2021-05-12T17:31Z
 urls:
   reference: https://flujoo.github.io/erify/reference
   article: https://flujoo.github.io/erify/articles
