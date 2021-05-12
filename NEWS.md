@@ -1,5 +1,6 @@
 # erify (dev)
 
+* Remove `print_string()`.
 * Add `throw()`.
 * Add `shorten()`.
 

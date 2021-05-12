@@ -113,44 +113,6 @@ trigger <- function(statement, as = NULL) {
 }
 
 
-#' @title Return or Print String
-#'
-#' @description Can be used in user-defined `print()` methods to
-#' return silently generated strings, or print them.
-#'
-#' @param string A single character.
-#'
-#' @param silent `TRUE` or `FALSE` which indicates if to return `string`
-#' silently or print it. The default value is `FALSE`.
-#'
-#' @return If `silent` is `TRUE`, `string` is returned. And if `silent` is
-#' `FALSE`, `string` is printed, and invisible `string` is returned.
-#'
-#' @export
-#'
-#' @examples
-#' s <- "I'm a string."
-#'
-#' # print `s`
-#' print_string(s)
-#'
-#' # return `s`
-#' print_string(s, TRUE)
-print_string <- function(string, silent = NULL) {
-  check_string(string)
-
-  if (!is.null(silent)) {
-    check_bool(silent)
-  }
-
-  if (is.null(silent)) {
-    silent <- FALSE
-  }
-
-  .print_string(string, silent)
-}
-
-
 #' @title Connect Words with Conjunction
 #'
 #' @description Connect given words with a conjunction, e.g. "and" and
