@@ -487,6 +487,8 @@ phrase_valid_content <- function(valid, as_double) {
 
     if (is.function(valid)) {
       pass <- valid(x_i)
+    } else if (is.expression(valid)) {
+      pass <- eval(valid)
     } else if (is_code) {
       pass <- eval(parse(text = valid))
     } else {
