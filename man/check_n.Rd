@@ -2,6 +2,7 @@
 % Please edit documentation in R/single.R
 \name{check_n}
 \alias{check_n}
+\alias{is_n}
 \title{Check If Argument Is Single Natural Number}
 \usage{
 check_n(
@@ -13,6 +14,8 @@ check_n(
   zero = NULL,
   ...
 )
+
+is_n(x, zero = NULL)
 }
 \arguments{
 \item{x}{The argument to check, which can be any object.}
@@ -40,8 +43,10 @@ acceptable. The default value is \code{FALSE}.}
 which is called internally.}
 }
 \value{
-An invisible \code{NULL} if the argument is valid, or an error message
-is generated.
+\code{check_n()} returns an invisible \code{NULL} if the argument
+is valid, or it generates an error message.
+
+\code{is_n()} returns \code{TRUE} or \code{FALSE}.
 }
 \description{
 Check if an argument is a single natural number,

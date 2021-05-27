@@ -322,7 +322,7 @@ check_length_valid <- function(valid, interval) {
     "`valid` must contain only non-negative integers and `NA`."
   )
 
-  .valid <- "is.na(x_i) || (is_integer(x_i) && x_i >= 0)"
+  .valid <- "is.na(x_i) || is_n(x_i, TRUE)"
   .check_contents(valid, .valid, general = general)
 
   #

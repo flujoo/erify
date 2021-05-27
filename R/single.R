@@ -59,6 +59,11 @@ check_string <- function(x, name = NULL, general = NULL, specific = NULL,
 #' @param zero Optional. `TRUE` or `FALSE` which indicates if zero is
 #' acceptable. The default value is `FALSE`.
 #'
+#' @return `check_n()` returns an invisible `NULL` if the argument
+#' is valid, or it generates an error message.
+#'
+#' `is_n()` returns `TRUE` or `FALSE`.
+#'
 #' @export
 #'
 #' @examples
@@ -124,11 +129,26 @@ check_n <- function(x, name = NULL, general = NULL, specific = NULL,
     x, c("double", "integer"), name, general, specific, supplement, ...)
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
 
-  valid <-
-    ifelse(zero, "x >= 0", "x > 0") %>%
-    paste("&& is_integer(x)")
-
+  valid <- expression(is_n(x, zero))
   .check_content(x, valid, name, general, specific, supplement, ...)
+}
+
+
+#' @rdname check_n
+#' @export
+is_n <- function(x, zero = NULL) {
+  if (!is.null(zero)) {
+    check_bool(zero)
+  }
+
+  if (is.null(zero)) {
+    zero <- FALSE
+  }
+
+  is.numeric(x) &&
+    is.finite(x) &&
+    ifelse(zero, x >= 0, x > 0) &&
+    (as.integer(x) == x)
 }
 
 
