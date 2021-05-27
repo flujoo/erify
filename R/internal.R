@@ -396,6 +396,8 @@ phrase_valid_content <- function(valid, as_double) {
   # first two clauses are only for internal use
   if (is.function(valid)) {
     pass <- valid(x)
+  } else if (is.expression(valid)) {
+    pass <- eval(valid)
   } else if (is_code) {
     pass <- eval(parse(text = valid))
   } else {
