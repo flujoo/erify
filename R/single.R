@@ -129,7 +129,7 @@ check_n <- function(x, name = NULL, general = NULL, specific = NULL,
     x, c("double", "integer"), name, general, specific, supplement, ...)
   .check_length(x, 1, NULL, name, general, specific, supplement, ...)
 
-  valid <- expression(is_n(x, zero))
+  valid <- function(x) is_n(x, zero)
   .check_content(x, valid, name, general, specific, supplement, ...)
 }
 
