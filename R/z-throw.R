@@ -1,3 +1,54 @@
+#' @title Generate and Signal Condition
+#'
+#' @description Generate and signal a condition.
+#'
+#' @param general A single character which gives a general statement of
+#' the condition.
+#'
+#' @param specifics Optional. A character vector which gives a list of details
+#' of the condition. If is `character(0)`, `throw()` will return silently.
+#' If is a named vector, the names are used to create bullets. If the name is
+#' `"x"` or `"i"`, the bullet will be colored and bold. The default name is
+#' `"x"`. You can customize bullets with option `erify.bullets`.
+#'
+#' @param env Optional. An environment or named list which is used to evaluate
+#' the R code in the above arguments. See [glue::glue()].
+#'
+#' @param as Optional. `"error"`, `"warning"` or `"message"` which indicates
+#' how to signal the condition. The default value is `"error"`.
+#'
+#' @param class Optional. A character vector which assigns classes to the
+#' condition.
+#'
+#' @param ... Optional. Additional arguments which are stored in the
+#' condition and can be retrieved with [tryCatch()].
+#'
+#' @return If `specifics` is `character(0)`, returns an invisible `NULL`.
+#' Or signals an error, a warning, or a message.
+#'
+#' @export
+#'
+#' @examples
+#' general <- "You are wrong."
+#'
+#' # returns silently
+#' throw(general, character(0))
+#'
+#' \dontrun{
+#' throw(general)
+#'
+#' specifics <- c("Detail 1.", i = "Detail 2.")
+#' throw(general, specifics)
+#'
+#' # embed R code with glue syntax
+#' throw("`x` is {x}.", env = list(x = 1))
+#' }
+#'
+#' # add and retrieve additional argument
+#' tryCatch(
+#'   { throw(general, arg = "I'm an additional argument.") },
+#'   error = function(e) e$arg
+#' )
 throw <- function(general, specifics = NULL, env = NULL, as = "error",
                   class = NULL, ...) {
   # return silently if `specifics` is empty
