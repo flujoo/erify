@@ -18,8 +18,6 @@ RoxygenNote: 7.1.1
 Imports:
     glue,
     knitr,
-    magrittr,
-    rlang,
     rstudioapi
 Roxygen: list(markdown = TRUE)
 Suggests: 
