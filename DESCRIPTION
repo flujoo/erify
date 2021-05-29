@@ -1,7 +1,7 @@
 Package: erify
 Type: Package
 Title: Check Arguments and Generate Readable Error Messages
-Version: 0.2.0
+Version: 0.3.0
 Author: Renfei Mao
 Maintainer: Renfei Mao <renfeimao@gmail.com>
 Description: Provides several validator functions to check if arguments passed
