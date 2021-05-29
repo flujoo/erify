@@ -17,7 +17,7 @@ initialize_bullets <- function() {
 
 
 erify_options <- list(
-  bullets = initialize_bullets()
+  erify.bullets = initialize_bullets()
 )
 
 
