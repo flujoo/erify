@@ -38,7 +38,7 @@ where <- function() {
 #' @rdname where
 #' @export
 is_rmd <- function() {
-  getOption('knitr.in.progress') %>%
+  getOption('knitr.in.progress') |>
     isTRUE()
 }
 
@@ -53,9 +53,9 @@ is_rstudio <- function() {
 #' @rdname where
 #' @export
 is_jupyter <- function() {
-  options() %>%
-    names() %>%
-    grep("jupyter", .) %>%
-    length() %>%
+  options() |>
+    names() |>
+    grep("jupyter", .) |>
+    length() |>
     as.logical()
 }
