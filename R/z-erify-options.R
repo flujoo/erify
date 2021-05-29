@@ -17,7 +17,9 @@ initialize_bullets <- function() {
 
 
 erify_options <- list(
-  erify.bullets = initialize_bullets()
+  erify.bullets = initialize_bullets(),
+  # how many specifics at most to display
+  erify.n = 5L
 )
 
 
