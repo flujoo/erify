@@ -1,3 +1,21 @@
+initialize_bullets <- function() {
+  context <- where()
+
+  if (context == "latex") {
+    list(x = "* ", i = "* ")
+
+  } else if (context %in% c("html", "docx", "rmd", "gfm")) {
+    list(x = "\u2716 ", i = "\u2139 ")
+
+  } else {
+    list(
+      x = "\u001b[0;31m\u2716\u001b[0m ",
+      i = "\u001b[0;36m\u2139\u001b[0m "
+    )
+  }
+}
+
+
 erify_options <- list(
   bullets = initialize_bullets()
 )
@@ -42,22 +60,4 @@ erify_options <- list(
   }
 
   invisible()
-}
-
-
-initialize_bullets <- function() {
-  context <- where()
-
-  if (context == "latex") {
-    list(x = "* ", i = "* ")
-
-  } else if (context %in% c("html", "docx", "rmd", "gfm")) {
-    list(x = "\u2716 ", i = "\u2139 ")
-
-  } else {
-    list(
-      x = "\u001b[0;31m\u2716\u001b[0m ",
-      i = "\u001b[0;36m\u2139\u001b[0m "
-    )
-  }
 }
