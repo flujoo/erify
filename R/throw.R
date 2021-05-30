@@ -82,7 +82,7 @@ decorate_specifics <- function(specifics) {
       bullet <- name
     }
 
-    specifics[i] <- paste0(bullet, specific)
+    specifics[i] <- paste(bullet, specific)
   }
 
   specifics
