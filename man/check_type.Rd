@@ -69,7 +69,7 @@ check_type(arg, "character", supplement = supplement)
 
 # turn off `specific`
 options(erify.n = 0)
-check_type(arg, "character", specific = character(0))
+check_type(arg, "character")
 }
 
 # add and retrieve additional argument
