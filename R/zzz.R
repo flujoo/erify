@@ -16,19 +16,18 @@ initialize_bullets <- function() {
 }
 
 
-erify_options <- list(
-  erify.bullets = initialize_bullets(),
-  # how many specifics at most to display
-  erify.n = 5L
-)
-
-
 # erify options that are already set will not be changed
 .onLoad <- function(libname, pkgname) {
-  to_set <- !(names(erify_options) %in% names(options()))
+  ops <- list(
+    erify.bullets = initialize_bullets(),
+    # how many specifics at most to display
+    erify.n = 5L
+  )
+
+  to_set <- !(names(ops) %in% names(options()))
 
   if (any(to_set)) {
-    options(erify_options[to_set])
+    options(ops[to_set])
   }
 
   invisible()
