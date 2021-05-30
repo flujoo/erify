@@ -25,21 +25,19 @@ reference:
       - check_content
       - check_types
       - check_classes
+      - check_contents
       - check_string
       - check_n
       - check_bool
       - check_binary_classes
   - title: Create Validators
     contents:
-      - Statement
-      - trigger
       - throw
   - title: Utils
     contents:
       - where
       - join
       - back_quote
-      - shorten
 
 template:
   package: preferably
