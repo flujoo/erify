@@ -1,8 +1,13 @@
-# erify (dev)
+# erify 0.3.0
 
-* Remove `print_string()`.
+* Add `is_n()`.
+* Add `check_contents()`.
 * Add `throw()`.
-* Add `shorten()`.
+* Deprecate `print_string()`.
+* Deprecate `Statement()` and `trigger()`, please use `throw()`.
+* Remove dependencies on package magrittr and rlang.
+* Add options `erify.bullets` and `erify.n`.
+* Require R >= 4.1.0.
 
 
 # erify 0.2.0
