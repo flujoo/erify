@@ -70,7 +70,7 @@ check_type <- function(x, valid, name = NULL, general = NULL,
   pass <- feature %in% valid
 
   if (pass) {
-    return(invisible(NULL))
+    return(invisible())
   }
 
   if (is.null(name)) {
@@ -85,6 +85,7 @@ check_type <- function(x, valid, name = NULL, general = NULL,
     specific <- "`{name}` has type {feature}."
 
   } else if (length(specific) == 0) {
+    # turn off `specific` with empty vector
     specific <- NULL
   }
 
