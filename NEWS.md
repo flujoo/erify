@@ -7,7 +7,7 @@
 * Deprecate `Statement()` and `trigger()`, please use `throw()`.
 * Remove dependencies on package magrittr and rlang.
 * Add options `erify.bullets` and `erify.n`.
-* Require R >= 4.1.0.
+* Require R >= 4.1.0
 
 
 # erify 0.2.0
