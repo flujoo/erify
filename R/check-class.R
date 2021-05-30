@@ -1,5 +1,3 @@
-# class -------------------------------------------------------------------
-
 #' @inherit check_length
 #'
 #' @title Check Argument's Class
