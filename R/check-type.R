@@ -17,8 +17,7 @@
 #'
 #' @param specific Optional. A single character which gives a detailed
 #' description of the error. [glue::glue()] syntax can be used, see
-#' "Examples" section. By default, this is generated automatically. Can
-#' be turned off with `character(0)`.
+#' "Examples" section. By default, this is generated automatically.
 #'
 #' @param supplement Optional. A (named) character vector which gives some
 #' additional information about the error. The names are used to create
@@ -56,7 +55,8 @@
 #' check_type(arg, "character", supplement = supplement)
 #'
 #' # turn off `specific`
-#' check_type(arg, "character", specific = character(0))
+#' options(erify.n = 0)
+#' check_type(arg, "character")
 #' }
 #'
 #' # add and retrieve additional argument

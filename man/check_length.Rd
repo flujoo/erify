@@ -31,8 +31,7 @@ automatically.}
 
 \item{specific}{Optional. A single character which gives a detailed
 description of the error. \code{\link[glue:glue]{glue::glue()}} syntax can be used, see
-"Examples" section. By default, this is generated automatically. Can
-be turned off with \code{character(0)}.}
+"Examples" section. By default, this is generated automatically.}
 
 \item{supplement}{Optional. A (named) character vector which gives some
 additional information about the error. The names are used to create
