@@ -34,31 +34,12 @@ initialize_bullets <- function() {
 }
 
 
-# erify options that are different from the default
-# are assumed set by user, and thus will not be unset
 .onUnload <- function(libpath) {
-  # names of erify options to unset
-  names_to_unset <- NULL
+  ops <- list(
+    erify.bullets = NULL,
+    erify.n = NULL
+  )
 
-  for (name in names(erify_options)) {
-    # get the value of `name` from `erify_options`
-    default <- erify_options[[name]]
-
-    # get the value of `name` from `options()`
-    set <- getOption(name)
-
-    # unset `name` only if `set` and `default` are identical
-    if (identical(default, set)) {
-      names_to_unset <- c(names_to_unset, name)
-    }
-  }
-
-  # unset default erify options
-  if (!is.null(names_to_unset)) {
-    to_unset <- vector("list", length(names_to_unset))
-    names(to_unset) <- names_to_unset
-    options(to_unset)
-  }
-
+  options(ops)
   invisible()
 }
