@@ -172,7 +172,7 @@
 <span class="fu">emphasize</span><span class="op">(</span><span class="va">c</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; Error: `what` must have type character.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `what` has type builtin.</span></code></pre></div>
+<span class="co">#&gt; ✖ `what` has type builtin.</span></code></pre></div>
 <p>In the above code, <code><a href="../reference/check_type.html">check_type(what, "character")</a></code> checks if <code>what</code> has type character, and if not, generates improved error message.</p>
 <p>You can add more validator functions. For example, suppose you want <code>what</code> to be a single character, which means it must have length 1. You can check its length with <code><a href="../reference/check_length.html">check_length()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -191,7 +191,7 @@
 <span class="fu">emphasize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"orange"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; Error: `what` must have length 1.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `what` has length 2.</span></code></pre></div>
+<span class="co">#&gt; ✖ `what` has length 2.</span></code></pre></div>
 <p>In the above code, <code><a href="../reference/check_length.html">check_length(what, 1)</a></code> checks if <code>what</code> has length exactly 1.</p>
 <p>Maybe this is too strict. You feel any non-empty character vector is acceptable. You can change the second argument of <code><a href="../reference/check_length.html">check_length()</a></code> in the above code:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -210,7 +210,7 @@
 <span class="fu">emphasize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; Error: `what` must have length larger than 0.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `what` has length 0.</span></code></pre></div>
+<span class="co">#&gt; ✖ `what` has length 0.</span></code></pre></div>
 <p><code><a href="../reference/check_length.html">check_length(what, c(0, NA))</a></code> checks if <code>what</code> has length larger than 0.</p>
 <p>erify’s validator functions return silently if the argument they are checking is valid. For example,</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -245,28 +245,28 @@
 <span class="fu"><a href="../reference/check_content.html">check_content</a></span><span class="op">(</span><span class="va">arg</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Error: `arg` must be `"yes"` or `"no"`.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `arg` is `"I'm invalid."`.</span></code></pre></div>
+<span class="co">#&gt; ✖ `arg` is `"I'm invalid."`.</span></code></pre></div>
 <p>To change the default general statement of the error, you can specify argument <code>general</code>. For example,</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/check_content.html">check_content</a></span><span class="op">(</span><span class="va">arg</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>, general <span class="op">=</span> <span class="st">"You are wrong."</span><span class="op">)</span>
 <span class="co">#&gt; Error: You are wrong.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `arg` is `"I'm invalid."`.</span></code></pre></div>
+<span class="co">#&gt; ✖ `arg` is `"I'm invalid."`.</span></code></pre></div>
 <p>To change the default description of the error, you can specify argument <code>specific</code>. For example,</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/check_content.html">check_content</a></span><span class="op">(</span><span class="va">arg</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>, specific <span class="op">=</span> <span class="st">"You are wrong."</span><span class="op">)</span>
 <span class="co">#&gt; Error: `arg` must be `"yes"` or `"no"`.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m You are wrong.</span></code></pre></div>
+<span class="co">#&gt; ✖ You are wrong.</span></code></pre></div>
 <p>You can add more details with argument <code>supplement</code>. For example,</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">supplement</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"You're wrong."</span>, i <span class="op">=</span> <span class="st">"But you're beautiful."</span><span class="op">)</span>
 <span class="fu"><a href="../reference/check_content.html">check_content</a></span><span class="op">(</span><span class="va">arg</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>, supplement <span class="op">=</span> <span class="va">supplement</span><span class="op">)</span>
 <span class="co">#&gt; Error: `arg` must be `"yes"` or `"no"`.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `arg` is `"I'm invalid."`.</span>
-<span class="co">#&gt; [0;31m✖[0m You're wrong.</span>
-<span class="co">#&gt; [0;36mℹ[0m But you're beautiful.</span></code></pre></div>
+<span class="co">#&gt; ✖ `arg` is `"I'm invalid."`.</span>
+<span class="co">#&gt; ✖ You're wrong.</span>
+<span class="co">#&gt; ℹ But you're beautiful.</span></code></pre></div>
 <p>In the above code, <code>x</code> means “error”, while <code>i</code> means “hint”.</p>
 </div>
 <div id="create-validator-functions" class="section level2">
@@ -285,17 +285,17 @@
 <span class="fu"><a href="../reference/throw.html">throw</a></span><span class="op">(</span><span class="va">general</span>, <span class="va">specifics</span><span class="op">)</span>
 <span class="co">#&gt; Error: You're beautiful.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;36mℹ[0m Your eyes are big.</span>
-<span class="co">#&gt; [0;36mℹ[0m Your hair is long.</span>
-<span class="co">#&gt; [0;31m✖[0m But you broke my heart.</span></code></pre></div>
+<span class="co">#&gt; ℹ Your eyes are big.</span>
+<span class="co">#&gt; ℹ Your hair is long.</span>
+<span class="co">#&gt; ✖ But you broke my heart.</span></code></pre></div>
 <p>You can change argument <code>as</code> to generate a message:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/throw.html">throw</a></span><span class="op">(</span><span class="va">general</span>, <span class="va">specifics</span>, as <span class="op">=</span> <span class="st">"message"</span><span class="op">)</span>
 <span class="co">#&gt; You're beautiful.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;36mℹ[0m Your eyes are big.</span>
-<span class="co">#&gt; [0;36mℹ[0m Your hair is long.</span>
-<span class="co">#&gt; [0;31m✖[0m But you broke my heart.</span></code></pre></div>
+<span class="co">#&gt; ℹ Your eyes are big.</span>
+<span class="co">#&gt; ℹ Your hair is long.</span>
+<span class="co">#&gt; ✖ But you broke my heart.</span></code></pre></div>
 <p>Now let’s create a validator function to check if an argument is a positive number.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">check_positive</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
@@ -312,7 +312,7 @@
 <span class="fu">check_positive</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; Error: `x` must be a positive number.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `x` is `-2`.</span></code></pre></div>
+<span class="co">#&gt; ✖ `x` is `-2`.</span></code></pre></div>
 <p>As you might have noticed, you can insert R code into <code>general</code> and <code>specifics</code> as <code>{x}</code> in</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">specifics</span> <span class="op">&lt;-</span> <span class="st">"`x` is `{x}`."</span></code></pre></div>
@@ -342,7 +342,7 @@
 <span class="fu"><a href="../reference/check_content.html">check_content</a></span><span class="op">(</span><span class="va">arg</span>, <span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; Error: `arg` must be `"Pink Floyd"`, `"Pink Freud"` or `"Pink Florida"`.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [0;31m✖[0m `arg` is `"Pink Florence"`.</span></code></pre></div>
+<span class="co">#&gt; ✖ `arg` is `"Pink Florence"`.</span></code></pre></div>
 <p><code><a href="../reference/where.html">where()</a></code> and related functions are useful for detecting where code is running. For example,</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/where.html">is_rmd</a></span><span class="op">(</span><span class="op">)</span>
