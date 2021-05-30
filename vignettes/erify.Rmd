@@ -224,11 +224,7 @@ In the above code, `x` means "error", while `i` means "hint".
 
 ## Create Validator Functions
 
-erify provides two functions with which you can create your own validator 
-functions.
-
-The first is `Statement()`, which creates `Statement` objects that are used
-to create structured normal, warning or error messages. Below
+You can create your own validator functions with `throw()`. Below
 is an example:
 
 ```{r}
@@ -240,21 +236,13 @@ specifics <- c(
   x = "But you broke my heart."
 )
 
-s <- Statement(general, specifics)
-s
+throw(general, specifics)
 ```
 
-The second is `trigger()`, which takes a `Statement` object as input
-and generates a message. For example,
+You can change argument `as` to generate a message:
 
 ```{r}
-trigger(s)
-```
-
-You can change argument `as` to generate a normal message:
-
-```{r}
-trigger(s, as = "message")
+throw(general, specifics, as = "message")
 ```
 
 Now let's create a validator function to check if an argument is a positive
@@ -268,26 +256,25 @@ check_positive <- function(x) {
   if (is.na(x) || x <= 0) {
     general <- "`x` must be a positive number."
     specifics <- "`x` is `{x}`."
-    s <- Statement(general, specifics, env = list(x = x))
-    trigger(s)
+    throw(general, specifics, env = list(x = x))
   }
 }
 
 check_positive(-2)
 ```
 
-As you might have noticed, you can insert R code into `Statement` objects
-as `{x}` in
+As you might have noticed, you can insert R code into `general` and
+`specifics` as `{x}` in
 
 ```r
 specifics <- "`x` is `{x}`."
 ```
 
 To execute the code, you need to pass the arguments involved to argument
-`env` in `Statement()`, as in
+`env`, as in
 
 ```r
-s <- Statement(general, specifics, env = list(x = x))
+throw(general, specifics, env = list(x = x))
 ```
 
 See `glue::glue()` for more details.
