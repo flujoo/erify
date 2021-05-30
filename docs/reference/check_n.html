@@ -111,7 +111,7 @@ Can be used to check indices, for example." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">erify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -153,7 +153,7 @@ Can be used to check indices, for example." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check If Argument Is Single Natural Number</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/single.R'><code>R/single.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/check-n.R'><code>R/check-n.R</code></a></small>
     <div class="hidden name"><code>check_n.Rd</code></div>
     </div>
 
@@ -169,9 +169,11 @@ and if not, generate an error message.</p>
   general <span class='op'>=</span> <span class='cn'>NULL</span>,
   specific <span class='op'>=</span> <span class='cn'>NULL</span>,
   supplement <span class='op'>=</span> <span class='cn'>NULL</span>,
-  zero <span class='op'>=</span> <span class='cn'>NULL</span>,
+  zero <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>is_n</span><span class='op'>(</span><span class='va'>x</span>, zero <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,14 +197,13 @@ automatically.</p></td>
     <tr>
       <th>specific</th>
       <td><p>Optional. A single character which gives a detailed
-description of the error. By default, this is generated automatically.
-Can be turned off with <code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>.</p></td>
+description of the error. By default, this is generated automatically.</p></td>
     </tr>
     <tr>
       <th>supplement</th>
       <td><p>Optional. A (named) character vector which gives some
 additional information about the error. The names are used to create
-bullets, see <code><a href='Statement.html'>Statement()</a></code>. By default, this is left empty.</p></td>
+bullets, see <code><a href='throw.html'>throw()</a></code>. By default, this is left empty.</p></td>
     </tr>
     <tr>
       <th>zero</th>
@@ -211,15 +212,16 @@ acceptable. The default value is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional. Additional arguments passed to <code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::abort()</a></code>,
-which is called internally.</p></td>
+      <td><p>Optional. Additional arguments which can be retrieved with
+<code><a href='https://rdrr.io/r/base/conditions.html'>tryCatch()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An invisible <code>NULL</code> if the argument is valid, or an error message
-is generated.</p>
+    <p><code>check_n()</code> returns an invisible <code>NULL</code> if the argument
+is valid, or it generates an error message.</p>
+<p><code>is_n()</code> returns <code>TRUE</code> or <code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>"Examples" section in <code><a href='check_type.html'>check_type()</a></code> for how to customize

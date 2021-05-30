@@ -4,9 +4,6 @@
     <loc>https://flujoo.github.io/erify/index.html</loc>
   </url>
   <url>
-    <loc>https://flujoo.github.io/erify/reference/Statement.html</loc>
-  </url>
-  <url>
     <loc>https://flujoo.github.io/erify/reference/back_quote.html</loc>
   </url>
   <url>
@@ -23,6 +20,9 @@
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/check_content.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/check_contents.html</loc>
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/check_length.html</loc>
@@ -43,13 +43,7 @@
     <loc>https://flujoo.github.io/erify/reference/join.html</loc>
   </url>
   <url>
-    <loc>https://flujoo.github.io/erify/reference/shorten.html</loc>
-  </url>
-  <url>
     <loc>https://flujoo.github.io/erify/reference/throw.html</loc>
-  </url>
-  <url>
-    <loc>https://flujoo.github.io/erify/reference/trigger.html</loc>
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/where.html</loc>

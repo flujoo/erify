@@ -110,7 +110,7 @@ classes, and if not, generate an error message." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">erify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@ classes, and if not, generate an error message." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check Binary Operator's Arguments' Classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/binary.R'><code>R/binary.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/check-classes.R'><code>R/check-classes.R</code></a></small>
     <div class="hidden name"><code>check_binary_classes.Rd</code></div>
     </div>
 
@@ -206,26 +206,25 @@ automatically.</p></td>
       <th>specific</th>
       <td><p>Optional. A single character which gives a detailed
 description of the error. <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code> syntax can be used, see
-"Examples" section. By default, this is generated automatically. Can
-be turned off with <code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>.</p></td>
+"Examples" section. By default, this is generated automatically.</p></td>
     </tr>
     <tr>
       <th>supplement</th>
       <td><p>Optional. A (named) character vector which gives some
 additional information about the error. The names are used to create
-bullets, see <code><a href='Statement.html'>Statement()</a></code>. By default, this is left empty.</p></td>
+bullets, see <code><a href='throw.html'>throw()</a></code>. By default, this is left empty.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional. Additional arguments passed to <code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::abort()</a></code>,
-which is called internally.</p></td>
+      <td><p>Optional. Additional arguments which can be retrieved with
+<code><a href='https://rdrr.io/r/base/conditions.html'>tryCatch()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An invisible <code>NULL</code> if the argument is valid, or an error message
-is generated.</p>
+    <p>returns an invisible <code>NULL</code> if the argument is valid, or
+generates an error message.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>"Examples" section in <code><a href='check_type.html'>check_type()</a></code> for how to customize

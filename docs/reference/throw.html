@@ -22,7 +22,7 @@
   }
 </script>
 
-<title>Shortcut to Trigger Message — throw • erify</title>
+<title>Generate and Signal Condition — throw • erify</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -72,8 +72,8 @@
 
 
 
-<meta property="og:title" content="Shortcut to Trigger Message — throw" />
-<meta property="og:description" content="A shortcut to trigger a message." />
+<meta property="og:title" content="Generate and Signal Condition — throw" />
+<meta property="og:description" content="Generate and signal a condition." />
 <meta property="og:image" content="https://flujoo.github.io/erify/logo.png" />
 
 
@@ -109,7 +109,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">erify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -150,73 +150,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shortcut to Trigger Message</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/statement.R'><code>R/statement.R</code></a></small>
+    <h1>Generate and Signal Condition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flujoo/erify/blob/master/R/throw.R'><code>R/throw.R</code></a></small>
     <div class="hidden name"><code>throw.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A shortcut to trigger a message.</p>
+    <p>Generate and signal a condition.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, specifics <span class='op'>=</span> <span class='cn'>NULL</span>, env <span class='op'>=</span> <span class='cn'>NULL</span>, n <span class='op'>=</span> <span class='cn'>NULL</span>, as <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, specifics <span class='op'>=</span> <span class='cn'>NULL</span>, env <span class='op'>=</span> <span class='cn'>NULL</span>, as <span class='op'>=</span> <span class='st'>"error"</span>, class <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>general</th>
-      <td><p>A single character which gives a general statement
-of a message.</p></td>
+      <td><p>A single character which gives a general statement of
+the condition.</p></td>
     </tr>
     <tr>
       <th>specifics</th>
       <td><p>Optional. A character vector which gives a list of details
-of a message. If is <code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>, <code>throw()</code> returns silently.</p></td>
+of the condition. If is <code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>, <code>throw()</code> will return silently.
+If is a named vector, the names are used to create bullets. If the name is
+<code>"x"</code> or <code>"i"</code>, the bullet will be colored and bold. The default name is
+<code>"x"</code>. You can customize bullets with option <code>erify.bullets</code>.</p></td>
     </tr>
     <tr>
       <th>env</th>
       <td><p>Optional. An environment or named list which is used to evaluate
-the R code in the above arguments.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>Optional. A positive integer which indicates how many message
-details at most to display. The default value is <code>5</code>.</p></td>
+the R code in the above arguments. See <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code>.</p></td>
     </tr>
     <tr>
       <th>as</th>
       <td><p>Optional. <code>"error"</code>, <code>"warning"</code> or <code>"message"</code> which indicates
-how to trigger the message. The default value is <code>"error"</code>.</p></td>
+how to signal the condition. The default value is <code>"error"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>class</th>
+      <td><p>Optional. A character vector which assigns classes to the
+condition.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional. Additional arguments which can be passed to
-<code><a href='https://rlang.r-lib.org/reference/abort.html'>rlang::abort()</a></code> or related functions.</p></td>
+      <td><p>Optional. Additional arguments which are stored in the
+condition and can be retrieved with <code><a href='https://rdrr.io/r/base/conditions.html'>tryCatch()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If <code>specifics</code> is <code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>, returns an invisible <code>NULL</code>.
-Or generate a normal, warning, or error message.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>This function is a shortcut of <code><a href='shorten.html'>shorten()</a></code>, <code><a href='Statement.html'>Statement()</a></code> and
-<code><a href='trigger.html'>trigger()</a></code>.</p></div>
+Or signals an error, a warning, or a message.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>general</span> <span class='op'>&lt;-</span> <span class='st'>"You are wrong."</span>
-<span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>general</span> <span class='op'>&lt;-</span> <span class='st'>"You are wrong."</span>
 
-<span class='co'># returns silently if `specifics` is `character(0)`</span>
+<span class='co'># returns silently</span>
 <span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># display less details</span>
-<span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, <span class='va'>letters</span>, n <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span><span class='op'>)</span>
+
+<span class='va'>specifics</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Detail 1."</span>, i <span class='op'>=</span> <span class='st'>"Detail 2."</span><span class='op'>)</span>
+<span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, <span class='va'>specifics</span><span class='op'>)</span>
+
+<span class='co'># embed R code with glue syntax</span>
+<span class='fu'>throw</span><span class='op'>(</span><span class='st'>"`x` is {x}."</span>, env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div></pre>
+
+<span class='co'># add and retrieve additional argument</span>
+<span class='kw'><a href='https://rdrr.io/r/base/conditions.html'>tryCatch</a></span><span class='op'>(</span>
+  <span class='op'>{</span> <span class='fu'>throw</span><span class='op'>(</span><span class='va'>general</span>, arg <span class='op'>=</span> <span class='st'>"I'm an additional argument."</span><span class='op'>)</span> <span class='op'>}</span>,
+  error <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>e</span><span class='op'>)</span> <span class='va'>e</span><span class='op'>$</span><span class='va'>arg</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "I'm an additional argument."</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
