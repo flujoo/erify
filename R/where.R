@@ -55,7 +55,7 @@ is_rstudio <- function() {
 is_jupyter <- function() {
   options() |>
     names() |>
-    grep("jupyter", .) |>
+    (\(s) grep("jupyter", s))() |>
     length() |>
     as.logical()
 }
