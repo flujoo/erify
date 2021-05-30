@@ -9,7 +9,6 @@
 #'
 #' @param specific Optional. A single character which gives a detailed
 #' description of the error. By default, this is generated automatically.
-#' Can be turned off with `character(0)`.
 #'
 #' @seealso "Examples" section in [check_type()] for how to customize
 #' error message and how to add and retrieve additional arguments.
