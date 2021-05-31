@@ -77,8 +77,8 @@ check_n <- function(x, name = NULL, general = NULL, specific = NULL,
 #' @rdname check_n
 #' @export
 is_n <- function(x, zero = FALSE) {
-  is.numeric(x) &&
-    is.finite(x) &&
-    ifelse(zero, x >= 0, x > 0) &&
-    (as.integer(x) == x)
+  is.numeric(x) &
+    is.finite(x) &
+    ifelse(zero, x >= 0, x > 0) &
+    suppressWarnings(as.integer(x) == x)
 }
