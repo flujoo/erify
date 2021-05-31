@@ -50,7 +50,7 @@ check_contents <- function(x, valid, name = NULL, general = NULL,
     }
 
     if (!pass) {
-      x_i <- back_quote(x_i, as_double = as_double)
+      x_i <- back_quote(x_i, recursive = FALSE, as_double = as_double)
       specifics <- c(specifics, glue::glue(specific))
     }
   }
