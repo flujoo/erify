@@ -13,7 +13,7 @@
 #' @return `check_n()` returns an invisible `NULL` if the argument
 #' is valid, or it generates an error message.
 #'
-#' `is_n()` returns `TRUE` or `FALSE`.
+#' `is_n()` returns a vector of `TRUE`s and `FALSE`s.
 #'
 #' @export
 #'
@@ -23,6 +23,8 @@
 #'
 #' x <- 1L
 #' check_n(x)
+#'
+#' is_n(c(1, 2.1, 0, Inf, NA, -9))
 #'
 #' \dontrun{
 #' # `x` must be a numeric

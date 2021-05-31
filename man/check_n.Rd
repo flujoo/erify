@@ -45,7 +45,7 @@ acceptable. The default value is \code{FALSE}.}
 \code{check_n()} returns an invisible \code{NULL} if the argument
 is valid, or it generates an error message.
 
-\code{is_n()} returns \code{TRUE} or \code{FALSE}.
+\code{is_n()} returns a vector of \code{TRUE}s and \code{FALSE}s.
 }
 \description{
 Check if an argument is a single natural number,
@@ -59,6 +59,8 @@ check_n(x)
 
 x <- 1L
 check_n(x)
+
+is_n(c(1, 2.1, 0, Inf, NA, -9))
 
 \dontrun{
 # `x` must be a numeric
