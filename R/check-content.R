@@ -105,8 +105,6 @@ phrase_valid_content <- function(valid, as_double) {
   }
 
   if (is.atomic(valid)) {
-    valid |>
-      back_quote(as_double = as_double) |>
-      join()
+    join(back_quote(valid, as_double = as_double))
   }
 }

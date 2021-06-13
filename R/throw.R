@@ -59,9 +59,9 @@ throw <- function(general, specifics = NULL, env = NULL, as = "error",
     return(invisible())
   }
 
-  to_string(general, specifics, env, getOption("erify.n")) |>
-    generate_condition(as, class, ...) |>
-    trigger(as)
+  s <- to_string(general, specifics, env, getOption("erify.n"))
+  con <- generate_condition(s, as, class, ...)
+  trigger(con, as)
 }
 
 
@@ -116,10 +116,8 @@ shorten <- function(specifics, n = 5L) {
 # combine `general` and `specifics` to a printable string
 to_string <- function(general, specifics = NULL, env = NULL, n = 5L) {
   if (!is.null(specifics)) {
-    specifics <- specifics |>
-      shorten(n) |>
-      decorate_specifics() |>
-      paste(collapse = "\n")
+    specifics <-
+      paste(decorate_specifics(shorten(specifics, n)), collapse = "\n")
 
     # combine `general` and `specifics`
     general <- paste(general, specifics, sep = "\n\n")
@@ -136,11 +134,7 @@ to_string <- function(general, specifics = NULL, env = NULL, n = 5L) {
 # check `?conditions`
 generate_condition <- function(message, as = "error", class = NULL, ...) {
   classes <- c(class, as, "condition")
-
-  list(
-    message = message,
-    ...
-  ) |> `class<-`(classes)
+  `class<-`(list(message = message, ...), classes)
 }
 
 

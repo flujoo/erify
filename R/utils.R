@@ -75,5 +75,5 @@ back_quote <- function(x, recursive = TRUE, as_double = TRUE) {
     ss <- sapply(x, deparse, USE.NAMES = FALSE)
   }
 
-  glue::glue("`{ss}`") |> unclass()
+  unclass(glue::glue("`{ss}`"))
 }

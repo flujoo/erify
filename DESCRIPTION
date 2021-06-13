@@ -10,7 +10,6 @@ Description: Provides several validator functions to check if arguments passed
     provides tools for users to create their own validator functions. The
     error message style used is adopted from
     <https://style.tidyverse.org/error-messages.html>.
-Depends: R (>= 4.1.0)
 License: MIT + file LICENSE
 URL: https://github.com/flujoo/erify, https://flujoo.github.io/erify/
 Encoding: UTF-8
