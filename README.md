@@ -7,14 +7,14 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-Check arguments, and generate readable error messages.
+Check arguments and generate readable error messages.
 
 ## Motivation
 
 When creating functions for other people to use, you always need to
 
 1.  check if the arguments passed by users are valid, and if not,
-2.  generate informative and good-formatted error messages in a
+2.  generate informative and well-formatted error messages in a
     consistent style.
 
 erify serves the exact purpose.
