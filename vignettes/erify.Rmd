@@ -27,7 +27,7 @@ When creating functions for other people to use, you always need some
 validator functions which
 
 1. check if arguments passed by users are valid, and if not,
-2. generate informative and good-formatted error messages in a
+2. generate informative and well-formatted error messages in a
 consistent style.
 
 erify serves the exact purpose. Specifically, erify provides
@@ -303,21 +303,4 @@ of `check_content()`:
 ```{r}
 arg <- "Pink Florence"
 check_content(arg, x)
-```
-
-`where()` and related functions are useful for detecting where code is
-running. For example, 
-
-```{r}
-is_rmd()
-# the code is running in a R Markdown file
-
-where()
-# the output format is HTML
-
-is_rstudio()
-# not in RStudio
-
-is_jupyter()
-# not in a Jupyter Notebook
 ```
