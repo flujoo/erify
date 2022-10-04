@@ -1,12 +1,15 @@
 initialize_bullets <- function() {
-  context <- where()
+  # check if the code is executed in an R Markdown document
+  in_rmd <- isTRUE(getOption("knitr.in.progress")) &&
+    requireNamespace("knitr", quietly = TRUE)
 
-  if (context == "latex") {
-    list(x = "*", i = "*")
-
-  } else if (context %in% c("html", "docx", "rmd", "gfm")) {
-    list(x = "\u2716", i = "\u2139")
-
+  if (in_rmd) {
+    # check if the document is knitted to a latex file
+    if (knitr::pandoc_to() == "latex") {
+      list(x = "*", i = "*")
+    } else {
+      list(x = "\u2716", i = "\u2139")
+    }
   } else {
     list(
       x = "\u001b[0;31m\u2716\u001b[0m",
