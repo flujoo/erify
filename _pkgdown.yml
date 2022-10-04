@@ -35,7 +35,6 @@ reference:
       - throw
   - title: Utils
     contents:
-      - where
       - join
       - back_quote
 
