@@ -1,3 +1,12 @@
+# erify 0.4.0
+
+* Add `check_lengths()`.
+* Add `check_positive()`.
+* Deprecate `where()` and related functions.
+* Remove dependencies on package knitr and rstudioapi.
+* Remove dependency on R >= 4.1.0.
+
+
 # erify 0.3.0
 
 * Add `is_n()`.
