@@ -25,8 +25,10 @@ reference:
       - check_content
       - check_types
       - check_classes
+      - check_lengths
       - check_contents
       - check_string
+      - check_positive
       - check_n
       - check_bool
       - check_binary_classes
