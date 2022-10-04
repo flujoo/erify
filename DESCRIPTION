@@ -4,9 +4,9 @@ Title: Check Arguments and Generate Readable Error Messages
 Version: 0.3.0
 Author: Renfei Mao
 Maintainer: Renfei Mao <renfeimao@gmail.com>
-Description: Provides several validator functions to check if arguments passed
-    by users have valid types, lengths, etc., and if not, to generate
-    informative and good-formatted error messages in a consistent style. Also
+Description: Provides several validator functions for checking if arguments
+    passed by users have valid types, lengths, etc. and for generating
+    informative and well-formatted error messages in a consistent style. Also
     provides tools for users to create their own validator functions. The
     error message style used is adopted from
     <https://style.tidyverse.org/error-messages.html>.
