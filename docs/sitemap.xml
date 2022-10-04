@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://flujoo.github.io/erify/404.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/articles/erify.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/authors.html</loc>
+  </url>
+  <url>
     <loc>https://flujoo.github.io/erify/index.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/Statement.html</loc>
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/back_quote.html</loc>
@@ -28,7 +52,13 @@
     <loc>https://flujoo.github.io/erify/reference/check_length.html</loc>
   </url>
   <url>
+    <loc>https://flujoo.github.io/erify/reference/check_lengths.html</loc>
+  </url>
+  <url>
     <loc>https://flujoo.github.io/erify/reference/check_n.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/check_positive.html</loc>
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/check_string.html</loc>
@@ -40,15 +70,27 @@
     <loc>https://flujoo.github.io/erify/reference/check_types.html</loc>
   </url>
   <url>
+    <loc>https://flujoo.github.io/erify/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://flujoo.github.io/erify/reference/join.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/print_string.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/shorten.html</loc>
   </url>
   <url>
     <loc>https://flujoo.github.io/erify/reference/throw.html</loc>
   </url>
   <url>
-    <loc>https://flujoo.github.io/erify/reference/where.html</loc>
+    <loc>https://flujoo.github.io/erify/reference/trigger.html</loc>
   </url>
   <url>
-    <loc>https://flujoo.github.io/erify/articles/erify.html</loc>
+    <loc>https://flujoo.github.io/erify/reference/validators.html</loc>
+  </url>
+  <url>
+    <loc>https://flujoo.github.io/erify/reference/where.html</loc>
   </url>
 </urlset>
