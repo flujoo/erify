@@ -2,6 +2,7 @@
 % Please edit documentation in R/check-string.R
 \name{check_string}
 \alias{check_string}
+\alias{is_string}
 \title{Check If Argument Is Single Character}
 \usage{
 check_string(
@@ -12,6 +13,8 @@ check_string(
   supplement = NULL,
   ...
 )
+
+is_string(x)
 }
 \arguments{
 \item{x}{The argument to check, which can be any object.}

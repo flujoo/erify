@@ -48,3 +48,10 @@ check_string <- function(x, name = NULL, general = NULL, specific = NULL,
   check_length(x, 1, name, general, specific, supplement, ...)
   check_content(x, "!is.na(x)", name, general, specific, supplement, ...)
 }
+
+
+#' @rdname check_string
+#' @export
+is_string <- function(x) {
+  suppressWarnings(is.character(x) && length(x) == 1 && !is.na(x))
+}
