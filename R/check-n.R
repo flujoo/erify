@@ -13,7 +13,7 @@
 #' @return `check_n()` returns an invisible `NULL` if the argument
 #' is valid, or it generates an error message.
 #'
-#' `is_n()` returns a vector of `TRUE`s and `FALSE`s.
+#' `is_n()` returns `TRUE` or `FALSE`.
 #'
 #' @export
 #'
@@ -24,7 +24,7 @@
 #' x <- 1L
 #' check_n(x)
 #'
-#' is_n(c(1, 2.1, 0, Inf, NA, -9))
+#' sapply(c(1, 2.1, 0, Inf, NA, -9), is_n)
 #'
 #' \dontrun{
 #' # `x` must be a numeric
@@ -79,13 +79,11 @@ check_n <- function(x, name = NULL, general = NULL, specific = NULL,
 #' @rdname check_n
 #' @export
 is_n <- function(x, zero = FALSE) {
-  con <- is.numeric(x) &
-    is.finite(x) &
-    suppressWarnings(as.integer(x) == x)
-
-  if (zero) {
-    con & x >= 0
-  } else {
-    con & x > 0
-  }
+  suppressWarnings(
+    is.numeric(x) &&
+      is.finite(x) &&
+      length(x) == 1 &&
+      as.integer(x) == x &&
+      if (zero) x >= 0 else x > 0
+  )
 }
