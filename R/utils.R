@@ -68,7 +68,7 @@ back_quote <- function(x, recursive = TRUE, as_double = TRUE) {
     ss <- deparse(x)
 
   } else {
-    if (as_double && is.integer(x)) {
+    if (as_double && is.integer(x) && !is.na(x)) {
       x <- as.double(x)
     }
 
