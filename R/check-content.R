@@ -46,6 +46,7 @@
 check_content <- function(x, valid, name = NULL, general = NULL,
                           specific = NULL, supplement = NULL,
                           as_double = TRUE, ...) {
+  if (is.null(name)) name <- deparse(substitute(x))
   check_length(x, 1, name, general, specific, supplement, ...)
 
   if (is.function(valid)) {
@@ -72,10 +73,6 @@ check_content <- function(x, valid, name = NULL, general = NULL,
 
   if (pass) {
     return(invisible(NULL))
-  }
-
-  if (is.null(name)) {
-    name <- deparse(substitute(x))
   }
 
   if (is.null(general)) {
