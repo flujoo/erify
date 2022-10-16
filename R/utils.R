@@ -60,20 +60,17 @@ join <- function(words, conjunction = "or") {
 #'
 #' back_quote(list(c, 1:3, "a"))
 back_quote <- function(x, recursive = TRUE, as_double = TRUE) {
-  recursive <- recursive &&
-    (is.atomic(x) || is.list(x)) &&
-    length(x) > 0
+  recursive <- recursive && (is.atomic(x) || is.list(x)) && length(x) > 0
 
   if (!recursive) {
     ss <- deparse(x)
 
   } else {
-    if (as_double && is.integer(x) && !is.na(x)) {
-      x <- as.double(x)
-    }
-
+    as_double <- as_double && is.numeric(x)
+    if (as_double) x <- as.double(x)
     ss <- sapply(x, deparse, USE.NAMES = FALSE)
+    if (as_double) ss[ss == "NA_real_"] <- "NA"
   }
 
-  unclass(glue::glue("`{ss}`"))
+  paste("`", ss, "`", sep = "")
 }
