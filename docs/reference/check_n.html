@@ -31,7 +31,7 @@ Can be used to check indices, for example."><meta property="og:image" content="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">erify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -136,7 +136,7 @@ acceptable. The default value is <code>FALSE</code>.</p></dd>
 is valid, or it generates an error message.</p>
 
 
-<p><code>is_n()</code> returns a vector of <code>TRUE</code>s and <code>FALSE</code>s.</p>
+<p><code>is_n()</code> returns <code>TRUE</code> or <code>FALSE</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -153,7 +153,7 @@ error message and how to add and retrieve additional arguments.</p>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span></span>
 <span class="r-in"><span><span class="fu">check_n</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">is_n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2.1</span>, <span class="fl">0</span>, <span class="cn">Inf</span>, <span class="cn">NA</span>, <span class="op">-</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2.1</span>, <span class="fl">0</span>, <span class="cn">Inf</span>, <span class="cn">NA</span>, <span class="op">-</span><span class="fl">9</span><span class="op">)</span>, <span class="va">is_n</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE FALSE FALSE FALSE FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
