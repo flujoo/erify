@@ -31,6 +31,7 @@ reference:
       - check_positive
       - check_n
       - check_bool
+      - check_interval
       - check_binary_classes
   - title: Create Validators
     contents:
