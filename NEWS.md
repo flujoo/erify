@@ -1,3 +1,9 @@
+# erify 0.5.0
+
+* Add `check_interval()`.
+* Add `is_string()`.
+
+
 # erify 0.4.0
 
 * Add `check_lengths()`.
