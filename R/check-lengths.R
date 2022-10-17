@@ -31,7 +31,7 @@ check_lengths <- function(x, valid, name = NULL, general = NULL,
 
   # normalize `interval`
   if (is.null(interval)) {
-    interval <- normalize_interval(interval, valid)
+    interval <- normalize_length_interval(interval, valid)
   }
 
   specifics <- character(0)

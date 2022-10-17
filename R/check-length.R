@@ -43,7 +43,7 @@ check_length <- function(x, valid, name = NULL, general = NULL,
                          ...) {
   # normalize `interval`
   if (is.null(interval)) {
-    interval <- normalize_interval(interval, valid)
+    interval <- normalize_length_interval(interval, valid)
   }
 
   feature <- length(x)
@@ -75,7 +75,7 @@ check_length <- function(x, valid, name = NULL, general = NULL,
 }
 
 
-normalize_interval <- function(interval, valid) {
+normalize_length_interval <- function(interval, valid) {
   l <- length(valid)
 
   if (l != 2) {
