@@ -114,12 +114,12 @@ check_binary_classes <- function(x, y, valid_x, valid_y = NULL,
       if (commutative) {
         general <- paste(
           "One side{s_operator} must have class { join(valid_x) },",
-          "the other side { join(valid_y) }."
+          "and the other side must have class { join(valid_y) }."
         )
       } else {
         general <- paste(
           "The left side{s_operator} must have class { join(valid_x) },",
-          "the right side { join(valid_y) }."
+          "and the right side must have class { join(valid_y) }."
         )
       }
     }
@@ -149,7 +149,7 @@ check_binary_classes <- function(x, y, valid_x, valid_y = NULL,
   if (is.null(specific)) {
     specific <- paste(
       "The left side has class { join(feature_x, 'and') },",
-      "right side { join(feature_y, 'and') }."
+      "and the right side has class { join(feature_y, 'and') }."
     )
   }
 
