@@ -41,7 +41,7 @@ check_interval <- function(x,
 }
 
 
-phrase_valid_interval <- function(valid, name) {
+phrase_valid_interval <- function(valid, name, intervals = FALSE) {
   type <- if (is.integer(valid)) "an integer" else "a number"
 
   valid_1 <- valid[1]
@@ -55,22 +55,31 @@ phrase_valid_interval <- function(valid, name) {
     phrase <- paste("between", valid_1, "and", valid_2)
   }
 
-  paste0("`", name, "`", " must be ", type, " ", phrase, ".")
+  name <- paste0("`", name, "`")
+  if (intervals) name <- paste("Each item of", name)
+
+  paste0(name, " must be ", type, " ", phrase, ".")
 }
 
 
-normalize_interval_valid <- function(valid) {
+normalize_interval_valid <- function(valid, intervals = FALSE) {
   valid_1 <- valid[1]
   valid_2 <- valid[2]
 
-  normalized <- "!is.na(x)"
+  x <- if (intervals) "x_i" else "x"
+  normalized <- sprintf("!is.na(%s)", x)
 
   if (is.integer(valid)) {
-    normalized <- paste(normalized, "&& as.integer(x) == x")
+    normalized <- paste(normalized, sprintf("&& as.integer(%s) == %s", x, x))
   }
 
-  if (!is.na(valid_2)) normalized <- paste(normalized, "&& x <=", valid_2)
-  if (!is.na(valid_1)) normalized <- paste(normalized, "&& x >=", valid_1)
+  if (!is.na(valid_2)) {
+    normalized <- paste(normalized, sprintf("&& %s <=", x), valid_2)
+  }
+
+  if (!is.na(valid_1)) {
+    normalized <- paste(normalized, sprintf("&& %s >=", x), valid_1)
+  }
 
   normalized
 }

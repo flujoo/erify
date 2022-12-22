@@ -1,3 +1,8 @@
+# erify 0.6.0
+
+* Add `check_intervals()`.
+
+
 # erify 0.5.0
 
 * Add `check_interval()`.

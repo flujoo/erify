@@ -32,6 +32,7 @@ reference:
       - check_n
       - check_bool
       - check_interval
+      - check_intervals
       - check_binary_classes
   - title: Validator Creation
     contents:
