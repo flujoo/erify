@@ -33,7 +33,7 @@ reference:
       - check_bool
       - check_interval
       - check_binary_classes
-  - title: Create Validators
+  - title: Validator Creation
     contents:
       - throw
   - title: Utils
