@@ -13,7 +13,7 @@ Description: Provides several validator functions for checking if arguments
 License: MIT + file LICENSE
 URL: https://github.com/flujoo/erify, https://flujoo.github.io/erify/
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Imports:
     glue
 Roxygen: list(markdown = TRUE)
